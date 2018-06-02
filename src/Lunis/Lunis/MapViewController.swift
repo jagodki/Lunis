@@ -8,8 +8,12 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class MapViewController: UIViewController {
 
+    /*@IBAction func infoButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "showMapInfo", sender: self)
+    }*/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

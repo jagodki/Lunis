@@ -14,7 +14,7 @@
         <!--Map-->
         <scene sceneID="83f-FN-rO7">
             <objects>
-                <viewController title="Map" id="Iy2-ZW-J59" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapView" title="Map" id="Iy2-ZW-J59" customClass="MapViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kcb-9r-a3v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,13 @@
                                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Info"/>
+                                                <connections>
+                                                    <segue destination="3qo-8c-rod" kind="presentation" modalPresentationStyle="overCurrentContext" id="FUY-2b-tDZ"/>
+                                                </connections>
                                             </button>
+                                            <connections>
+                                                <action selector="infoButtonPressed:" destination="Iy2-ZW-J59" id="6yQ-vy-Pel"/>
+                                            </connections>
                                         </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem style="plain" id="nK6-Fv-8J3">
@@ -70,16 +76,21 @@
             </objects>
             <point key="canvasLocation" x="952.5" y="-995.07042253521126"/>
         </scene>
-        <!--View Controller-->
+        <!--Info View Controller-->
         <scene sceneID="gfU-37-fDl">
             <objects>
-                <viewController id="3qo-8c-rod" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoView" id="3qo-8c-rod" customClass="InfoViewController" customModule="Lunis" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OPA-Xw-Kr9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BFn-uk-oeL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FtF-V2-vNd">
-                                <rect key="frame" x="40" y="220" width="240" height="348"/>
+                                <rect key="frame" x="0.0" y="220" width="320" height="348"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Content:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZX-0d-dpX">
@@ -90,10 +101,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TRM-GC-bPP">
-                                        <rect key="frame" x="8" y="37" width="224" height="29"/>
+                                        <rect key="frame" x="8" y="37" width="304" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
-                                            <segment title="First"/>
+                                            <segment title="All"/>
                                             <segment title="Filtered"/>
                                             <segment title="Favorites"/>
                                         </segments>
@@ -106,12 +117,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQ4-Wk-0uc">
-                                        <rect key="frame" x="198" y="12" width="22" height="22"/>
+                                        <rect key="frame" x="290" y="8" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.35998658459999999" green="0.35998658459999999" blue="0.35998658459999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="closeInfoView:" destination="3qo-8c-rod" eventType="touchUpInside" id="cW0-0J-Hdw"/>
+                                        </connections>
                                     </button>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvW-IO-Lop">
+                                        <rect key="frame" x="8" y="130" width="304" height="210"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -120,12 +138,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVE-hm-DYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629.375" y="-1257.0422535211267"/>
+            <point key="canvasLocation" x="1875" y="-1266.5492957746478"/>
         </scene>
         <!--Data-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Data" id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Data" id="8rJ-Kc-sve" customClass="DataViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -212,7 +230,7 @@
         <!--Download-->
         <scene sceneID="7Vu-g8-44n">
             <objects>
-                <viewController title="Download" id="wpd-TV-UlO" sceneMemberID="viewController">
+                <viewController title="Download" id="wpd-TV-UlO" customClass="DownloadViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XU7-uq-6Ke">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
