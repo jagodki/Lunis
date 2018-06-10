@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
+		595E2FE220CBE140008CC937 /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE120CBE140008CC937 /* InfoTableViewController.swift */; };
+		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
+		5996962920CBD157000925BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5996962820CBD157000925BA /* Main.storyboard */; };
 		59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9B20BD50AA0050E48D /* AppDelegate.swift */; };
 		59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9D20BD50AA0050E48D /* MapViewController.swift */; };
 		59A37EA020BD50AA0050E48D /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9F20BD50AA0050E48D /* DataViewController.swift */; };
-		59A37EA320BD50AA0050E48D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA120BD50AA0050E48D /* Main.storyboard */; };
 		59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA420BD50AD0050E48D /* Assets.xcassets */; };
 		59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */; };
 		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
@@ -23,12 +25,14 @@
 /* Begin PBXFileReference section */
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		595E2FE120CBE140008CC937 /* InfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
+		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5996962820CBD157000925BA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		59A37E9820BD50AA0050E48D /* Lunis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A37E9B20BD50AA0050E48D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59A37E9D20BD50AA0050E48D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		59A37E9F20BD50AA0050E48D /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		59A37EA220BD50AA0050E48D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		59A37EA420BD50AD0050E48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59A37EA720BD50AD0050E48D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59A37EA920BD50AD0050E48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,8 +65,21 @@
 			isa = PBXGroup;
 			children = (
 				591D320420C2D6FB0045205D /* InfoViewController.swift */,
+				595E2FE120CBE140008CC937 /* InfoTableViewController.swift */,
+				595E2FE320CBE171008CC937 /* InfoTableView.swift */,
 			);
 			path = MapStory;
+			sourceTree = "<group>";
+		};
+		5951C3E920CD1F3E009A1D3C /* iPhoneGUI */ = {
+			isa = PBXGroup;
+			children = (
+				591D320220C2D6D40045205D /* AdditionalViews */,
+				59A37E9D20BD50AA0050E48D /* MapViewController.swift */,
+				59A37E9F20BD50AA0050E48D /* DataViewController.swift */,
+				591D320020C2D5460045205D /* DownloadViewController.swift */,
+			);
+			path = iPhoneGUI;
 			sourceTree = "<group>";
 		};
 		5982227F20BEA7E500E7FD58 /* Model */ = {
@@ -92,16 +109,13 @@
 		59A37E9A20BD50AA0050E48D /* Lunis */ = {
 			isa = PBXGroup;
 			children = (
-				591D320220C2D6D40045205D /* AdditionalViews */,
+				5951C3E920CD1F3E009A1D3C /* iPhoneGUI */,
 				5982227F20BEA7E500E7FD58 /* Model */,
 				59A37E9B20BD50AA0050E48D /* AppDelegate.swift */,
-				59A37E9D20BD50AA0050E48D /* MapViewController.swift */,
-				59A37E9F20BD50AA0050E48D /* DataViewController.swift */,
-				591D320020C2D5460045205D /* DownloadViewController.swift */,
-				59A37EA120BD50AA0050E48D /* Main.storyboard */,
 				59A37EA420BD50AD0050E48D /* Assets.xcassets */,
 				59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */,
 				59A37EA920BD50AD0050E48D /* Info.plist */,
+				5996962820CBD157000925BA /* Main.storyboard */,
 				59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */,
 			);
 			path = Lunis;
@@ -181,8 +195,8 @@
 			files = (
 				59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */,
 				59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */,
-				59A37EA320BD50AA0050E48D /* Main.storyboard in Resources */,
 				59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */,
+				5996962920CBD157000925BA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +209,9 @@
 			files = (
 				59A37EA020BD50AA0050E48D /* DataViewController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
+				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
+				595E2FE220CBE140008CC937 /* InfoTableViewController.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,
 			);
@@ -204,14 +220,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		59A37EA120BD50AA0050E48D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				59A37EA220BD50AA0050E48D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,13 +350,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PM6R3BPDX5;
 				INFOPLIST_FILE = Lunis/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jagodki.Lunis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -359,13 +370,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PM6R3BPDX5;
 				INFOPLIST_FILE = Lunis/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jagodki.Lunis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
