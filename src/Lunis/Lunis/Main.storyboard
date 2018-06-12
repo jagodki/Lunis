@@ -20,9 +20,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZR-dt-I7c">
+                            <searchBar hidden="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search school" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-an-Rt3">
+                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="search"/>
+                            </searchBar>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZR-dt-I7c">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem id="Z4F-CF-y4H">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="TaJ-ou-tRr">
@@ -42,42 +45,47 @@
                                                     <state key="normal" title="Isodistances"/>
                                                 </button>
                                             </barButtonItem>
-                                            <barButtonItem style="plain" id="UlD-iY-VuT">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ADj-oT-MIg">
-                                                    <rect key="frame" x="139" y="7" width="71" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Position"/>
-                                                </button>
+                                            <barButtonItem style="plain" systemItem="search" id="D9n-Vv-QkO">
+                                                <connections>
+                                                    <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
+                                                </connections>
                                             </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="search" id="UcY-hv-3X4"/>
                                         </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TJB-9Y-FFw">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJB-9Y-FFw">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <searchBar hidden="YES" contentMode="redraw" fixedFrame="YES" placeholder="Search school" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-an-Rt3">
-                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="search"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="i1f-an-Rt3" secondAttribute="top" id="39l-Jn-sBS"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="yZR-dt-I7c" secondAttribute="bottom" id="3Xy-nf-lXX"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="leading" secondItem="i1f-an-Rt3" secondAttribute="leading" id="3hM-ZU-4aU"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="trailing" secondItem="i1f-an-Rt3" secondAttribute="trailing" id="5Vp-GR-ouw"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="top" secondItem="hkf-Vd-a2l" secondAttribute="top" id="6cy-LI-yuk"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="leading" secondItem="Kcb-9r-a3v" secondAttribute="leading" id="Atx-Xd-X3p"/>
+                            <constraint firstAttribute="trailing" secondItem="TJB-9Y-FFw" secondAttribute="trailing" id="ENC-3p-2Qv"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="bottom" secondItem="hkf-Vd-a2l" secondAttribute="bottom" id="ZHX-ia-bYu"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="leading" secondItem="i1f-an-Rt3" secondAttribute="leading" id="cGk-8s-j8N"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="trailing" secondItem="i1f-an-Rt3" secondAttribute="trailing" id="ng9-jd-QIc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hkf-Vd-a2l"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="kDN-c9-Wh5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="navigationBar" destination="yZR-dt-I7c" id="Y8A-ZC-LNg"/>
+                        <outlet property="searchBar" destination="i1f-an-Rt3" id="9GM-Vr-FCi"/>
                         <outlet property="viewContainer" destination="CPr-i0-ZvO" id="g9z-QR-GSh"/>
                         <outlet property="viewGrayOverlay" destination="J2U-zT-eni" id="f9v-w5-KPy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0r-61-ssW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view alpha="0.5" contentMode="scaleToFill" id="J2U-zT-eni">
+                <view alpha="0.5" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="J2U-zT-eni">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <viewLayoutGuide key="safeArea" id="oza-O6-y8j"/>
                 </view>
@@ -91,10 +99,10 @@
             </objects>
             <point key="canvasLocation" x="1066.875" y="-700.35211267605632"/>
         </scene>
-        <!--Info Table View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="tp3-AJ-Uq0">
             <objects>
-                <tableViewController id="YEa-e7-MKV" customClass="InfoTableViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="YEa-e7-MKV" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Fa-Dw-cZs">
                         <rect key="frame" x="0.0" y="0.0" width="280" height="158"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

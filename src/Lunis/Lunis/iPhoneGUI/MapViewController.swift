@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  MapViewController.swift
 //  Lunis
 //
 //  Created by Christoph on 29.05.18.
@@ -12,10 +12,8 @@ class MapViewController: UIViewController {
     
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var viewGrayOverlay: UIView!
-    
-    /*@IBAction func infoButtonPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: "showMapInfo", sender: self)
-    }*/
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var navigationBar: UINavigationBar!
     
     override func viewDidLoad() {
         //prepare gray overlay
@@ -24,8 +22,12 @@ class MapViewController: UIViewController {
         
         //prepare container view
         self.viewContainer.removeFromSuperview()
-        //self.viewContainer.center = self.view.center.x - self.view.bounds.height
+        self.viewContainer.center.x = self.view.center.x
+        self.viewContainer.center.y = self.view.bounds.height + self.viewContainer.bounds.height / 2
         self.viewContainer.layer.cornerRadius = 10
+        
+        //prepare search bar
+        self.searchBar.center.y = self.view.bounds.origin.y + self.searchBar.bounds.height / 2
         
         super.viewDidLoad()
     }
@@ -41,10 +43,24 @@ class MapViewController: UIViewController {
             self.viewGrayOverlay.alpha = 0.3
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.view.addSubview(self.viewContainer)}, completion: nil)
+        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.viewContainer.removeFromSuperview()
+            self.view.addSubview(self.viewContainer)
+            self.viewContainer.center = self.view.center
+        }, completion: nil)
         
     }
     
+    @IBAction func showHideSearchBar(_ sender: Any) {
+        if(self.searchBar.isHidden) {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {self.searchBar.isHidden = false
+                self.searchBar.center.y = self.navigationBar.bounds.height + self.searchBar.bounds.height / 2
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.searchBar.center.y = self.view.bounds.origin.y + self.searchBar.bounds.height / 2
+                self.searchBar.isHidden = true
+            }, completion: nil)
+        }
+    }
     
 }
 
