@@ -20,6 +20,7 @@
 		59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */; };
 		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
 		59A37EB320BD52250050E48D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37EB220BD52250050E48D /* MapKit.framework */; };
+		59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		59A37EA920BD50AD0050E48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		59A37EB220BD52250050E48D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				591D320420C2D6FB0045205D /* InfoViewController.swift */,
 				595E2FE120CBE140008CC937 /* InfoTableViewController.swift */,
 				595E2FE320CBE171008CC937 /* InfoTableView.swift */,
+				59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */,
 			);
 			path = MapStory;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
+				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
 				595E2FE220CBE140008CC937 /* InfoTableViewController.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,

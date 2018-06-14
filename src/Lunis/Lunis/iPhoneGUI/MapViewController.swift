@@ -8,17 +8,27 @@
 
 import UIKit
 
+extension MapViewController: InfoTableViewDelegate {
+    func didFinish(sender: InfoTableViewController) {
+        self.infoContainerView.removeFromSuperview()
+    }
+}
+
 class MapViewController: UIViewController {
     
     @IBOutlet var viewContainer: UIView!
-    @IBOutlet var viewGrayOverlay: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var navigationBar: UINavigationBar!
+    @IBOutlet var infoContainerView: InfoContainerView!
+    @IBOutlet var viewOverlay: UIView!
+    var infoTable: InfoTableViewController!
     
     override func viewDidLoad() {
-        //prepare gray overlay
-        self.viewGrayOverlay.removeFromSuperview()
-        self.viewGrayOverlay.alpha = 0.0
+        //prepare delegates
+        self.infoTable.delegate = self
+        
+        //prepare overlay
+        self.viewOverlay.alpha = 0.0
         
         //prepare container view
         self.viewContainer.removeFromSuperview()
@@ -38,13 +48,10 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func showContainer(_ sender: Any) {
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {self.viewGrayOverlay.removeFromSuperview()
-            self.view.addSubview(self.viewGrayOverlay)
-            self.viewGrayOverlay.alpha = 0.3
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {self.viewOverlay.alpha = 0.3
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.viewContainer.removeFromSuperview()
-            self.view.addSubview(self.viewContainer)
+        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.view.addSubview(self.viewContainer)
             self.viewContainer.center = self.view.center
         }, completion: nil)
         
@@ -61,6 +68,5 @@ class MapViewController: UIViewController {
             }, completion: nil)
         }
     }
-    
 }
 
