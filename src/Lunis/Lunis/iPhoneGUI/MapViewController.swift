@@ -9,8 +9,17 @@
 import UIKit
 
 extension MapViewController: InfoTableViewDelegate {
-    func didFinish(sender: InfoTableViewController) {
-        self.infoContainerView.removeFromSuperview()
+    func hideContainer(sender: InfoTableViewController) {
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {
+            self.viewContainer.center.x = self.view.center.x
+            self.viewContainer.center.y = self.view.bounds.height + self.viewContainer.bounds.height / 2
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
+            self.viewOverlay.alpha = 0.0
+        }, completion: nil)
+        
     }
 }
 
@@ -21,12 +30,8 @@ class MapViewController: UIViewController {
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var infoContainerView: InfoContainerView!
     @IBOutlet var viewOverlay: UIView!
-    var infoTable: InfoTableViewController!
     
     override func viewDidLoad() {
-        //prepare delegates
-        self.infoTable.delegate = self
-        
         //prepare overlay
         self.viewOverlay.alpha = 0.0
         
@@ -48,10 +53,12 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func showContainer(_ sender: Any) {
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {self.viewOverlay.alpha = 0.3
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
+            self.viewOverlay.alpha = 0.3
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.view.addSubview(self.viewContainer)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {
+            self.view.addSubview(self.viewContainer)
             self.viewContainer.center = self.view.center
         }, completion: nil)
         
@@ -59,13 +66,22 @@ class MapViewController: UIViewController {
     
     @IBAction func showHideSearchBar(_ sender: Any) {
         if(self.searchBar.isHidden) {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {self.searchBar.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
+                self.searchBar.isHidden = false
                 self.searchBar.center.y = self.navigationBar.bounds.height + self.searchBar.bounds.height / 2
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {self.searchBar.center.y = self.view.bounds.origin.y + self.searchBar.bounds.height / 2
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {
+                self.searchBar.center.y = self.view.bounds.origin.y + self.searchBar.bounds.height / 2
                 self.searchBar.isHidden = true
             }, completion: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueContainerViewInfoTable" {
+            let embededViewController = segue.destination as! InfoTableViewController
+            embededViewController.delegate = self
         }
     }
 }

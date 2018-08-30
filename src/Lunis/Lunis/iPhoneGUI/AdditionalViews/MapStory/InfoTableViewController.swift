@@ -8,13 +8,14 @@
 
 import UIKit
 
-protocol InfoTableViewDelegate {
-    func didFinish(sender: InfoTableViewController)
+protocol InfoTableViewDelegate: AnyObject {
+    func hideContainer(sender: InfoTableViewController)
 }
 
 class InfoTableViewController: UITableViewController {
     
-    var delegate:InfoTableViewDelegate?
+    @IBOutlet var viewTable: UITableView!
+    var delegate: InfoTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,11 @@ class InfoTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
 
     @IBAction func closeInfoView(_ sender: Any) {
-        self.delegate?.didFinish(sender: self)
+        self.delegate?.hideContainer(sender: self)
     }
     
     /*

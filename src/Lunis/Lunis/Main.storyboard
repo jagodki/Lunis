@@ -31,15 +31,14 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Map" id="Z4F-CF-y4H">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="TaJ-ou-tRr">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Pba-bd-ntY">
-                                                <rect key="frame" x="16" y="11" width="22" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <leftBarButtonItems>
+                                            <barButtonItem style="plain" systemItem="search" id="D9n-Vv-QkO">
                                                 <connections>
-                                                    <action selector="showContainer:" destination="Iy2-ZW-J59" eventType="touchDown" id="FPW-9z-qay"/>
+                                                    <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
                                                 </connections>
-                                            </button>
-                                        </barButtonItem>
+                                            </barButtonItem>
+                                            <barButtonItem title="Position" id="Oyu-mh-Ex7"/>
+                                        </leftBarButtonItems>
                                         <rightBarButtonItems>
                                             <barButtonItem style="plain" id="nK6-Fv-8J3">
                                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="x8C-eu-mkD">
@@ -48,10 +47,14 @@
                                                     <state key="normal" title="Isodistances"/>
                                                 </button>
                                             </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="search" id="D9n-Vv-QkO">
-                                                <connections>
-                                                    <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
-                                                </connections>
+                                            <barButtonItem style="plain" id="TaJ-ou-tRr">
+                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Pba-bd-ntY">
+                                                    <rect key="frame" x="188" y="11" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="showContainer:" destination="Iy2-ZW-J59" eventType="touchDown" id="FPW-9z-qay"/>
+                                                    </connections>
+                                                </button>
                                             </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
@@ -96,10 +99,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0r-61-ssW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <containerView opaque="NO" contentMode="scaleToFill" id="CPr-i0-ZvO" userLabel="View Container" customClass="InfoContainerView" customModule="Lunis" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="280" height="158"/>
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="175"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <connections>
-                        <segue destination="YEa-e7-MKV" kind="embed" id="C7j-Yl-qJt"/>
+                        <segue destination="YEa-e7-MKV" kind="embed" identifier="segueContainerViewInfoTable" id="C7j-Yl-qJt"/>
                     </connections>
                 </containerView>
             </objects>
@@ -109,8 +112,8 @@
         <scene sceneID="tp3-AJ-Uq0">
             <objects>
                 <tableViewController id="YEa-e7-MKV" customClass="InfoTableViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Fa-Dw-cZs">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="158"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Fa-Dw-cZs" userLabel="viewTable">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -130,12 +133,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGQ-IV-jWy">
-                                                    <rect key="frame" x="230" y="10" width="22" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Sr-aZ-Lxc">
+                                                    <rect key="frame" x="225" y="8" width="39" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Close"/>
                                                     <connections>
-                                                        <action selector="closeInfoView:" destination="MF0-W8-cGl" eventType="touchDown" id="B2f-u7-k5P"/>
-                                                        <action selector="closeInfoView:" destination="YEa-e7-MKV" eventType="touchDown" id="fF7-AJ-edN"/>
+                                                        <action selector="closeInfoView:" destination="YEa-e7-MKV" eventType="touchDown" id="0Ru-H8-wYM"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -148,23 +151,29 @@
                                             <rect key="frame" x="0.0" y="0.0" width="280" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cda-J6-Eqr">
-                                                    <rect key="frame" x="16" y="8" width="248" height="29"/>
-                                                    <segments>
-                                                        <segment title="All"/>
-                                                        <segment title="Filtered"/>
-                                                        <segment title="Favorites"/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="changeMapData:" destination="MF0-W8-cGl" eventType="valueChanged" id="kf2-A7-KTg"/>
-                                                    </connections>
-                                                </segmentedControl>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Uos-IU-2sC">
+                                                    <rect key="frame" x="36" y="7" width="209" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yg3-kO-fRn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="209" height="28"/>
+                                                            <subviews>
+                                                                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cda-J6-Eqr">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="209" height="29"/>
+                                                                    <segments>
+                                                                        <segment title="All"/>
+                                                                        <segment title="Filtered"/>
+                                                                        <segment title="Favorites"/>
+                                                                    </segments>
+                                                                    <connections>
+                                                                        <action selector="changeMapData:" destination="MF0-W8-cGl" eventType="valueChanged" id="kf2-A7-KTg"/>
+                                                                    </connections>
+                                                                </segmentedControl>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Cda-J6-Eqr" secondAttribute="bottom" constant="-2" id="a6L-bt-e4K"/>
-                                                <constraint firstItem="Cda-J6-Eqr" firstAttribute="centerX" secondItem="mcp-sc-f17" secondAttribute="centerX" id="iUf-cP-kPX"/>
-                                                <constraint firstItem="Cda-J6-Eqr" firstAttribute="top" secondItem="mcp-sc-f17" secondAttribute="topMargin" constant="-3" id="lOx-pg-Fx8"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HbF-zi-U6r">
@@ -195,6 +204,21 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="B2u-5w-OqE">
+                                        <rect key="frame" x="0.0" y="132" width="280" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B2u-5w-OqE" id="aVN-5v-ocB">
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCu-p5-YPW">
+                                                    <rect key="frame" x="33" y="6" width="216" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="open information about the app"/>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -203,11 +227,14 @@
                             <outlet property="delegate" destination="YEa-e7-MKV" id="xX7-Kq-bQx"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="viewTable" destination="3Fa-Dw-cZs" id="lrF-ai-kep"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tD1-w6-RUo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="MF0-W8-cGl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1950" y="-1145.0704225352113"/>
+            <point key="canvasLocation" x="1950" y="-1145.5985915492959"/>
         </scene>
         <!--Data-->
         <scene sceneID="wg7-f3-ORb">
