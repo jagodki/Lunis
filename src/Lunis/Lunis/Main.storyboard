@@ -32,7 +32,11 @@
                                                     <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Position" id="Oyu-mh-Ex7"/>
+                                            <barButtonItem title="Position" id="Oyu-mh-Ex7">
+                                                <connections>
+                                                    <action selector="test:" destination="Iy2-ZW-J59" id="TVG-1J-rvT"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </leftBarButtonItems>
                                         <rightBarButtonItems>
                                             <barButtonItem style="plain" systemItem="play" id="nK6-Fv-8J3"/>
@@ -44,23 +48,22 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJB-9Y-FFw">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                             </mapView>
-                            <searchBar hidden="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search school" translatesAutoresizingMaskIntoConstraints="NO" id="i1f-an-Rt3">
-                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="search"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="i1f-an-Rt3" secondAttribute="top" id="39l-Jn-sBS"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="trailing" secondItem="hkf-Vd-a2l" secondAttribute="trailing" id="1sH-qq-xqI"/>
                             <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="yZR-dt-I7c" secondAttribute="bottom" id="3Xy-nf-lXX"/>
-                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="leading" secondItem="i1f-an-Rt3" secondAttribute="leading" id="3hM-ZU-4aU"/>
-                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="trailing" secondItem="i1f-an-Rt3" secondAttribute="trailing" id="5Vp-GR-ouw"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="leading" secondItem="hkf-Vd-a2l" secondAttribute="leading" id="3gR-pU-h5j"/>
                             <constraint firstItem="yZR-dt-I7c" firstAttribute="top" secondItem="hkf-Vd-a2l" secondAttribute="top" id="6cy-LI-yuk"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="bottom" secondItem="hkf-Vd-a2l" secondAttribute="bottom" id="71T-TQ-Ja5"/>
                             <constraint firstItem="TJB-9Y-FFw" firstAttribute="leading" secondItem="Kcb-9r-a3v" secondAttribute="leading" id="Atx-Xd-X3p"/>
                             <constraint firstAttribute="trailing" secondItem="TJB-9Y-FFw" secondAttribute="trailing" id="ENC-3p-2Qv"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="trailing" secondItem="hkf-Vd-a2l" secondAttribute="trailing" id="Rvi-ae-QLN"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="yZR-dt-I7c" secondAttribute="bottom" id="XUM-Xr-Ecq"/>
                             <constraint firstItem="TJB-9Y-FFw" firstAttribute="bottom" secondItem="hkf-Vd-a2l" secondAttribute="bottom" id="ZHX-ia-bYu"/>
-                            <constraint firstItem="yZR-dt-I7c" firstAttribute="leading" secondItem="i1f-an-Rt3" secondAttribute="leading" id="cGk-8s-j8N"/>
-                            <constraint firstItem="yZR-dt-I7c" firstAttribute="trailing" secondItem="i1f-an-Rt3" secondAttribute="trailing" id="ng9-jd-QIc"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="leading" secondItem="hkf-Vd-a2l" secondAttribute="leading" id="adi-gv-xdd"/>
+                            <constraint firstItem="TJB-9Y-FFw" firstAttribute="top" secondItem="yZR-dt-I7c" secondAttribute="bottom" id="e4I-cw-qj9"/>
+                            <constraint firstItem="yZR-dt-I7c" firstAttribute="top" secondItem="hkf-Vd-a2l" secondAttribute="top" id="ikF-J0-cbq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hkf-Vd-a2l"/>
                     </view>
@@ -68,7 +71,6 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="navigationBar" destination="yZR-dt-I7c" id="Y8A-ZC-LNg"/>
-                        <outlet property="searchBar" destination="i1f-an-Rt3" id="9GM-Vr-FCi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0r-61-ssW" userLabel="First Responder" sceneMemberID="firstResponder"/>
