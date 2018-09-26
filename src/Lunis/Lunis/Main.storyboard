@@ -34,7 +34,7 @@
                                             </barButtonItem>
                                             <barButtonItem title="Position" id="Oyu-mh-Ex7">
                                                 <connections>
-                                                    <action selector="test:" destination="Iy2-ZW-J59" id="TVG-1J-rvT"/>
+                                                    <action selector="showUserPosition:" destination="Iy2-ZW-J59" id="XvI-mL-Vr3"/>
                                                 </connections>
                                             </barButtonItem>
                                         </leftBarButtonItems>
@@ -70,6 +70,9 @@
                     <tabBarItem key="tabBarItem" title="Map" id="kDN-c9-Wh5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonIsodistances" destination="nK6-Fv-8J3" id="gjg-fq-ZfO"/>
+                        <outlet property="buttonPosition" destination="Oyu-mh-Ex7" id="bjf-Nu-LiB"/>
+                        <outlet property="mapView" destination="TJB-9Y-FFw" id="dqm-s1-GZ2"/>
                         <outlet property="navigationBar" destination="yZR-dt-I7c" id="Y8A-ZC-LNg"/>
                     </connections>
                 </viewController>

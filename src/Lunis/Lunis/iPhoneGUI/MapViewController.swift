@@ -12,18 +12,24 @@ import CoreLocation
 
 class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     
+    //IBOutlets
+    @IBOutlet var mapView: MKMapView!
+    //@IBOutlet var buttonPosition: UIBarButtonItem!
+    //@IBOutlet var buttonIsodistances: UIBarButtonItem!
+    
     //location vars
     var locationManager: CLLocationManager!
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
     
     override func viewDidLoad() {
-        //enable location manager
+        //configure location manager
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager = CLLocationManager()
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.distanceFilter = 250.0        //250m
+            self.locationManager.distanceFilter = 10.0
+            self.locationManager.requestWhenInUseAuthorization()
         } else {
             // create the alert
             let alert = UIAlertController(title: "UIAlertController", message: "Location Services are not allowed. Your location cannot be shown in the map", preferredStyle: UIAlertControllerStyle.alert)
@@ -35,9 +41,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.present(alert, animated: true, completion: nil)
         }
         
-        //control the users position
-        postionIsShown = false
-        zoomToPosition = true
+        //hint to zoom to the position after the next button press
+        self.postionIsShown = false
+        self.zoomToPosition = true
         
         super.viewDidLoad()
     }
@@ -56,42 +62,42 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     @IBAction func showUserPosition(_ sender: Any) {
         //check status of the button
         if self.postionIsShown {
-            sender.isSelected = false
+            //sender.isSelected = false
             self.locationManager.stopUpdatingLocation()
-            //sender.highlighted = false
+            self.mapView.showsUserLocation = false
             self.postionIsShown = false
-            self.zoomToPosition = true
         } else {
-            sender.isSelected = true
+            //sender.isSelected = true
             
             //check the authorization status for location
-            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
-                self.locationManager.requestWhenInUseAuthorization()
-                self.locationManager.startUpdatingLocation()
-            } else {
-                self.locationManager.startUpdatingLocation()
-            }
+//            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+//                self.locationManager.requestWhenInUseAuthorization()
+//                self.locationManager.startUpdatingLocation()
+//            } else {
+//                self.locationManager.startUpdatingLocation()
+//            }
             
+            self.locationManager.startUpdatingLocation()
+            self.mapView.showsUserLocation = true
             //sender.highlighted = true
             self.postionIsShown = true
-            self.zoomToPosition = false
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if let location = locations.last {
-            
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if self.zoomToPosition {
             //zoom to user position
-            if self.zoomToPosition {
-                let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDealta: 0.0001, longitudeDelta: 0.0001))
-                self.map.setRegion(region, animated: true)
-                self.map.userTrackingMode.set(.follow)
+            if let location = locations.last  {
+                let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+                let currentPosition:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+                let region = MKCoordinateRegionMake(currentPosition, span)
+                self.mapView.setRegion(region, animated: true)
             }
             
-            //insert marker at user position
-            self.map.showsUserLocation.set(true)
-            self.map.userTrackingMode.set(.none)
+            self.zoomToPosition = false
+        }
+        else {
+            self.zoomToPosition = true
         }
     }
 }
