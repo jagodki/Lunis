@@ -14,8 +14,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     //IBOutlets
     @IBOutlet var mapView: MKMapView!
-    //@IBOutlet var buttonPosition: UIBarButtonItem!
-    //@IBOutlet var buttonIsodistances: UIBarButtonItem!
     
     //location vars
     var locationManager: CLLocationManager!
@@ -28,17 +26,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.locationManager = CLLocationManager()
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.distanceFilter = 10.0
+            self.locationManager.distanceFilter = 100.0
             self.locationManager.requestWhenInUseAuthorization()
         } else {
-            // create the alert
-            let alert = UIAlertController(title: "UIAlertController", message: "Location Services are not allowed. Your location cannot be shown in the map", preferredStyle: UIAlertControllerStyle.alert)
-            
-            // add the actions (buttons)
-            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
+            self.showEnableLocationAlert()
         }
         
         //hint to zoom to the position after the next button press
@@ -69,18 +60,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         } else {
             //sender.isSelected = true
             
-            //check the authorization status for location
-//            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
-//                self.locationManager.requestWhenInUseAuthorization()
-//                self.locationManager.startUpdatingLocation()
-//            } else {
-//                self.locationManager.startUpdatingLocation()
-//            }
-            
-            self.locationManager.startUpdatingLocation()
-            self.mapView.showsUserLocation = true
-            //sender.highlighted = true
-            self.postionIsShown = true
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                self.locationManager.startUpdatingLocation()
+                self.mapView.showsUserLocation = true
+                //sender.highlighted = true
+                self.postionIsShown = true
+            } else {
+                self.showEnableLocationAlert()
+            }
         }
     }
     
@@ -93,12 +80,21 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 let region = MKCoordinateRegionMake(currentPosition, span)
                 self.mapView.setRegion(region, animated: true)
             }
-            
             self.zoomToPosition = false
         }
         else {
             self.zoomToPosition = true
         }
+    }
+    
+    func showEnableLocationAlert() {
+        let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertActionStyle.default, handler: {
+            (alert: UIAlertAction!) in
+            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

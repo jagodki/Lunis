@@ -70,10 +70,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="kDN-c9-Wh5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="buttonIsodistances" destination="nK6-Fv-8J3" id="gjg-fq-ZfO"/>
-                        <outlet property="buttonPosition" destination="Oyu-mh-Ex7" id="bjf-Nu-LiB"/>
                         <outlet property="mapView" destination="TJB-9Y-FFw" id="dqm-s1-GZ2"/>
-                        <outlet property="navigationBar" destination="yZR-dt-I7c" id="Y8A-ZC-LNg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0r-61-ssW" userLabel="First Responder" sceneMemberID="firstResponder"/>
