@@ -32,7 +32,7 @@
                                                     <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Position" id="Oyu-mh-Ex7">
+                                            <barButtonItem title="Item" id="Oyu-mh-Ex7">
                                                 <connections>
                                                     <action selector="showUserPosition:" destination="Iy2-ZW-J59" id="XvI-mL-Vr3"/>
                                                 </connections>
@@ -40,7 +40,11 @@
                                         </leftBarButtonItems>
                                         <rightBarButtonItems>
                                             <barButtonItem style="plain" systemItem="play" id="nK6-Fv-8J3"/>
-                                            <barButtonItem style="plain" systemItem="compose" id="TaJ-ou-tRr"/>
+                                            <barButtonItem style="plain" systemItem="compose" id="TaJ-ou-tRr">
+                                                <connections>
+                                                    <action selector="selectMapContent:" destination="Iy2-ZW-J59" id="OWb-rS-Grs"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
                                 </items>

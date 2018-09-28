@@ -20,13 +20,21 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
     
+    //init vars for action sheet and its actions
+    var optionMenuMapContent: UIAlertController!
+    var option: Int?    //0...all, 1...filtered, 2...favorites, 3...cancel
+    var actionAll: UIAlertAction!
+    var actionFiltered: UIAlertAction!
+    var actionFavorites: UIAlertAction!
+    var actionCancel: UIAlertAction!
+    
     override func viewDidLoad() {
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager = CLLocationManager()
             self.locationManager.delegate = self
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.distanceFilter = 100.0
+            self.locationManager.distanceFilter = 25.0      //25 meter
             self.locationManager.requestWhenInUseAuthorization()
         } else {
             self.showEnableLocationAlert()
@@ -35,6 +43,34 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //hint to zoom to the position after the next button press
         self.postionIsShown = false
         self.zoomToPosition = true
+        
+        /**define action sheet**/
+        self.optionMenuMapContent = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
+        
+        //define actions for the action sheet
+        self.actionAll = UIAlertAction(title: "All schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.option = 0
+        })
+        self.actionFiltered = UIAlertAction(title: "Filtered schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.option = 1
+        })
+        self.actionFavorites = UIAlertAction(title: "Favorite schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.option = 2
+        })
+        self.actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.option = 3
+        })
+        
+        //add actions to the action sheet
+        self.optionMenuMapContent.addAction(self.actionAll)
+        self.optionMenuMapContent.addAction(self.actionFiltered)
+        self.optionMenuMapContent.addAction(self.actionFavorites)
+        self.optionMenuMapContent.addAction(self.actionCancel)
+        /**/
         
         super.viewDidLoad()
     }
@@ -57,6 +93,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.locationManager.stopUpdatingLocation()
             self.mapView.showsUserLocation = false
             self.postionIsShown = false
+            self.zoomToPosition = true
         } else {
             //sender.isSelected = true
             
@@ -82,9 +119,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             }
             self.zoomToPosition = false
         }
-        else {
-            self.zoomToPosition = true
-        }
     }
     
     func showEnableLocationAlert() {
@@ -96,5 +130,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @IBAction func selectMapContent(_ sender: Any) {
+        
+    }
+    
 }
 
