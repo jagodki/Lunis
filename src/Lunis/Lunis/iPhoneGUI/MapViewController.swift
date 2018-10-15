@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
+/// <#Description#>
 class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     
     //IBOutlets
@@ -20,14 +22,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
     
-    //init vars for action sheet and its actions
-    var optionMenuMapContent: UIAlertController!
-    var option: Int?    //0...all, 1...filtered, 2...favorites, 3...cancel
-    var actionAll: UIAlertAction!
-    var actionFiltered: UIAlertAction!
-    var actionFavorites: UIAlertAction!
-    var actionCancel: UIAlertAction!
     
+    /// <#Description#>
     override func viewDidLoad() {
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
@@ -44,34 +40,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.postionIsShown = false
         self.zoomToPosition = true
         
-        /**define action sheet**/
-        self.optionMenuMapContent = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
-        
-        //define actions for the action sheet
-        self.actionAll = UIAlertAction(title: "All schools", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.option = 0
-        })
-        self.actionFiltered = UIAlertAction(title: "Filtered schools", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.option = 1
-        })
-        self.actionFavorites = UIAlertAction(title: "Favorite schools", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.option = 2
-        })
-        self.actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.option = 3
-        })
-        
-        //add actions to the action sheet
-        self.optionMenuMapContent.addAction(self.actionAll)
-        self.optionMenuMapContent.addAction(self.actionFiltered)
-        self.optionMenuMapContent.addAction(self.actionFavorites)
-        self.optionMenuMapContent.addAction(self.actionCancel)
-        /**/
-        
         super.viewDidLoad()
     }
 
@@ -80,16 +48,22 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         // Dispose of any resources that can be recreated.
     }
     
+    
+    /// <#Description#>
+    ///
+    /// - Parameter sender: <#sender description#>
     @IBAction func showHideSearchBar(_ sender: Any) {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         present(searchController, animated: true, completion: nil)
     }
     
+    /// <#Description#>
+    ///
+    /// - Parameter sender: <#sender description#>
     @IBAction func showUserPosition(_ sender: Any) {
         //check status of the button
         if self.postionIsShown {
-            //sender.isSelected = false
             self.locationManager.stopUpdatingLocation()
             self.mapView.showsUserLocation = false
             self.postionIsShown = false
@@ -100,7 +74,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
                 self.locationManager.startUpdatingLocation()
                 self.mapView.showsUserLocation = true
-                //sender.highlighted = true
                 self.postionIsShown = true
             } else {
                 self.showEnableLocationAlert()
@@ -108,6 +81,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - manager: <#manager description#>
+    ///   - locations: <#locations description#>
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if self.zoomToPosition {
             //zoom to user position
@@ -121,6 +99,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
+    /// <#Description#>
     func showEnableLocationAlert() {
         let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertActionStyle.default, handler: {
@@ -131,8 +110,33 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.present(alert, animated: true, completion: nil)
     }
     
+    /// <#Description#>
+    ///
+    /// - Parameter sender: <#sender description#>
     @IBAction func selectMapContent(_ sender: Any) {
+        let actionSheet = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
         
+        //define actions for the action sheet
+        actionSheet.addAction(UIAlertAction(title: "All schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("all schools")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Filtered schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("filtered schools")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Favorite schools", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("favorite schools")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("canceled")
+        }))
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @IBAction func showHideIsodistances(_ sender: Any) {
     }
     
 }
