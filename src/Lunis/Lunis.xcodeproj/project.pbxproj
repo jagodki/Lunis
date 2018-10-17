@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		591D0F492176EB8800E8EE73 /* DataViewTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewTableController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
 		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
@@ -14,7 +15,6 @@
 		5996962920CBD157000925BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5996962820CBD157000925BA /* Main.storyboard */; };
 		59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9B20BD50AA0050E48D /* AppDelegate.swift */; };
 		59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9D20BD50AA0050E48D /* MapViewController.swift */; };
-		59A37EA020BD50AA0050E48D /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9F20BD50AA0050E48D /* DataViewController.swift */; };
 		59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA420BD50AD0050E48D /* Assets.xcassets */; };
 		59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */; };
 		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		591D0F482176EB8800E8EE73 /* DataViewTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewTableController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
@@ -31,7 +32,6 @@
 		59A37E9820BD50AA0050E48D /* Lunis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A37E9B20BD50AA0050E48D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59A37E9D20BD50AA0050E48D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		59A37E9F20BD50AA0050E48D /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		59A37EA420BD50AD0050E48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59A37EA720BD50AD0050E48D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59A37EA920BD50AD0050E48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 			children = (
 				591D320220C2D6D40045205D /* AdditionalViews */,
 				59A37E9D20BD50AA0050E48D /* MapViewController.swift */,
-				59A37E9F20BD50AA0050E48D /* DataViewController.swift */,
 				591D320020C2D5460045205D /* DownloadViewController.swift */,
+				591D0F482176EB8800E8EE73 /* DataViewTableController.swift */,
 			);
 			path = iPhoneGUI;
 			sourceTree = "<group>";
@@ -207,7 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59A37EA020BD50AA0050E48D /* DataViewController.swift in Sources */,
+				591D0F492176EB8800E8EE73 /* DataViewTableController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
