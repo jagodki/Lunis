@@ -16,6 +16,10 @@ class DataViewController: UIViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
+        //allow multiple selection during editing
+        //self.allowsMultipleSelection = true
+        //self.allowsMultipleSelectionDuringEditing = true
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

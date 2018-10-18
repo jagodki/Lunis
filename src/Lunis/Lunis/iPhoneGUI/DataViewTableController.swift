@@ -9,20 +9,25 @@
 import UIKit
 
 class DataViewTableController: UITableViewController {
-
+    
+    @IBOutlet var buttonSelect: UIBarButtonItem!
+    @IBOutlet var buttonFilter: UIBarButtonItem!
+    @IBOutlet var segmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         //add a search bar to the navigation bar
         let searchController = UISearchController(searchResultsController: nil)
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
+        //allow multiple selection during editing
+        //super.tableView.allowsMultipleSelection = true
+        self.tableView.allowsMultipleSelectionDuringEditing = true
+        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,7 +46,26 @@ class DataViewTableController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
-
+    
+    @IBAction func selectButtonPress(_ sender: Any) {
+        if self.isEditing == true {
+            self.tableView.setEditing(false, animated: true)
+            self.buttonSelect.title = "Select"
+            self.buttonSelect.style = .plain
+            //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: Selector("editButtonPressed"))
+            self.buttonFilter.isEnabled = true
+            self.segmentedControl.isEnabled = true
+        } else {
+            self.tableView.setEditing(true, animated: true)
+            self.buttonSelect.title = "Done"
+            self.buttonSelect.style = .done
+            //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("editButtonPressed"))
+            self.buttonFilter.isEnabled = false
+            self.segmentedControl.isEnabled = false
+        }
+        
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
