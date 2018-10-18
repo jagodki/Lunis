@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -118,45 +119,46 @@
             <point key="canvasLocation" x="1547" y="536"/>
         </scene>
         <!--Schools-->
-        <scene sceneID="WOT-gR-jn0">
+        <scene sceneID="fZR-Qv-AZM">
             <objects>
-                <tableViewController id="Ey8-bj-ZCQ" customClass="DataViewTableController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pqn-0C-SAh">
+                <viewController id="d4h-yl-Ujc" customClass="DataViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="72n-Fq-r87">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c29-9q-Zp5">
+                                <rect key="frame" x="16" y="113" width="288" height="29"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Filtered"/>
+                                    <segment title="Favorites"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="quE-oF-q56">
+                                <rect key="frame" x="0.0" y="149" width="320" height="370"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="5TW-lM-guG">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="All"/>
-                                <segment title="Filtered"/>
-                                <segment title="Favorites"/>
-                            </segments>
-                        </segmentedControl>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="XTy-g9-gHb">
-                                <rect key="frame" x="0.0" y="58" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XTy-g9-gHb" id="z4N-rd-Ulf">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Ey8-bj-ZCQ" id="GTv-hj-zWd"/>
-                            <outlet property="delegate" destination="Ey8-bj-ZCQ" id="qAL-pZ-zF8"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Schools" id="Am4-MR-qGh">
-                        <barButtonItem key="leftBarButtonItem" title="Select" id="4mC-gk-Nde"/>
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="IBT-HM-meR"/>
+                        <constraints>
+                            <constraint firstItem="quE-oF-q56" firstAttribute="top" secondItem="c29-9q-Zp5" secondAttribute="bottom" constant="8" symbolic="YES" id="IIW-j7-4oK"/>
+                            <constraint firstItem="c29-9q-Zp5" firstAttribute="trailing" secondItem="72n-Fq-r87" secondAttribute="trailingMargin" id="JM0-wK-goj"/>
+                            <constraint firstItem="c29-9q-Zp5" firstAttribute="top" secondItem="jJq-up-Rpv" secondAttribute="top" id="Kfy-3S-WrY"/>
+                            <constraint firstItem="quE-oF-q56" firstAttribute="bottom" secondItem="jJq-up-Rpv" secondAttribute="bottom" id="OBi-ca-jih"/>
+                            <constraint firstItem="c29-9q-Zp5" firstAttribute="leading" secondItem="72n-Fq-r87" secondAttribute="leadingMargin" id="XBF-uV-0pO"/>
+                            <constraint firstItem="quE-oF-q56" firstAttribute="centerX" secondItem="c29-9q-Zp5" secondAttribute="centerX" id="hrd-QC-CIp"/>
+                            <constraint firstItem="quE-oF-q56" firstAttribute="leading" secondItem="72n-Fq-r87" secondAttribute="leading" id="lQI-xT-LyE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jJq-up-Rpv"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Schools" id="g0Y-J1-m12">
+                        <barButtonItem key="leftBarButtonItem" title="Select" id="ayk-KT-FRi"/>
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="Ylt-pX-3JU"/>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UtC-aJ-AX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s2M-nh-AiL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2563" y="-182"/>
+            <point key="canvasLocation" x="2559.375" y="-182.74647887323943"/>
         </scene>
         <!--Schools-->
         <scene sceneID="N8m-Jn-wth">
@@ -168,7 +170,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Ey8-bj-ZCQ" kind="relationship" relationship="rootViewController" id="Wvx-pG-a3P"/>
+                        <segue destination="d4h-yl-Ujc" kind="relationship" relationship="rootViewController" id="T6m-kY-kRt"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ok-Ui-0Jj" userLabel="First Responder" sceneMemberID="firstResponder"/>
