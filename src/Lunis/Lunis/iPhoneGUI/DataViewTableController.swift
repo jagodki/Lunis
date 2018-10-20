@@ -8,8 +8,35 @@
 
 import UIKit
 
+struct TestStructure {
+    var id : Int
+    var name : String
+}
+
+struct TestSection {
+    var name : String
+    var data : [TestStructure]
+}
+
 class DataViewTableController: UITableViewController {
     
+    //define testdata for the protoype
+    let testData = [
+        TestSection(name: "Grundschule", data: [
+            TestStructure(id: 1, name: "1. Grundschule"),
+            TestStructure(id: 2, name: "Knabengrundschule")
+            ]),
+        TestSection(name: "Gymnasium", data: [
+            TestStructure(id: 1, name: "Lößnitzgymnasium"),
+            TestStructure(id: 2, name: "Landesanstalt St. Afra")
+            ]),
+        TestSection(name: "Hochschule", data: [
+            TestStructure(id: 1, name: "TU Dresden"),
+            TestStructure(id: 2, name: "HTW Dresden")
+            ])
+    ]
+    
+    //outlets
     @IBOutlet var buttonSelect: UIBarButtonItem!
     @IBOutlet var buttonFilter: UIBarButtonItem!
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -35,46 +62,52 @@ class DataViewTableController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.testData.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.testData[section].data.count
     }
     
     @IBAction func selectButtonPress(_ sender: Any) {
         if self.isEditing == true {
-            self.tableView.setEditing(false, animated: true)
+            //self.tableView.setEditing(false, animated: true)
+            self.tableView.allowsMultipleSelection = false
             self.buttonSelect.title = "Select"
             self.buttonSelect.style = .plain
-            //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: Selector("editButtonPressed"))
             self.buttonFilter.isEnabled = true
             self.segmentedControl.isEnabled = true
         } else {
-            self.tableView.setEditing(true, animated: true)
+            //self.tableView.setEditing(true, animated: true)
+            self.tableView.allowsMultipleSelection = true
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
-            //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("editButtonPressed"))
             self.buttonFilter.isEnabled = false
             self.segmentedControl.isEnabled = false
         }
         
     }
     
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.testData[section].name
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        cell.accessoryType = .checkmark
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        cell.accessoryType = .none
+    }
 
     /*
     // Override to support conditional editing of the table view.

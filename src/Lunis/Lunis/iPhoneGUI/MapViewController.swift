@@ -21,6 +21,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var locationManager: CLLocationManager!
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
+    var mapContent: Int!
     
     
     /// <#Description#>
@@ -39,6 +40,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //hint to zoom to the position after the next button press
         self.postionIsShown = false
         self.zoomToPosition = true
+        
+        //init the map content
+        self.mapContent = 0
         
         super.viewDidLoad()
     }
@@ -116,23 +120,48 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     @IBAction func selectMapContent(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
         
-        //define actions for the action sheet
-        actionSheet.addAction(UIAlertAction(title: "All schools", style: .default, handler: {
+        //define the actions
+        let allAction = UIAlertAction(title: "All schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("all schools")
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Filtered schools", style: .default, handler: {
+            self.mapContent = 0
+        })
+        
+        let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("filtered schools")
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Favorite schools", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("favorite schools")
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            self.mapContent = 1
+        })
+        
+        let favoritesAction = UIAlertAction(title: "Favorite schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("canceled")
-        }))
+            self.mapContent = 2
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("canceled")
+        })
+        
+        //add the checkmark to the current selection
+        let image = UIImage(named: "checkmark")
+        switch self.mapContent {
+        case 0:
+            allAction.setValue(image, forKey: "image")
+        case 1:
+            filteredAction.setValue(image, forKey: "image")
+        case 2:
+            favoritesAction.setValue(image, forKey: "image")
+        default:
+            break
+        }
+        
+        //add actions to the action sheet
+        actionSheet.addAction(allAction)
+        actionSheet.addAction(filteredAction)
+        actionSheet.addAction(favoritesAction)
+        actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
     }
     
