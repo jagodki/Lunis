@@ -71,13 +71,14 @@ class DataViewTableController: UITableViewController {
     }
     
     @IBAction func selectButtonPress(_ sender: Any) {
-        if self.isEditing == true {
+        if self.tableView.allowsMultipleSelection == true {
             //self.tableView.setEditing(false, animated: true)
             self.tableView.allowsMultipleSelection = false
             self.buttonSelect.title = "Select"
             self.buttonSelect.style = .plain
             self.buttonFilter.isEnabled = true
             self.segmentedControl.isEnabled = true
+            self.navigationItem.searchController?.isActive = true
         } else {
             //self.tableView.setEditing(true, animated: true)
             self.tableView.allowsMultipleSelection = true
@@ -85,12 +86,13 @@ class DataViewTableController: UITableViewController {
             self.buttonSelect.style = .done
             self.buttonFilter.isEnabled = false
             self.segmentedControl.isEnabled = false
+            self.navigationItem.searchController?.isActive = false
         }
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
         cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
         return cell
     }
