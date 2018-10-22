@@ -48,8 +48,7 @@ class DataViewTableController: UITableViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
         //allow multiple selection during editing
-        //super.tableView.allowsMultipleSelection = true
-        self.tableView.allowsMultipleSelectionDuringEditing = true
+        //self.tableView.allowsMultipleSelectionDuringEditing = true
         
         super.viewDidLoad()
 
@@ -71,22 +70,20 @@ class DataViewTableController: UITableViewController {
     }
     
     @IBAction func selectButtonPress(_ sender: Any) {
-        if self.tableView.allowsMultipleSelection == true {
-            //self.tableView.setEditing(false, animated: true)
-            self.tableView.allowsMultipleSelection = false
+        if self.tableView.isEditing == true {
+            self.tableView.setEditing(false, animated: true)
             self.buttonSelect.title = "Select"
             self.buttonSelect.style = .plain
             self.buttonFilter.isEnabled = true
             self.segmentedControl.isEnabled = true
-            self.navigationItem.searchController?.isActive = true
+            //self.navigationItem.searchController?.isActive = true
         } else {
-            //self.tableView.setEditing(true, animated: true)
-            self.tableView.allowsMultipleSelection = true
+            self.tableView.setEditing(true, animated: true)
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
             self.buttonFilter.isEnabled = false
             self.segmentedControl.isEnabled = false
-            self.navigationItem.searchController?.isActive = false
+            //self.navigationItem.searchController?.isActive = false
         }
         
     }
@@ -119,7 +116,10 @@ class DataViewTableController: UITableViewController {
     }
     */
 
-    /*
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete;
+    }
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -129,7 +129,6 @@ class DataViewTableController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
