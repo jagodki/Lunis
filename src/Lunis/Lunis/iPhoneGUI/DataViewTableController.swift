@@ -47,9 +47,6 @@ class DataViewTableController: UITableViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
-        //allow multiple selection during editing
-        //self.tableView.allowsMultipleSelectionDuringEditing = true
-        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -70,20 +67,18 @@ class DataViewTableController: UITableViewController {
     }
     
     @IBAction func selectButtonPress(_ sender: Any) {
-        if self.tableView.isEditing == true {
-            self.tableView.setEditing(false, animated: true)
-            self.buttonSelect.title = "Select"
-            self.buttonSelect.style = .plain
-            self.buttonFilter.isEnabled = true
-            self.segmentedControl.isEnabled = true
-            //self.navigationItem.searchController?.isActive = true
-        } else {
-            self.tableView.setEditing(true, animated: true)
+        //enable and disable UI-elements depending on the editing status
+        self.segmentedControl.isEnabled = self.isEditing
+        self.buttonFilter.isEnabled = self.isEditing
+        self.setEditing(!self.isEditing, animated: true)
+        
+        //update the edit select button depending on the editing status
+        if self.isEditing {
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
-            self.buttonFilter.isEnabled = false
-            self.segmentedControl.isEnabled = false
-            //self.navigationItem.searchController?.isActive = false
+        } else {
+            self.buttonSelect.title = "Select"
+            self.buttonSelect.style = .plain
         }
         
     }
@@ -98,15 +93,15 @@ class DataViewTableController: UITableViewController {
         return self.testData[section].name
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)!
-        cell.accessoryType = .checkmark
-    }
-    
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)!
-        cell.accessoryType = .none
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)!
+//        cell.accessoryType = .checkmark
+//    }
+//
+//    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)!
+//        cell.accessoryType = .none
+//    }
 
     /*
     // Override to support conditional editing of the table view.
