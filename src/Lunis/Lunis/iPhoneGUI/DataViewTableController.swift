@@ -47,10 +47,13 @@ class DataViewTableController: UITableViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
+        //hide toolbar
+        self.navigationController?.toolbar.isHidden = true
+        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,6 +73,8 @@ class DataViewTableController: UITableViewController {
         //enable and disable UI-elements depending on the editing status
         self.segmentedControl.isEnabled = self.isEditing
         self.buttonFilter.isEnabled = self.isEditing
+        self.navigationController?.setToolbarHidden(self.isEditing, animated: true)
+        self.tabBarController?.tabBar.isHidden = !self.isEditing
         self.setEditing(!self.isEditing, animated: true)
         
         //update the edit select button depending on the editing status
@@ -83,6 +88,13 @@ class DataViewTableController: UITableViewController {
         
     }
     
+    @IBAction func selectButtonPressed(_ sender: Any) {
+    }
+    
+    @IBAction func favoriteButtonPressed(_ sender: Any) {
+    }
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
         cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
@@ -93,10 +105,11 @@ class DataViewTableController: UITableViewController {
         return self.testData[section].name
     }
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)!
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        cell.imageView?.image = UIImage(named: "favorite")
 //        cell.accessoryType = .checkmark
-//    }
+    }
 //
 //    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 //        let cell = tableView.cellForRow(at: indexPath)!

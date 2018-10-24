@@ -108,9 +108,12 @@
                 <navigationController id="dBO-Uj-GVg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Schools" id="zSD-Yk-Vg8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8xJ-ce-yd0">
-                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tmv-FQ-AKn">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="JgY-S1-Q0F" kind="relationship" relationship="rootViewController" id="wRA-9R-7Xx"/>
                     </connections>
@@ -124,7 +127,7 @@
             <objects>
                 <tableViewController id="JgY-S1-Q0F" customClass="DataViewTableController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CJ6-mf-PXj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -142,6 +145,19 @@
                             <outlet property="delegate" destination="JgY-S1-Q0F" id="scC-BE-ML9"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Select All" id="1sT-7w-d6r">
+                            <connections>
+                                <action selector="selectButtonPressed:" destination="JgY-S1-Q0F" id="cGK-Dx-O51"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="reZ-70-v6F"/>
+                        <barButtonItem title="Favorite" id="dxt-AK-eUr">
+                            <connections>
+                                <action selector="favoriteButtonPressed:" destination="JgY-S1-Q0F" id="U5G-bL-Hcj"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Schools" id="Ekt-0S-egu">
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="j2z-PG-ZKj"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4yq-1U-F5v">
@@ -159,6 +175,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="buttonFilter" destination="j2z-PG-ZKj" id="dWw-Vf-rXu"/>
                         <outlet property="buttonSelect" destination="GnA-Z9-Wh4" id="oYw-R1-g4b"/>

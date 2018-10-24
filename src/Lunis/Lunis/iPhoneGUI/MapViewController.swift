@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 
-/// <#Description#>
+/// This class is the controller for the view of the map tab.
 class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     
     //IBOutlets
@@ -24,7 +24,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var mapContent: Int!
     
     
-    /// <#Description#>
+    /// Constructor of this class.
     override func viewDidLoad() {
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
@@ -53,18 +53,18 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     
-    /// <#Description#>
+    /// This function sets the searchbar as visible or hidden.
     ///
-    /// - Parameter sender: <#sender description#>
+    /// - Parameter sender: any
     @IBAction func showHideSearchBar(_ sender: Any) {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         present(searchController, animated: true, completion: nil)
     }
     
-    /// <#Description#>
+    /// This function shows the current position of the user in the mapview
     ///
-    /// - Parameter sender: <#sender description#>
+    /// - Parameter sender: any
     @IBAction func showUserPosition(_ sender: Any) {
         //check status of the button
         if self.postionIsShown {
