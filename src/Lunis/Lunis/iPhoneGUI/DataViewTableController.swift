@@ -40,6 +40,17 @@ class DataViewTableController: UITableViewController {
     @IBOutlet var buttonSelect: UIBarButtonItem!
     @IBOutlet var buttonFilter: UIBarButtonItem!
     @IBOutlet var segmentedControl: UISegmentedControl!
+    @IBOutlet var buttonSelectAll: UIBarButtonItem!
+    @IBOutlet var buttonFavorite: UIBarButtonItem!
+    
+    //a variable to store, whether all rows are selected or not
+    var allSelected: Bool! = false
+    
+    //a variable to store the count of unselected rows
+    var unselectedRows: Int!
+    
+    //a variable to store, whether all rows are favorites or not
+    var allFavorites: Bool! = false
     
     override func viewDidLoad() {
         //add a search bar to the navigation bar
@@ -47,8 +58,12 @@ class DataViewTableController: UITableViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
-        //hide toolbar
+        //hide toolbar and change its position
         self.navigationController?.toolbar.isHidden = true
+        self.navigationController?.toolbar.center = (self.tabBarController?.tabBar.center)!
+        
+        //init the unselected rows var
+        self.unselectedRows = 6
         
         super.viewDidLoad()
 
@@ -69,7 +84,7 @@ class DataViewTableController: UITableViewController {
         return self.testData[section].data.count
     }
     
-    @IBAction func selectButtonPress(_ sender: Any) {
+    @IBAction func selectPressed(_ sender: Any) {
         //enable and disable UI-elements depending on the editing status
         self.segmentedControl.isEnabled = self.isEditing
         self.buttonFilter.isEnabled = self.isEditing
@@ -81,6 +96,7 @@ class DataViewTableController: UITableViewController {
         if self.isEditing {
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
+            self.allSelected = false
         } else {
             self.buttonSelect.title = "Select"
             self.buttonSelect.style = .plain
@@ -88,12 +104,74 @@ class DataViewTableController: UITableViewController {
         
     }
     
-    @IBAction func selectButtonPressed(_ sender: Any) {
+    @IBAction func selectAllButtonPressed(_ sender: Any) {
+        //iterate over all sections
+        let totalSections = self.tableView.numberOfSections
+        for section in 0..<totalSections {
+            
+            //iterate over all rows of the current section
+            let totalRows = self.tableView.numberOfRows(inSection: section)
+            for row in 0..<totalRows {
+                
+                //select or deselect the current row
+                if self.allSelected {
+                    self.tableView.deselectRow(at: NSIndexPath(row: row, section: section) as IndexPath, animated: true)
+                } else {
+                    self.tableView.selectRow(at: NSIndexPath(row: row, section: section) as IndexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
+                }
+            }
+        }
+        
+        //update the appearence of the buttons
+        if self.allSelected {
+            self.buttonSelectAll.title = "Deselect All"
+        } else {
+            self.buttonSelectAll.title = "Select All"
+        }
+        
+        //update the instance variable to store the selection status
+        self.allSelected = !self.allSelected
     }
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
+        //iterate over all sections
+        let totalSections = self.tableView.numberOfSections
+        for section in 0..<totalSections {
+            
+            //iterate over all rows of the current section
+            let totalRows = self.tableView.numberOfRows(inSection: section)
+            for row in 0..<totalRows {
+                
+                //remove or add the favorite
+                if self.allFavorites {
+                    self.unmarkFavorite(section: section, row: row)
+                } else {
+                    self.markFavorite(section: section, row: row)
+                }
+                
+            }
+        }
+        
+        //update the appearence of the buttons
+        if self.allFavorites {
+            self.buttonFavorite.title = "Unmark Favorites"
+        } else {
+            self.buttonFavorite.title = "Mark Favorites"
+        }
+        
+        //update the instance variable to store the selection status
+        self.allFavorites = !self.allFavorites
     }
     
+    func markFavorite(section: Int, row: Int) {
+        let cell = tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+        cell?.imageView?.image = UIImage(named: "favorite")
+    }
+    
+    func unmarkFavorite(section: Int, row: Int) {
+        let cell = tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+        cell?.imageView?.image = UIImage(named: "no_favorite")
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
