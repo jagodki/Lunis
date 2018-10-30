@@ -53,6 +53,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //a variable to store, whether all rows are favorites or not
     var allFavorites: Bool! = false
+    var tbRect: CGRect!
     
     override func viewDidLoad() {
         //add a search bar to the navigation bar
@@ -60,16 +61,16 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
-        //hide toolbar
+        //hide toolbar and show tabbar
         self.tabBarController?.tabBar.isHidden = false
-        self.toolbar.center = (self.tabBarController?.tabBar.center)!
-        self.toolbar.center.y += 500
+        self.toolbar.isHidden = true
+        let frameRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+        self.toolbar.frame = frameRect
+        print(frameRect)
         
         //init the unselected rows var
         self.unselectedRows = 6
-        
-        //adjust some settings for the tableview
-        //self.tableview.allowsMultipleSelectionDuringEditing()
+        self.tbRect = frameRect
         
         super.viewDidLoad()
     }
@@ -89,25 +90,37 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func selectButtonPressed(_ sender: Any) {
         //enable and disable UI-elements depending on the editing status
-        self.segmentedControl.isEnabled = self.isEditing
-        self.buttonFilter.isEnabled = self.isEditing
-        self.tabBarController?.tabBar.isHidden = !self.isEditing
-        if self.isEditing {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-                self.toolbar.center.y += 500
+        self.segmentedControl.isEnabled = self.tableview.isEditing
+        self.buttonFilter.isEnabled = self.tableview.isEditing
+        self.tabBarController?.tabBar.isHidden = !self.tableview.isEditing
+            UIView.animate(withDuration: 0.2, animations: {
+                () -> Void in
+                
+                // show/hide toolbar
+                if self.toolbar.isHidden {
+                    
+                    self.toolbar.isHidden = false
+                    let frameRect = CGRect(x: self.toolbar.frame.origin.x, y: self.toolbar.frame.origin.y - self.toolbar.frame.height , width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+                    
+                    self.toolbar.frame = self.tbRect
+                    print(frameRect)
+                    
+                }else {
+                    
+                    self.toolbar.isHidden = true
+                    let frameRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+                    
+                    self.toolbar.frame = frameRect
+                    print(frameRect)
+                }
+                
             })
-        } else {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.transitionCurlUp, animations: {
-                self.toolbar.center.y -= 500
-            })
-        }
         
         //update the editing status and make the tableview editable
-        self.isEditing = !self.isEditing
-        self.tableview.setEditing(self.isEditing, animated: true)
+        self.tableview.setEditing(!self.tableview.isEditing, animated: true)
         
         //update the edit select button depending on the editing status
-        if self.isEditing {
+        if self.tableview.isEditing {
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
             self.allSelected = false

@@ -222,11 +222,11 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
-                                <rect key="frame" x="0.0" y="113" width="320" height="411"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="schoolCell" id="7Ae-6U-jFZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="schoolCell" id="7Ae-6U-jFZ">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ae-6U-jFZ" id="vrd-Hg-XlL">
@@ -243,13 +243,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fyY-GS-ggy" secondAttribute="trailing" id="1a6-6Z-wx4"/>
                             <constraint firstItem="tI9-BN-oUO" firstAttribute="bottom" secondItem="6La-Fh-Gqm" secondAttribute="bottom" id="65n-HH-cPn"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="jY3-7N-B09" secondAttribute="leading" id="6ij-9Q-tmA"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="tI9-BN-oUO" secondAttribute="leading" id="K2H-e4-nZc"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="trailing" secondItem="tI9-BN-oUO" secondAttribute="trailing" id="Q7C-KJ-65J"/>
-                            <constraint firstItem="tI9-BN-oUO" firstAttribute="top" secondItem="fyY-GS-ggy" secondAttribute="bottom" id="l9V-WX-nPm"/>
-                            <constraint firstAttribute="trailing" secondItem="fyY-GS-ggy" secondAttribute="trailing" id="o5o-gP-Tkh"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="top" secondItem="6La-Fh-Gqm" secondAttribute="top" id="vKR-kB-bQ6"/>
+                            <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="tI9-BN-oUO" secondAttribute="leading" id="eCM-3P-SiB"/>
+                            <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="jY3-7N-B09" secondAttribute="leading" id="hai-SF-OxU"/>
+                            <constraint firstItem="tI9-BN-oUO" firstAttribute="top" secondItem="fyY-GS-ggy" secondAttribute="bottom" id="puu-Gr-pKB"/>
+                            <constraint firstItem="fyY-GS-ggy" firstAttribute="top" secondItem="jY3-7N-B09" secondAttribute="top" id="w9c-vQ-kX3"/>
+                            <constraint firstItem="fyY-GS-ggy" firstAttribute="trailing" secondItem="tI9-BN-oUO" secondAttribute="trailing" id="xNE-SJ-WcV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6La-Fh-Gqm"/>
                     </view>
