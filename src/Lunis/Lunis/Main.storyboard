@@ -206,6 +206,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="schoolCell" id="7Ae-6U-jFZ">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ae-6U-jFZ" id="vrd-Hg-XlL">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8LT-sb-z2Y" id="pjU-6I-KXj"/>
+                                    <outlet property="delegate" destination="8LT-sb-z2Y" id="WYm-FV-kz9"/>
+                                </connections>
+                            </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI9-BN-oUO">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
@@ -222,24 +240,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="schoolCell" id="7Ae-6U-jFZ">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ae-6U-jFZ" id="vrd-Hg-XlL">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="8LT-sb-z2Y" id="pjU-6I-KXj"/>
-                                    <outlet property="delegate" destination="8LT-sb-z2Y" id="WYm-FV-kz9"/>
-                                </connections>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -253,10 +253,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6La-Fh-Gqm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Schools" id="OLX-lY-hC8">
-                        <barButtonItem key="leftBarButtonItem" title="Filter" id="W65-Ps-OYp"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ybR-Nh-9Ht">
-                            <rect key="frame" x="63.5" y="7" width="186" height="30"/>
+                    <navigationItem key="navigationItem" title="Schools" id="RXP-bK-5he">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="4CS-Vg-KfL"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
+                            <rect key="frame" x="63.5" y="7.5" width="186" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
@@ -264,19 +264,19 @@
                                 <segment title="Favorites"/>
                             </segments>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Select" id="64Q-D2-YAp">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="duF-LL-Xto">
                             <connections>
-                                <action selector="selectButtonPressed:" destination="8LT-sb-z2Y" id="EW7-dc-uwF"/>
+                                <action selector="selectButtonPressed:" destination="8LT-sb-z2Y" id="5AY-nH-ab5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buttonFavorite" destination="Pyc-Xe-0JD" id="8fK-Ya-2XX"/>
-                        <outlet property="buttonFilter" destination="W65-Ps-OYp" id="Wzl-fv-hGl"/>
-                        <outlet property="buttonSelect" destination="64Q-D2-YAp" id="FIw-vB-jKr"/>
+                        <outlet property="buttonFilter" destination="4CS-Vg-KfL" id="359-Xa-tGk"/>
+                        <outlet property="buttonSelect" destination="duF-LL-Xto" id="VET-IG-fwN"/>
                         <outlet property="buttonSelectAll" destination="64M-Fw-EXy" id="Ykh-jF-Jaa"/>
-                        <outlet property="segmentedControl" destination="ybR-Nh-9Ht" id="oVT-fT-9id"/>
+                        <outlet property="segmentedControl" destination="yFQ-10-ZLe" id="IES-Nm-jgl"/>
                         <outlet property="tableview" destination="fyY-GS-ggy" id="vf6-IU-t5a"/>
                         <outlet property="toolbar" destination="tI9-BN-oUO" id="VEB-nd-CFO"/>
                     </connections>

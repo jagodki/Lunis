@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 
-/// This class is the controller for the view of the map tab.
+/// This class is the controller for the first view of the map tab.
 class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     
     //IBOutlets
@@ -62,7 +62,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         present(searchController, animated: true, completion: nil)
     }
     
-    /// This function shows the current position of the user in the mapview
+    /// This function shows the current position of the user in the map view.
     ///
     /// - Parameter sender: any
     @IBAction func showUserPosition(_ sender: Any) {
@@ -85,11 +85,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
-    /// <#Description#>
+    /// This function zooms the map view to the last user position in the given array of user positions.
     ///
     /// - Parameters:
-    ///   - manager: <#manager description#>
-    ///   - locations: <#locations description#>
+    ///   - manager: the CLLocationManager
+    ///   - locations: an array of the positions
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if self.zoomToPosition {
             //zoom to user position
@@ -103,7 +103,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
-    /// <#Description#>
+    /// This function show an alert, whether location services are disabled for this app.
     func showEnableLocationAlert() {
         let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertActionStyle.default, handler: {
@@ -114,9 +114,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.present(alert, animated: true, completion: nil)
     }
     
-    /// <#Description#>
+    /// This function creates and displays an alert controller to let the user choose the data content of the map view.
     ///
-    /// - Parameter sender: <#sender description#>
+    /// - Parameter sender: any
     @IBAction func selectMapContent(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
         
