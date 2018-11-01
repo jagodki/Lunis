@@ -31,12 +31,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             TestStructure(id: 2, name: "Landesanstalt St. Afra")
             ]),
         TestSection(name: "Hochschule", data: [
-            TestStructure(id: 1, name: "TU Dresden"),
+            TestStructure(id: 1, name: "Uniwersytet Wrocławia"),
             TestStructure(id: 2, name: "HTW Dresden")
             ])
     ]
     
-    //outlets
+    // MARK: - Outlets
     @IBOutlet var buttonSelect: UIBarButtonItem!
     @IBOutlet var buttonFilter: UIBarButtonItem!
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -53,6 +53,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //a variable to store, whether all rows are favorites or not
     var allFavorites: Bool! = false
+    
+    //store the dimension and position of the toolbar
     var tbRect: CGRect!
     
     override func viewDidLoad() {
@@ -102,12 +104,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             () -> Void in
             // show/hide toolbar
             if self.toolbar.isHidden {
+                self.buttonSelectAll.title = "Select All"
                 self.toolbar.isHidden = false
                 self.toolbar.frame = self.tbRect
             }else {
-                self.toolbar.isHidden = true
                 let frameRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
                 self.toolbar.frame = frameRect
+                self.toolbar.isHidden = true
             }
         })
         
@@ -124,8 +127,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonSelect.style = .plain
         }
         
+        //update the vars to store the selection status
+        self.unselectedRows = 6
+        self.allSelected = false
     }
     
+    /// This function selects all rows of the table view.
+    ///
+    /// - Parameter sender: any
     @IBAction func selectAllButtonPressed(_ sender: Any) {
         //iterate over all sections
         let totalSections = self.tableview.numberOfSections
@@ -151,10 +160,20 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonSelectAll.title = "Deselect All"
         }
         
-        //update the instance variable to store the selection status
+        //update the variables to store the selection status
         self.allSelected = !self.allSelected
+        if self.allSelected {
+            self.unselectedRows = 0
+        } else {
+            self.unselectedRows = 6
+        }
     }
     
+    /// This function marks or unmarks all selected rows of the table view as favorites.
+    /// If at least one row of the selected rows is not already marked as favorite, the selection will be marked as favorites.
+    /// Otherwise the whole selection will be unmarked.
+    ///
+    /// - Parameter sender: any
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         //iterate over all sections
         let totalSections = self.tableview.numberOfSections
@@ -180,16 +199,23 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.buttonFavorite.title = "Unmark Favorites"
         }
-        
-        //update the instance variable to store the selection status
-        self.allFavorites = !self.allFavorites
     }
     
+    /// This function marks a given row as a favorite, i.e. a favorite icon will be inserted.
+    ///
+    /// - Parameters:
+    ///   - section: the index of the section, where the row can be found
+    ///   - row: the index of the row in the given section
     func markFavorite(section: Int, row: Int) {
         let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
     }
     
+    /// This function unmarkes a given row as favorite.
+    ///
+    /// - Parameters:
+    ///   - section: the index of the section, where the row can be found
+    ///   - row: the index of the row in the given section
     func unmarkFavorite(section: Int, row: Int) {
         let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
@@ -206,27 +232,22 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)!
-        cell.imageView?.image = UIImage(named: "favorite")
-//        cell.accessoryType = .checkmark
+        self.unselectedRows = self.unselectedRows - 1
+        if self.unselectedRows == 0 {
+            self.allSelected = true
+            self.buttonSelectAll.title = "Deselect All"
+        }
     }
-//
-//    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)!
-//        cell.accessoryType = .none
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.unselectedRows = self.unselectedRows + 1
+        self.allSelected = false
+        self.buttonSelectAll.title = "Select All"
+    }
+
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return UITableViewCellEditingStyle.delete;
 //    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.delete;
-    }
     
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -237,21 +258,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
