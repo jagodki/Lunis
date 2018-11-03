@@ -175,29 +175,28 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///
     /// - Parameter sender: any
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        //iterate over all sections
-        let totalSections = self.tableview.numberOfSections
-        for section in 0..<totalSections {
-            
-            //iterate over all rows of the current section
-            let totalRows = self.tableview.numberOfRows(inSection: section)
-            for row in 0..<totalRows {
-                
-                //remove or add the favorite
-                if self.allFavorites {
-                    self.unmarkFavorite(section: section, row: row)
-                } else {
-                    self.markFavorite(section: section, row: row)
+        //iterate over all sections and mark or unmark them as favorites
+        let indexPathsOfSelectedRows = self.tableview.indexPathsForSelectedRows
+        if indexPathsOfSelectedRows != nil {
+            if self.allFavorites {
+                for indexPath in indexPathsOfSelectedRows! {
+                    self.unmarkFavorite(section: indexPath.section, row: indexPath.row)
                 }
-                
+            } else {
+                for indexPath in indexPathsOfSelectedRows! {
+                    self.markFavorite(section: indexPath.section, row: indexPath.row)
+                }
             }
-        }
-        
-        //update the appearence of the buttons
-        if self.allFavorites {
-            self.buttonFavorite.title = "Mark Favorites"
-        } else {
-            self.buttonFavorite.title = "Unmark Favorites"
+            
+            //update the appearence of the buttons
+            if self.allFavorites {
+                self.buttonFavorite.title = "Mark Favorites"
+            } else {
+                self.buttonFavorite.title = "Unmark Favorites"
+            }
+            
+            //change the status of the variable to store, whether all selected rows are favorites or not
+            self.allFavorites = !self.allFavorites
         }
     }
     
@@ -209,6 +208,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func markFavorite(section: Int, row: Int) {
         let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
+        //self.tableview.reloadData()
     }
     
     /// This function unmarkes a given row as favorite.
@@ -243,6 +243,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.unselectedRows = self.unselectedRows + 1
         self.allSelected = false
         self.buttonSelectAll.title = "Select All"
+    }
+    
+    func checkFavoriteStatusOfSelectedRows() {
+        
     }
 
 //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
