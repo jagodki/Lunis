@@ -93,7 +93,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// and the tabbar will be replaced by a toolbar.
     ///
     /// - Parameter sender: any
-    @IBAction func selectButtonPressed(_ sender: Any) {
+    @IBAction private func selectButtonPressed(_ sender: Any) {
         //enable and disable UI-elements depending on the editing status
         self.segmentedControl.isEnabled = self.tableview.isEditing
         self.buttonFilter.isEnabled = self.tableview.isEditing
@@ -135,7 +135,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// This function selects all rows of the table view.
     ///
     /// - Parameter sender: any
-    @IBAction func selectAllButtonPressed(_ sender: Any) {
+    @IBAction private func selectAllButtonPressed(_ sender: Any) {
         //iterate over all sections
         let totalSections = self.tableview.numberOfSections
         for section in 0..<totalSections {
@@ -174,7 +174,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// Otherwise the whole selection will be unmarked.
     ///
     /// - Parameter sender: any
-    @IBAction func favoriteButtonPressed(_ sender: Any) {
+    @IBAction private func favoriteButtonPressed(_ sender: Any) {
         //iterate over all sections and mark or unmark them as favorites
         let indexPathsOfSelectedRows = self.tableview.indexPathsForSelectedRows
         if indexPathsOfSelectedRows != nil {
@@ -205,7 +205,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
-    func markFavorite(section: Int, row: Int) {
+    private func markFavorite(section: Int, row: Int) {
         let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
         //self.tableview.reloadData()
@@ -216,7 +216,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
-    func unmarkFavorite(section: Int, row: Int) {
+    private func unmarkFavorite(section: Int, row: Int) {
         let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
     }
@@ -245,8 +245,29 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.buttonSelectAll.title = "Select All"
     }
     
+    //checks the status of all selected rows to get the information, whether all selected rows are favorites or not
     func checkFavoriteStatusOfSelectedRows() {
         
+    }
+    
+    private func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [AnyObject]? {
+        //mark/unmark as favorite action
+        let favorite = UITableViewRowAction(style: .normal, title: "Favorite", handler: {
+            (action, index) -> Void in
+            print("favorite")
+            self.markFavorite(section: indexPath.section, row: indexPath.row)
+        })
+        favorite.backgroundColor = UIColor.orange
+        
+        //show in map action
+        let map = UITableViewRowAction(style: .normal, title: "Map", handler: {
+            (action, index) -> Void in
+            print("map")
+        })
+        map.backgroundColor = UIColor.purple
+        
+        print("test")
+        return [favorite, map]
     }
 
 //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
