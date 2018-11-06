@@ -250,24 +250,61 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markAsFavorite = UIContextualAction(style: .normal, title: "★") {(action, view, completion) in
+            print("favorite")
+            completion(true)
+        }
+        markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        
+        let unmarkAsFavorite = UIContextualAction(style: .normal, title: "☆") {(action, view, completion) in
+            print("no favorite")
+            completion(true)
+        }
+        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        
+        let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
+            print("map")
+            completion(true)
+        }
+        showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        
+        if self.allFavorites {
+            return UISwipeActionsConfiguration(actions: [unmarkAsFavorite, showOnMap])
+        } else {
+            return UISwipeActionsConfiguration(actions: [markAsFavorite, showOnMap])
+        }
+    }
+    
     private func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [AnyObject]? {
-        //mark/unmark as favorite action
-        let favorite = UITableViewRowAction(style: .normal, title: "Favorite", handler: {
-            (action, index) -> Void in
+        //mark as favorite action
+        let rowActionMarkFavorite = UITableViewRowAction(style: .normal, title: "★", handler: {
+            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
             print("favorite")
             self.markFavorite(section: indexPath.section, row: indexPath.row)
         })
-        favorite.backgroundColor = UIColor.orange
+        rowActionMarkFavorite.backgroundColor = UIColor.orange
+        
+        //unmark as favorite action
+        let rowActionUnmarkFavorite = UITableViewRowAction(style: .normal, title: "☆", handler: {
+            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+            print("favorite")
+            self.markFavorite(section: indexPath.section, row: indexPath.row)
+        })
+        rowActionMarkFavorite.backgroundColor = UIColor.orange
         
         //show in map action
-        let map = UITableViewRowAction(style: .normal, title: "Map", handler: {
-            (action, index) -> Void in
+        let rowActionShowOnMap = UITableViewRowAction(style: .normal, title: "\u{1F30D}", handler: {
+            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
             print("map")
         })
-        map.backgroundColor = UIColor.purple
+        rowActionShowOnMap.backgroundColor = UIColor.purple
         
-        print("test")
-        return [favorite, map]
+        if self.allFavorites {
+            return [rowActionUnmarkFavorite, rowActionShowOnMap]
+        } else {
+            return [rowActionMarkFavorite, rowActionShowOnMap]
+        }
     }
 
 //    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -276,12 +313,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        } else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }
     }
 
     /*
