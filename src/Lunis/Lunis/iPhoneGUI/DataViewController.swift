@@ -146,9 +146,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 //select or deselect the current row
                 if self.allSelected {
-                    self.tableview.deselectRow(at: NSIndexPath(row: row, section: section) as IndexPath, animated: true)
+                    self.tableview.deselectRow(at: IndexPath(row: row, section: section), animated: true)
                 } else {
-                    self.tableview.selectRow(at: NSIndexPath(row: row, section: section) as IndexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+                    self.tableview.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
                 }
             }
         }
@@ -273,37 +273,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             return UISwipeActionsConfiguration(actions: [unmarkAsFavorite, showOnMap])
         } else {
             return UISwipeActionsConfiguration(actions: [markAsFavorite, showOnMap])
-        }
-    }
-    
-    private func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [AnyObject]? {
-        //mark as favorite action
-        let rowActionMarkFavorite = UITableViewRowAction(style: .normal, title: "★", handler: {
-            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-            print("favorite")
-            self.markFavorite(section: indexPath.section, row: indexPath.row)
-        })
-        rowActionMarkFavorite.backgroundColor = UIColor.orange
-        
-        //unmark as favorite action
-        let rowActionUnmarkFavorite = UITableViewRowAction(style: .normal, title: "☆", handler: {
-            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-            print("favorite")
-            self.markFavorite(section: indexPath.section, row: indexPath.row)
-        })
-        rowActionMarkFavorite.backgroundColor = UIColor.orange
-        
-        //show in map action
-        let rowActionShowOnMap = UITableViewRowAction(style: .normal, title: "\u{1F30D}", handler: {
-            (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-            print("map")
-        })
-        rowActionShowOnMap.backgroundColor = UIColor.purple
-        
-        if self.allFavorites {
-            return [rowActionUnmarkFavorite, rowActionShowOnMap]
-        } else {
-            return [rowActionMarkFavorite, rowActionShowOnMap]
         }
     }
 

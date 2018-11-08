@@ -20,6 +20,7 @@
 		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
 		59A37EB320BD52250050E48D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37EB220BD52250050E48D /* MapKit.framework */; };
 		59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */; };
+		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		59A37EB220BD52250050E48D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
+		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		591D320220C2D6D40045205D /* AdditionalViews */ = {
 			isa = PBXGroup;
 			children = (
+				59DD2C612194BAE50025DF9D /* DataStory */,
 				591D320320C2D6E10045205D /* MapStory */,
 			);
 			path = AdditionalViews;
@@ -128,6 +131,14 @@
 				59A37EB220BD52250050E48D /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59DD2C612194BAE50025DF9D /* DataStory */ = {
+			isa = PBXGroup;
+			children = (
+				59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */,
+			);
+			path = DataStory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
