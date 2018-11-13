@@ -31,10 +31,10 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     ]
     
     //array for storing picker data
-    var countryData: [String]! = ["Deutschland", "Polska"]
-    var districtData: [String]! = ["Sachsen", "Dolnoslaskie"]
-    var cityData: [String]! = ["Dresden", "Radebeul", "Breslau"]
-    var schoolTypeData: [String]! = ["Grundschule", "Gymnasium", "Hochschule"]
+    var countryData: [String]! = ["All", "Deutschland", "Polska"]
+    var districtData: [String]! = ["All", "Sachsen", "Dolnoslaskie"]
+    var cityData: [String]! = ["All", "Dresden", "Radebeul", "Breslau"]
+    var schoolTypeData: [String]! = ["All", "Grundschule", "Gymnasium", "Hochschule"]
     var pickerData: [String]! = ["---"]
     
     //store the index of the current/selected table row
@@ -54,6 +54,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
 //        self.pickerView.delegate = self
         
         //init the currentCell-var
+        self.tabBarController?.tabBar.isHidden = true
         self.currentCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
     }
 
@@ -134,6 +135,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
             default:
                 print("default")
         }
+        self.pickerView.reloadAllComponents()
         
         //deselect the current row
         self.tableView.deselectRow(at: indexPath, animated: true)

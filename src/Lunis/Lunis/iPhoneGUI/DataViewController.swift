@@ -57,6 +57,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the dimension and position of the toolbar
     var tbRect: CGRect!
     
+    //store the filter
+    var filter: [String: String]! = ["country":"All", "district":"All", "city":"All","school_type":"All"]
+    
     override func viewDidLoad() {
         //add a search bar to the navigation bar
         let searchController = UISearchController(searchResultsController: nil)
