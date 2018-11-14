@@ -49,12 +49,11 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //init the picker view
-//        self.pickerView.dataSource = self
-//        self.pickerView.delegate = self
+        //adjust the view
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         //init the currentCell-var
-        self.tabBarController?.tabBar.isHidden = true
         self.currentCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
     }
 
@@ -72,7 +71,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //typeLabel.text = self.pickerView[row]
+        self.currentCell.detailTextLabel?.text = self.pickerData[row]
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -135,15 +134,41 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
             default:
                 print("default")
         }
+        
+        //change the selected item of the picker view
+        let filterValue: String! = cell!.detailTextLabel?.text
+        for (index, currentPickerValue) in self.pickerData.enumerated() {
+            if filterValue == currentPickerValue {
+                self.pickerView.selectRow(index, inComponent: 0, animated: true)
+                break
+            }
+        }
+        
+        //update the view of the picker view
         self.pickerView.reloadAllComponents()
         
         //deselect the current row
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func adjustPickerView(filterElement: String) {
+        
+    }
+    
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
     }
+    
+    /// This function closes the view without further actions.
+    ///
+    /// - Parameter sender: any
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func doneButtonPressed(_ sender: Any) {
+    }
+    
     
     /*
     // MARK: - Navigation

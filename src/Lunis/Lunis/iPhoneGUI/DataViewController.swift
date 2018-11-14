@@ -58,7 +58,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tbRect: CGRect!
     
     //store the filter
-    var filter: [String: String]! = ["country":"All", "district":"All", "city":"All","school_type":"All"]
+    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
     override func viewDidLoad() {
         //add a search bar to the navigation bar
