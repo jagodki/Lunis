@@ -18,7 +18,7 @@ struct TestSection {
     var data : [TestStructure]
 }
 
-class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDataViewDelegate {
     
     //define testdata for the protoype
     let testData = [
@@ -60,6 +60,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the filter
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
+    //define a variable for the delegation with FilterDataViewController
+    var filterDataViewController: FilterDataViewController?
+    
     override func viewDidLoad() {
         //add a search bar to the navigation bar
         let searchController = UISearchController(searchResultsController: nil)
@@ -73,6 +76,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //init the unselected rows var
         self.unselectedRows = 6
+        
+        //init the delegation var
+        self.filterDataViewController = FilterDataViewController()
+        self.filterDataViewController?.delegate = self
         
         super.viewDidLoad()
     }
@@ -303,4 +310,17 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     */
 
+    func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
+        self.filter["Country"] = country
+        self.filter["District"] = district
+        self.filter["City"] = city
+        self.filter["School Type"] = schoolType
+    }
+    
+    func getCurrentFilterSettings() -> [String: String]! {
+        print("copy")
+        return self.filter
+    }
+    
+    
 }

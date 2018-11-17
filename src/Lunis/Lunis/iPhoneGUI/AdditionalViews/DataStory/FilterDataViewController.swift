@@ -21,7 +21,7 @@ struct Row {
 class FilterDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //table data
-    let tableData = [
+    var tableData = [
         Section(title: " ", rows: [
             Row(name: "Country", value: "All"),
             Row(name: "District", value: "All"),
@@ -46,6 +46,9 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var tableView: UITableView!
     @IBOutlet var pickerView: UIPickerView!
     
+    //a delegate to send the filter settings to the parent view
+    weak var delegate: FilterDataViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +58,18 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         
         //init the currentCell-var
         self.currentCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        
+        //get the current filter settings from the parent view via delegation and adjust the detail labels of the table view
+        var filterSettings: [String: String]! = self.delegate?.getCurrentFilterSettings()
+        self.tableData[0].rows[0].value = filterSettings["Country"]!
+        self.tableData[0].rows[1].value = filterSettings["District"]!
+        self.tableData[0].rows[2].value = filterSettings["City"]!
+        self.tableData[0].rows[3].value = filterSettings["School Type"]!
+        
+//        self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = filterSettings["Country"]
+//        self.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = filterSettings["District"]
+//        self.tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text = filterSettings["City"]
+//        self.tableView.cellForRow(at: IndexPath(row: 3, section: 0))?.detailTextLabel?.text = filterSettings["School Type"]
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,14 +87,11 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentCell.detailTextLabel?.text = self.pickerData[row]
+        print(self.tableData)
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.currentCell.detailTextLabel?.text = self.pickerData[row]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -151,10 +163,6 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func adjustPickerView(filterElement: String) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
     }
@@ -166,7 +174,15 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.dismiss(animated: true, completion: nil)
     }
     
+    /// This functions sends the current filter settings via delegation to the parent view controller and closes the filter view.
+    ///
+    /// - Parameter sender: any
     @IBAction func doneButtonPressed(_ sender: Any) {
+        self.delegate?.sendFilterSettings(country: (self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text)!,
+                                          district: (self.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text)!,
+                                          city: (self.tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text)!,
+                                          schoolType: (self.tableView.cellForRow(at: IndexPath(row: 3, section: 0))?.detailTextLabel?.text)!)
+        self.dismiss(animated: true, completion: nil)
     }
     
     

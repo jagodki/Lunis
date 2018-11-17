@@ -12,6 +12,8 @@
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
 		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
+		59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59921C20219F487E00767876 /* FilterDataViewDelegate.swift */; };
+		59921C23219F4FE900767876 /* DataViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59921C22219F4FE900767876 /* DataViewDelegate.swift */; };
 		5996962920CBD157000925BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5996962820CBD157000925BA /* Main.storyboard */; };
 		59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9B20BD50AA0050E48D /* AppDelegate.swift */; };
 		59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9D20BD50AA0050E48D /* MapViewController.swift */; };
@@ -29,6 +31,8 @@
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		59921C20219F487E00767876 /* FilterDataViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataViewDelegate.swift; sourceTree = "<group>"; };
+		59921C22219F4FE900767876 /* DataViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewDelegate.swift; sourceTree = "<group>"; };
 		5996962820CBD157000925BA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		59A37E9820BD50AA0050E48D /* Lunis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A37E9B20BD50AA0050E48D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		59921C1F219F47FF00767876 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				59921C20219F487E00767876 /* FilterDataViewDelegate.swift */,
+				59921C22219F4FE900767876 /* DataViewDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		59A37E8F20BD50AA0050E48D = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +125,7 @@
 		59A37E9A20BD50AA0050E48D /* Lunis */ = {
 			isa = PBXGroup;
 			children = (
+				59921C1F219F47FF00767876 /* Delegates */,
 				5951C3E920CD1F3E009A1D3C /* iPhoneGUI */,
 				5982227F20BEA7E500E7FD58 /* Model */,
 				59A37E9B20BD50AA0050E48D /* AppDelegate.swift */,
@@ -221,9 +235,11 @@
 				59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
+				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
+				59921C23219F4FE900767876 /* DataViewDelegate.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,
 			);
