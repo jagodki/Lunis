@@ -18,6 +18,7 @@ struct TestSection {
     var data : [TestStructure]
 }
 
+/// The controller for the data view.
 class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDataViewDelegate {
     
     //define testdata for the protoype
@@ -318,9 +319,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func getCurrentFilterSettings() -> [String: String]! {
-        print("copy")
         return self.filter
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFilterDataView" {
+            let viewController = segue.destination as! FilterDataViewController
+            viewController.delegate = self
+        }
+    }
     
 }

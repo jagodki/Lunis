@@ -18,6 +18,7 @@ struct Row {
     var value: String
 }
 
+/// The controller for the filter view of the data view.
 class FilterDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //table data
@@ -65,11 +66,6 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableData[0].rows[1].value = filterSettings["District"]!
         self.tableData[0].rows[2].value = filterSettings["City"]!
         self.tableData[0].rows[3].value = filterSettings["School Type"]!
-        
-//        self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = filterSettings["Country"]
-//        self.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = filterSettings["District"]
-//        self.tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text = filterSettings["City"]
-//        self.tableView.cellForRow(at: IndexPath(row: 3, section: 0))?.detailTextLabel?.text = filterSettings["School Type"]
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,7 +83,6 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentCell.detailTextLabel?.text = self.pickerData[row]
-        print(self.tableData)
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
