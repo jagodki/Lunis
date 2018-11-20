@@ -248,6 +248,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.allSelected = true
             self.buttonSelectAll.title = "Deselect All"
         }
+        
+        //remove the selection if the table view is not in editing mode, i.e. a schoolDetailView was called
+        if !self.tableview.isEditing {
+            self.tableview.deselectRow(at: indexPath, animated: true)
+        }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -323,6 +328,17 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showFilterDataView":
+            let viewController = segue.destination as! FilterDataViewController
+            viewController.delegate = self
+        case "showSchoolDetailView":
+            let viewController = segue.destination as! SchoolDetailView
+            viewController.schoolName = ""
+        default:
+            print("default segue")
+        }
+        
         if segue.identifier == "showFilterDataView" {
             let viewController = segue.destination as! FilterDataViewController
             viewController.delegate = self
