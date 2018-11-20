@@ -23,6 +23,7 @@ class SchoolDetailView: UITableViewController {
     //the data of the tabel, will be edited in the constructor via delegation
     var tableData = [
         SchoolDetailGroup(title: "Adress", rows: [
+            SchoolDetailRow(title: "Name", value: ""),
             SchoolDetailRow(title: "Street", value: ""),
             SchoolDetailRow(title: "City", value: "")
         ]),
@@ -33,13 +34,12 @@ class SchoolDetailView: UITableViewController {
         SchoolDetailGroup(title: "Contact", rows: [
             SchoolDetailRow(title: "Phone", value: "111222333777888999"),
             SchoolDetailRow(title: "Mail", value: "test@example.com"),
-            SchoolDetailRow(title: "Homepage", value: "https://www.duckduckgo.com")
+            SchoolDetailRow(title: "Homepage", value: "www.duckduckgo.com")
             ])
     ]
     
     // MARK: - Outlets
     @IBOutlet var buttonFavorite: UIBarButtonItem!
-    
     
     //the name of the current school
     var schoolName: String = ""
@@ -48,7 +48,7 @@ class SchoolDetailView: UITableViewController {
         super.viewDidLoad()
         
         //replace the title of the view with the school name
-        //self.navigationController?.navigationBar.titleTextAttributes
+        self.navigationController?.title = self.schoolName
         
         //edit the table data
         
@@ -95,25 +95,20 @@ class SchoolDetailView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellType: String = self.tableData[indexPath.section].rows[indexPath.row].title
-        var openStringWithSharedApplication: Bool = false
         
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
-        case "Phone":
-            let alert = UIAlertController(title: "Info", message: "Do you want to call the phone number of this school?", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {
-                (alert: UIAlertAction!) in
-                openStringWithSharedApplication = true
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        default:
-            openStringWithSharedApplication = true
-        }
-        
-        //open with shared application (depending on the previous step)
-        if openStringWithSharedApplication {
-            UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+            case "Phone":
+                UIApplication.shared.open(URL(string: "telprompt://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+            
+            case "Mail":
+                UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+            
+            case "Homepage":
+                UIApplication.shared.open(URL(string: "https://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+            
+            default:
+                _ = true
         }
         
         //deselect the row

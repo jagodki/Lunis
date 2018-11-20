@@ -61,8 +61,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the filter
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
-    //define a variable for the delegation with FilterDataViewController
-    var filterDataViewController: FilterDataViewController?
+    //store the selected school name
+    var selectedSchoolName: String! = ""
     
     override func viewDidLoad() {
         //add a search bar to the navigation bar
@@ -77,10 +77,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //init the unselected rows var
         self.unselectedRows = 6
-        
-        //init the delegation var
-        self.filterDataViewController = FilterDataViewController()
-        self.filterDataViewController?.delegate = self
         
         super.viewDidLoad()
     }
@@ -249,10 +245,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonSelectAll.title = "Deselect All"
         }
         
-        //remove the selection if the table view is not in editing mode, i.e. a schoolDetailView was called
+        //remove the selection if the table view is not in editing mode, i.e. a schoolDetailView was called and store the school name of the selected row
         if !self.tableview.isEditing {
             self.tableview.deselectRow(at: indexPath, animated: true)
+            self.selectedSchoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
+            print(self.selectedSchoolName)
         }
+        
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -329,19 +328,17 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "showFilterDataView":
-            let viewController = segue.destination as! FilterDataViewController
-            viewController.delegate = self
-        case "showSchoolDetailView":
-            let viewController = segue.destination as! SchoolDetailView
-            viewController.schoolName = ""
-        default:
-            print("default segue")
-        }
-        
-        if segue.identifier == "showFilterDataView" {
-            let viewController = segue.destination as! FilterDataViewController
-            viewController.delegate = self
+            case "showFilterDataView":
+                let viewController = segue.destination as! FilterDataViewController
+                viewController.delegate = self
+            
+            case "showSchoolDetailView":
+                let viewController = segue.destination as! SchoolDetailView
+                print(self.selectedSchoolName)
+                viewController.schoolName = self.selectedSchoolName
+            
+            default:
+                _ = true
         }
     }
     
