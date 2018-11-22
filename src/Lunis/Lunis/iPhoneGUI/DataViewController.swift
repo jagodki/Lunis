@@ -61,9 +61,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the filter
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
-    //store the selected school name
-    var selectedSchoolName: String! = ""
-    
     override func viewDidLoad() {
         //add a search bar to the navigation bar
         let searchController = UISearchController(searchResultsController: nil)
@@ -245,11 +242,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonSelectAll.title = "Deselect All"
         }
         
-        //remove the selection if the table view is not in editing mode, i.e. a schoolDetailView was called and store the school name of the selected row
+        //remove the selection if the table view is not in editing mode
         if !self.tableview.isEditing {
             self.tableview.deselectRow(at: indexPath, animated: true)
-            self.selectedSchoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
-            print(self.selectedSchoolName)
         }
         
     }
@@ -334,8 +329,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             case "showSchoolDetailView":
                 let viewController = segue.destination as! SchoolDetailView
-                print(self.selectedSchoolName)
-                viewController.schoolName = self.selectedSchoolName
+                
+                //get the school name of the selected row and pass it to the new view controller
+                let indexPath: IndexPath! = (self.tableview.indexPathForSelectedRow)!
+                viewController.schoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
             
             default:
                 _ = true

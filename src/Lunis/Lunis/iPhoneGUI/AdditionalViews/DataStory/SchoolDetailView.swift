@@ -42,13 +42,14 @@ class SchoolDetailView: UITableViewController {
     @IBOutlet var buttonFavorite: UIBarButtonItem!
     
     //the name of the current school
-    var schoolName: String = ""
+    var schoolName: String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //replace the title of the view with the school name
-        self.navigationController?.title = self.schoolName
+        self.navigationItem.title = self.schoolName
+        self.tableData[0].rows[0].value = self.schoolName
         
         //edit the table data
         
@@ -77,6 +78,9 @@ class SchoolDetailView: UITableViewController {
         
         cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].title
         cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
+        
+        //change the colour of the text label
+        cell.textLabel?.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
         //change the colour of the strings for the contact section to indicate an action
         if self.tableData[indexPath.section].title == "Contact" {
