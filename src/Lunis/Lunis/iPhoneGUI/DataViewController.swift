@@ -242,8 +242,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonSelectAll.title = "Deselect All"
         }
         
-        //remove the selection if the table view is not in editing mode
+        //performe a segue and remove the selection, if the table view is not in editing mode
         if !self.tableview.isEditing {
+            performSegue(withIdentifier: "showSchoolDetailView", sender: self)
             self.tableview.deselectRow(at: indexPath, animated: true)
         }
         

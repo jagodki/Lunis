@@ -217,9 +217,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailView" id="TUZ-tj-NiZ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -286,6 +283,7 @@
                         <outlet property="segmentedControl" destination="yFQ-10-ZLe" id="IES-Nm-jgl"/>
                         <outlet property="tableview" destination="fyY-GS-ggy" id="vf6-IU-t5a"/>
                         <outlet property="toolbar" destination="tI9-BN-oUO" id="VEB-nd-CFO"/>
+                        <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailView" id="aDm-5k-pHL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dM4-A7-mmY" userLabel="First Responder" sceneMemberID="firstResponder"/>
