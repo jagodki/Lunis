@@ -14,15 +14,16 @@ import CoreLocation
 /// This class is the controller for the first view of the map tab.
 class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     
-    //IBOutlets
+    // MARK: - IBOutlets
     @IBOutlet var mapView: MKMapView!
     
-    //location vars
+    // MARK: - instance variables
     var locationManager: CLLocationManager!
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
     var mapContent: Int!
     
+    // MARK: - methods
     
     /// Constructor of this class.
     override func viewDidLoad() {

@@ -31,12 +31,17 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         ])
     ]
     
+    // MARK: - instance variables
+    
     //array for storing picker data
     var countryData: [String]! = ["All", "Deutschland", "Polska"]
     var districtData: [String]! = ["All", "Sachsen", "Dolnoslaskie"]
     var cityData: [String]! = ["All", "Dresden", "Radebeul", "Breslau"]
     var schoolTypeData: [String]! = ["All", "Grundschule", "Gymnasium", "Hochschule"]
     var pickerData: [String]! = ["---"]
+    
+    //a delegate to send the filter settings to the parent view
+    weak var delegate: FilterDataViewDelegate?
     
     //store the index of the current/selected table row
     var currentCell: UITableViewCell!
@@ -47,8 +52,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var tableView: UITableView!
     @IBOutlet var pickerView: UIPickerView!
     
-    //a delegate to send the filter settings to the parent view
-    weak var delegate: FilterDataViewDelegate?
+    // MARK: - methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +77,8 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - picker view imeplementation
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.pickerData.count
     }
@@ -92,6 +98,8 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableData.count
     }
+    
+    // MARK: - table view implementation
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableData[section].rows.count
@@ -161,6 +169,8 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
     }
+    
+    // MARK: - IBActions
     
     /// This function closes the view without further actions.
     ///

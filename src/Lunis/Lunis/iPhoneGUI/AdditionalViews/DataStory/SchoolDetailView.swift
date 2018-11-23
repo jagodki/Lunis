@@ -18,6 +18,7 @@ struct SchoolDetailRow {
     var value: String
 }
 
+/// This class is the controller for the detail view of every schools.
 class SchoolDetailView: UITableViewController {
     
     //the data of the tabel, will be edited in the constructor via delegation
@@ -55,7 +56,9 @@ class SchoolDetailView: UITableViewController {
         
         
     }
-
+    
+    // MARK: - methods
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,6 +97,9 @@ class SchoolDetailView: UITableViewController {
         return self.tableData[section].title
     }
     
+    /// This function sets the favorite attribute of the current school to true or false.
+    ///
+    /// - Parameter sender: any
     @IBAction func favoriteButtonPressed(_ sender: Any) {
     }
     

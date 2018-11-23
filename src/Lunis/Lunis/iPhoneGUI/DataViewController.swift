@@ -46,6 +46,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var toolbar: UIToolbar!
     @IBOutlet var tableview: UITableView!
     
+    // MARK: - instance variables
+    
     //a variable to store, whether all rows are selected or not
     var allSelected: Bool! = false
     
@@ -60,6 +62,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //store the filter
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
+    
+    // MARK: - methods
     
     override func viewDidLoad() {
         //add a search bar to the navigation bar
@@ -225,6 +229,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell?.imageView?.image = UIImage(named: "no_favorite")
     }
     
+    // MARK: - table view implementation
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableview.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
         cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
@@ -244,7 +250,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //performe a segue and remove the selection, if the table view is not in editing mode
         if !self.tableview.isEditing {
-            performSegue(withIdentifier: "showSchoolDetailView", sender: self)
+            performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
             self.tableview.deselectRow(at: indexPath, animated: true)
         }
         
@@ -302,7 +308,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     /*
-    // MARK: - Navigation
+    // MARK: - delegation and navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -310,7 +316,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //implementation of a delegate
     func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
         self.filter["Country"] = country
         self.filter["District"] = district
@@ -318,6 +325,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.filter["School Type"] = schoolType
     }
     
+    //implementation of a delegate
     func getCurrentFilterSettings() -> [String: String]! {
         return self.filter
     }
