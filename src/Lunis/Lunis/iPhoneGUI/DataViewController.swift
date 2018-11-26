@@ -71,15 +71,20 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
-        //hide toolbar, store its size and position and show tabbar
-        self.tabBarController?.tabBar.isHidden = false
-        self.toolbar.isHidden = true
-        self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
-        
         //init the unselected rows var
         self.unselectedRows = 6
         
         super.viewDidLoad()
+        
+        //hide toolbar, store its size and position and show tabbar
+        self.tabBarController?.tabBar.isHidden = false
+        self.toolbar.isHidden = true
+        self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+        self.toolbar.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
