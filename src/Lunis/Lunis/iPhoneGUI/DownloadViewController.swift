@@ -10,9 +10,17 @@ import UIKit
 
 class DownloadViewController: UIViewController {
     
+    // MARK: - Outlets
+    @IBOutlet var segmentedControlContainer: UISegmentedControl!
+    @IBOutlet var containerList: UIView!
+    @IBOutlet var containerMap: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.segmentedControlContainer.selectedSegmentIndex = 0
+        self.containerList.alpha = 1
+        self.containerMap.alpha = 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -20,6 +28,19 @@ class DownloadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerList.alpha = 1
+                self.containerMap.alpha = 0
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerList.alpha = 0
+                self.containerMap.alpha = 1
+            })
+        }
+    }
     
 }
 
