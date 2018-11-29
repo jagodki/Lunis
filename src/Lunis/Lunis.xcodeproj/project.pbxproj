@@ -12,6 +12,7 @@
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
 		595AED0C21AF1C750080BFC6 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595AED0B21AF1C750080BFC6 /* DownloadTableViewController.swift */; };
 		595AED0E21AF1C950080BFC6 /* DownloadMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595AED0D21AF1C950080BFC6 /* DownloadMapViewController.swift */; };
+		595E291F21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 595E291D21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld */; };
 		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
 		59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59921C20219F487E00767876 /* FilterDataViewDelegate.swift */; };
@@ -33,6 +34,7 @@
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		595AED0B21AF1C750080BFC6 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewController.swift; sourceTree = "<group>"; };
 		595AED0D21AF1C950080BFC6 /* DownloadMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapViewController.swift; sourceTree = "<group>"; };
+		595E291E21B06E2C00D958F5 /* DownloadDataSets.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DownloadDataSets.xcdatamodel; sourceTree = "<group>"; };
 		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		59921C20219F487E00767876 /* FilterDataViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataViewDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		5982227F20BEA7E500E7FD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				595E291D21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
+				595E291F21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld in Sources */,
 				595AED0C21AF1C750080BFC6 /* DownloadTableViewController.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
@@ -451,6 +455,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		595E291D21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				595E291E21B06E2C00D958F5 /* DownloadDataSets.xcdatamodel */,
+			);
+			currentVersion = 595E291E21B06E2C00D958F5 /* DownloadDataSets.xcdatamodel */;
+			path = DownloadDataSets.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 59A37E9020BD50AA0050E48D /* Project object */;
 }

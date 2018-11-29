@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G3025" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Cities" representedClassName="Cities" syncable="YES" codeGenerationType="class">
+        <attribute name="country" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="fk_country" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Countries" inverseName="fk_city" inverseEntity="Countries" syncable="YES"/>
+    </entity>
+    <entity name="Countries" representedClassName="Countries" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fk_city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cities" inverseName="fk_country" inverseEntity="Cities" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Cities" positionX="-227" positionY="-21" width="128" height="133"/>
+        <element name="Countries" positionX="-36" positionY="36" width="128" height="88"/>
+    </elements>
+</model>
