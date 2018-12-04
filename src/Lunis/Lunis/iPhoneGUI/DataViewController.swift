@@ -8,32 +8,32 @@
 
 import UIKit
 
-struct TestStructure {
-    var id : Int
-    var name : String
+struct DataViewSchoolCell {
+    var id: Int
+    var name: String
 }
 
-struct TestSection {
-    var name : String
-    var data : [TestStructure]
+struct DataViewSchoolSection {
+    var name: String
+    var data: [DataViewSchoolCell]
 }
 
 /// The controller for the data view.
-class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FilterDataViewDelegate {
+class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //define testdata for the protoype
     let testData = [
-        TestSection(name: "Grundschule", data: [
-            TestStructure(id: 1, name: "1. Grundschule"),
-            TestStructure(id: 2, name: "Knabengrundschule")
+        DataViewSchoolSection(name: "Grundschule", data: [
+            DataViewSchoolCell(id: 1, name: "1. Grundschule"),
+            DataViewSchoolCell(id: 2, name: "Knabengrundschule")
             ]),
-        TestSection(name: "Gymnasium", data: [
-            TestStructure(id: 1, name: "Lößnitzgymnasium"),
-            TestStructure(id: 2, name: "Landesanstalt St. Afra")
+        DataViewSchoolSection(name: "Gymnasium", data: [
+            DataViewSchoolCell(id: 1, name: "Lößnitzgymnasium"),
+            DataViewSchoolCell(id: 2, name: "Landesanstalt St. Afra")
             ]),
-        TestSection(name: "Hochschule", data: [
-            TestStructure(id: 1, name: "Uniwersytet Wrocławia"),
-            TestStructure(id: 2, name: "HTW Dresden")
+        DataViewSchoolSection(name: "Hochschule", data: [
+            DataViewSchoolCell(id: 1, name: "Uniwersytet Wrocławia"),
+            DataViewSchoolCell(id: 2, name: "HTW Dresden")
             ])
     ]
     
@@ -63,14 +63,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the filter
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
-    // MARK: - methods
+    //store the filtered schools
+    var filteredSchools: [DataViewSchoolCell] = [DataViewSchoolCell]()
+    
+    // MARK: - functions
     
     override func viewDidLoad() {
-        //add a search bar to the navigation bar
-        let searchController = UISearchController(searchResultsController: nil)
-        self.navigationItem.searchController = searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = true
-        
         //init the unselected rows var
         self.unselectedRows = 6
         
@@ -80,26 +78,117 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tabBarController?.tabBar.isHidden = false
         self.toolbar.isHidden = true
         self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+        
+        //setup a searchcontroller and add them to the navigationbar
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Schools"
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+        definesPresentationContext = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.toolbar.isHidden = true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // MARK: - table view implementation
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        if self.isFiltering() {
+            return 1
+        }
+        
         return self.testData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.isFiltering() {
+            return self.filteredSchools.count
+        }
+        
         return self.testData[section].data.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableview.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
+        
+        if self.isFiltering() {
+            cell.textLabel?.text = self.filteredSchools[indexPath.row].name
+        } else {
+            cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if !self.isFiltering() {
+            return self.testData[section].name
+        }
+        return ""
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.unselectedRows = self.unselectedRows - 1
+        if self.unselectedRows == 0 {
+            self.allSelected = true
+            self.buttonSelectAll.title = "Deselect All"
+        }
+        
+        //performe a segue and remove the selection, if the table view is not in editing mode
+        if !self.tableview.isEditing {
+            performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
+            self.tableview.deselectRow(at: indexPath, animated: true)
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.unselectedRows = self.unselectedRows + 1
+        self.allSelected = false
+        self.buttonSelectAll.title = "Select All"
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markAsFavorite = UIContextualAction(style: .normal, title: "\u{2605}") {(action, view, completion) in
+            print("favorite")
+            completion(true)
+        }
+        markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        
+        let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
+            print("no favorite")
+            completion(true)
+        }
+        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        
+        let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
+            print("map")
+            completion(true)
+        }
+        showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        
+        if self.allFavorites {
+            return UISwipeActionsConfiguration(actions: [unmarkAsFavorite, showOnMap])
+        } else {
+            return UISwipeActionsConfiguration(actions: [markAsFavorite, showOnMap])
+        }
+    }
+    
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    // MARK: - IBActions and other functions for the user interaction
     
     /// This function sets the table view in edit mode,
     /// i.e. that rows will be selectable, unneeded buttons and segmented controls will be diabled
@@ -234,95 +323,63 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell?.imageView?.image = UIImage(named: "no_favorite")
     }
     
-    // MARK: - table view implementation
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableview.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
-        cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.testData[section].name
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.unselectedRows = self.unselectedRows - 1
-        if self.unselectedRows == 0 {
-            self.allSelected = true
-            self.buttonSelectAll.title = "Deselect All"
-        }
-        
-        //performe a segue and remove the selection, if the table view is not in editing mode
-        if !self.tableview.isEditing {
-            performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
-            self.tableview.deselectRow(at: indexPath, animated: true)
-        }
-        
-    }
-
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        self.unselectedRows = self.unselectedRows + 1
-        self.allSelected = false
-        self.buttonSelectAll.title = "Select All"
-    }
-    
     //checks the status of all selected rows to get the information, whether all selected rows are favorites or not
     func checkFavoriteStatusOfSelectedRows() {
         
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let markAsFavorite = UIContextualAction(style: .normal, title: "★") {(action, view, completion) in
-            print("favorite")
-            completion(true)
-        }
-        markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        
-        let unmarkAsFavorite = UIContextualAction(style: .normal, title: "☆") {(action, view, completion) in
-            print("no favorite")
-            completion(true)
-        }
-        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        
-        let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
-            print("map")
-            completion(true)
-        }
-        showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        
-        if self.allFavorites {
-            return UISwipeActionsConfiguration(actions: [unmarkAsFavorite, showOnMap])
-        } else {
-            return UISwipeActionsConfiguration(actions: [markAsFavorite, showOnMap])
-        }
-    }
-
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        return UITableViewCellEditingStyle.delete;
-//    }
+    // MARK: - navigation
     
-    // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        } else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }
-    }
-
-    /*
-    // MARK: - delegation and navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showFilterDataView":
+            let viewController = segue.destination as! FilterDataViewController
+            viewController.delegate = self
+            
+        case "showSchoolDetailView":
+            let viewController = segue.destination as! SchoolDetailView
+            
+            //get the school name of the selected row and pass it to the new view controller
+            let indexPath: IndexPath! = (self.tableview.indexPathForSelectedRow)!
+            viewController.schoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
+            
+        default:
+            _ = true
+        }
     }
-    */
     
-    //implementation of a delegate
+    // MARK: - functions for the implementation of the searchcontroller
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return !(self.navigationItem.searchController!.searchBar.text?.isEmpty)!
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        //get the rows of all sections
+        var allSchoolRows: [DataViewSchoolCell] = [DataViewSchoolCell]()
+        for section in self.testData {
+            allSchoolRows.append(contentsOf: section.data)
+        }
+        
+        //filter all school rows
+        filteredSchools = allSchoolRows.filter({(dataViewSchoolCell : DataViewSchoolCell) -> Bool in
+            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+        })
+        
+        //reload the table
+        self.tableview.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return self.navigationItem.searchController!.isActive && !searchBarIsEmpty()
+    }
+    
+}
+
+// MARK: - implementation of FilterDataViewDelegate
+extension DataViewController: FilterDataViewDelegate {
+    
     func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
         self.filter["Country"] = country
         self.filter["District"] = district
@@ -330,27 +387,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.filter["School Type"] = schoolType
     }
     
-    //implementation of a delegate
     func getCurrentFilterSettings() -> [String: String]! {
         return self.filter
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-            case "showFilterDataView":
-                let viewController = segue.destination as! FilterDataViewController
-                viewController.delegate = self
-            
-            case "showSchoolDetailView":
-                let viewController = segue.destination as! SchoolDetailView
-                
-                //get the school name of the selected row and pass it to the new view controller
-                let indexPath: IndexPath! = (self.tableview.indexPathForSelectedRow)!
-                viewController.schoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
-            
-            default:
-                _ = true
-        }
+}
+
+// MARK: - UISearchResultsUpdating Delegate
+extension DataViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
     }
-    
 }
