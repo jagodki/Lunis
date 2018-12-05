@@ -82,7 +82,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         //setup a searchcontroller and add them to the navigationbar
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Schools"
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
@@ -352,7 +352,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
-        return !(self.navigationItem.searchController!.searchBar.text?.isEmpty)!
+        return (self.navigationItem.searchController!.searchBar.text?.isEmpty)!
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
@@ -372,7 +372,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func isFiltering() -> Bool {
-        return self.navigationItem.searchController!.isActive && !searchBarIsEmpty()
+        return self.navigationItem.searchController!.isActive && !self.searchBarIsEmpty()
     }
     
 }
@@ -395,6 +395,8 @@ extension DataViewController: FilterDataViewDelegate {
 // MARK: - UISearchResultsUpdating Delegate
 extension DataViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        //adjust the obscuar property and the layout of the tableview
+        
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }
