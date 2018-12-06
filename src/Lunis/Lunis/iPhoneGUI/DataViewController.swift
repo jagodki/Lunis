@@ -44,9 +44,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var buttonSelectAll: UIBarButtonItem!
     @IBOutlet var buttonFavorite: UIBarButtonItem!
     @IBOutlet var toolbar: UIToolbar!
-    @IBOutlet var tableview: UITableView!
+    @IBOutlet var tableView: UITableView!
     
     // MARK: - instance variables
+    
+    //a table view to store the search results
+    var resultsController: UITableViewController!
     
     //a variable to store, whether all rows are selected or not
     var allSelected: Bool! = false
@@ -64,7 +67,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
     //store the filtered schools
-    var filteredSchools: [DataViewSchoolCell] = [DataViewSchoolCell]()
+    var searchedSchools: [DataViewSchoolCell] = [DataViewSchoolCell]()
+    
+    //store the selected cell
+    var selectedSchoolName: String!
     
     // MARK: - functions
     
@@ -79,8 +85,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolbar.isHidden = true
         self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
         
-        //setup a searchcontroller and add them to the navigationbar
-        let searchController = UISearchController(searchResultsController: nil)
+        //set up a searchresultcontroller
+        resultsController = UITableViewController(style: .plain)
+        resultsController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchedSchoolsCell")
+        resultsController.tableView.dataSource = self
+        resultsController.tableView.delegate = self
+        
+        //set up a searchcontroller and add them to the navigationbar
+        let searchController: UISearchController = UISearchController(searchResultsController: resultsController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Schools"
@@ -102,38 +114,44 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - table view implementation
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.isFiltering() {
+        if tableView == self.tableView {
+            return self.testData.count
+        } else {
             return 1
         }
-        
-        return self.testData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isFiltering() {
-            return self.filteredSchools.count
+        if tableView == self.tableView {
+            return self.testData[section].data.count
+        } else {
+            return self.searchedSchools.count
         }
-        
-        return self.testData[section].data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableview.dequeueReusableCell(withIdentifier: "schoolCell", for: indexPath)
-        
-        if self.isFiltering() {
-            cell.textLabel?.text = self.filteredSchools[indexPath.row].name
+        var cellIdentifier: String!
+        var textLabel: String!
+         
+        if tableView == self.tableView{
+            cellIdentifier = "schoolCell"
+            textLabel = self.testData[indexPath.section].data[indexPath.row].name
         } else {
-            cell.textLabel?.text = self.testData[indexPath.section].data[indexPath.row].name
+            cellIdentifier = "searchedSchoolsCell"
+            textLabel = self.searchedSchools[indexPath.row].name
         }
-        
+         
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        cell.textLabel?.text = textLabel
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if !self.isFiltering() {
+        if tableView == self.tableView {
             return self.testData[section].name
+        } else {
+            return ""
         }
-        return ""
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -144,11 +162,17 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         //performe a segue and remove the selection, if the table view is not in editing mode
-        if !self.tableview.isEditing {
+        if !self.tableView.isEditing {
+            if tableView == self.tableView{
+                self.selectedSchoolName = (self.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
+            } else {
+                self.selectedSchoolName = (self.resultsController.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
+            }
+            
             performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
-            self.tableview.deselectRow(at: indexPath, animated: true)
+            self.tableView.deselectRow(at: indexPath, animated: true)
+            self.resultsController.tableView.deselectRow(at: indexPath, animated: true)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -197,9 +221,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameter sender: any
     @IBAction private func selectButtonPressed(_ sender: Any) {
         //enable and disable UI-elements depending on the editing status
-        self.segmentedControl.isEnabled = self.tableview.isEditing
-        self.buttonFilter.isEnabled = self.tableview.isEditing
-        self.tabBarController?.tabBar.isHidden = !self.tableview.isEditing
+        self.segmentedControl.isEnabled = self.tableView.isEditing
+        self.buttonFilter.isEnabled = self.tableView.isEditing
+        self.tabBarController?.tabBar.isHidden = !self.tableView.isEditing
         
         //show/hide the toolbar and the tabbar
         UIView.animate(withDuration: 0.2, animations: {
@@ -217,10 +241,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
         
         //update the editing status and make the tableview editable
-        self.tableview.setEditing(!self.tableview.isEditing, animated: true)
+        self.tableView.setEditing(!self.tableView.isEditing, animated: true)
         
         //update the edit select button depending on the editing status
-        if self.tableview.isEditing {
+        if self.tableView.isEditing {
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
             self.allSelected = false
@@ -239,18 +263,18 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameter sender: any
     @IBAction private func selectAllButtonPressed(_ sender: Any) {
         //iterate over all sections
-        let totalSections = self.tableview.numberOfSections
+        let totalSections = self.tableView.numberOfSections
         for section in 0..<totalSections {
             
             //iterate over all rows of the current section
-            let totalRows = self.tableview.numberOfRows(inSection: section)
+            let totalRows = self.tableView.numberOfRows(inSection: section)
             for row in 0..<totalRows {
                 
                 //select or deselect the current row
                 if self.allSelected {
-                    self.tableview.deselectRow(at: IndexPath(row: row, section: section), animated: true)
+                    self.tableView.deselectRow(at: IndexPath(row: row, section: section), animated: true)
                 } else {
-                    self.tableview.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
+                    self.tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
                 }
             }
         }
@@ -278,7 +302,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameter sender: any
     @IBAction private func favoriteButtonPressed(_ sender: Any) {
         //iterate over all sections and mark or unmark them as favorites
-        let indexPathsOfSelectedRows = self.tableview.indexPathsForSelectedRows
+        let indexPathsOfSelectedRows = self.tableView.indexPathsForSelectedRows
         if indexPathsOfSelectedRows != nil {
             if self.allFavorites {
                 for indexPath in indexPathsOfSelectedRows! {
@@ -308,9 +332,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
     private func markFavorite(section: Int, row: Int) {
-        let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+        let cell = self.tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
-        //self.tableview.reloadData()
+        //self.tableView.reloadData()
     }
     
     /// This function unmarkes a given row as favorite.
@@ -319,7 +343,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
     private func unmarkFavorite(section: Int, row: Int) {
-        let cell = self.tableview.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+        let cell = self.tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
     }
     
@@ -332,49 +356,20 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "showFilterDataView":
-            let viewController = segue.destination as! FilterDataViewController
-            viewController.delegate = self
+            case "showFilterDataView":
+                let viewController = segue.destination as! FilterDataViewController
+                viewController.delegate = self
             
-        case "showSchoolDetailView":
-            let viewController = segue.destination as! SchoolDetailView
+            case "showSchoolDetailView":
+                let viewController = segue.destination as! SchoolDetailView
+                
+                //get the school name of the selected row and pass it to the new view controller
+                viewController.schoolName = self.selectedSchoolName
             
-            //get the school name of the selected row and pass it to the new view controller
-            let indexPath: IndexPath! = (self.tableview.indexPathForSelectedRow)!
-            viewController.schoolName = (self.tableview.cellForRow(at: indexPath)?.textLabel?.text)!
-            
-        default:
-            _ = true
+            default:
+                _ = true
         }
     }
-    
-    // MARK: - functions for the implementation of the searchcontroller
-    
-    func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
-        return (self.navigationItem.searchController!.searchBar.text?.isEmpty)!
-    }
-    
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        //get the rows of all sections
-        var allSchoolRows: [DataViewSchoolCell] = [DataViewSchoolCell]()
-        for section in self.testData {
-            allSchoolRows.append(contentsOf: section.data)
-        }
-        
-        //filter all school rows
-        filteredSchools = allSchoolRows.filter({(dataViewSchoolCell : DataViewSchoolCell) -> Bool in
-            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
-        })
-        
-        //reload the table
-        self.tableview.reloadData()
-    }
-    
-    func isFiltering() -> Bool {
-        return self.navigationItem.searchController!.isActive && !self.searchBarIsEmpty()
-    }
-    
 }
 
 // MARK: - implementation of FilterDataViewDelegate
@@ -395,8 +390,21 @@ extension DataViewController: FilterDataViewDelegate {
 // MARK: - UISearchResultsUpdating Delegate
 extension DataViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //adjust the obscuar property and the layout of the tableview
-        
-        filterContentForSearchText(searchController.searchBar.text!)
+         //get the search text
+         let searchText: String = searchController.searchBar.text!
+         
+         //get the rows of all sections
+         var allSchoolRows: [DataViewSchoolCell] = [DataViewSchoolCell]()
+         for section in self.testData {
+         allSchoolRows.append(contentsOf: section.data)
+         }
+         
+         //filter all school rows
+         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : DataViewSchoolCell) -> Bool in
+         return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+         })
+         
+         //reload the table
+         self.resultsController.tableView.reloadData()
     }
 }

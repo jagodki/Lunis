@@ -96,13 +96,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhQ-Qn-GUf">
-                                <rect key="frame" x="0.0" y="116" width="320" height="403"/>
+                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
                                 <connections>
                                     <segue destination="VQU-jN-XJr" kind="embed" id="7lU-x6-Ejr"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBb-oM-C2P">
-                                <rect key="frame" x="0.0" y="116" width="320" height="403"/>
+                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
                                 <connections>
                                     <segue destination="BO1-7q-2B1" kind="embed" id="Qni-xD-kjx"/>
                                 </connections>
@@ -150,7 +150,7 @@
                 <navigationController hidesBottomBarWhenPushed="YES" id="dBO-Uj-GVg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Schools" image="second" selectedImage="second" id="zSD-Yk-Vg8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8xJ-ce-yd0">
-                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Tmv-FQ-AKn">
@@ -247,7 +247,7 @@
                         <outlet property="buttonSelect" destination="duF-LL-Xto" id="VET-IG-fwN"/>
                         <outlet property="buttonSelectAll" destination="64M-Fw-EXy" id="Ykh-jF-Jaa"/>
                         <outlet property="segmentedControl" destination="yFQ-10-ZLe" id="IES-Nm-jgl"/>
-                        <outlet property="tableview" destination="fyY-GS-ggy" id="vf6-IU-t5a"/>
+                        <outlet property="tableView" destination="fyY-GS-ggy" id="gKA-AO-VDA"/>
                         <outlet property="toolbar" destination="tI9-BN-oUO" id="VEB-nd-CFO"/>
                         <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailFromData" id="aDm-5k-pHL"/>
                     </connections>
@@ -433,7 +433,7 @@
                     <tabBarItem key="tabBarItem" title="" systemItem="downloads" id="HAK-ZX-P4G"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gPA-hv-JeS">
-                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -450,7 +450,7 @@
             <objects>
                 <tableViewController id="BO1-7q-2B1" customClass="DownloadTableViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="qfZ-K6-8jZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="403"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -481,11 +481,11 @@
             <objects>
                 <viewController id="VQU-jN-XJr" customClass="DownloadMapViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zus-PD-F3S">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="403"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Leo-vC-4Zw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="403"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
