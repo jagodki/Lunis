@@ -360,7 +360,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let viewController = segue.destination as! FilterDataViewController
                 viewController.delegate = self
             
-            case "showSchoolDetailView":
+            case "showSchoolDetailFromData":
                 let viewController = segue.destination as! SchoolDetailView
                 
                 //get the school name of the selected row and pass it to the new view controller
