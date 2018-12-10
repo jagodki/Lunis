@@ -10,8 +10,6 @@
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
-		595AED0C21AF1C750080BFC6 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595AED0B21AF1C750080BFC6 /* DownloadTableViewController.swift */; };
-		595AED0E21AF1C950080BFC6 /* DownloadMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595AED0D21AF1C950080BFC6 /* DownloadMapViewController.swift */; };
 		595E291F21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 595E291D21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld */; };
 		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
@@ -32,8 +30,6 @@
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		595AED0B21AF1C750080BFC6 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewController.swift; sourceTree = "<group>"; };
-		595AED0D21AF1C950080BFC6 /* DownloadMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapViewController.swift; sourceTree = "<group>"; };
 		595E291E21B06E2C00D958F5 /* DownloadDataSets.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DownloadDataSets.xcdatamodel; sourceTree = "<group>"; };
 		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -68,7 +64,6 @@
 		591D320220C2D6D40045205D /* AdditionalViews */ = {
 			isa = PBXGroup;
 			children = (
-				595AED0A21AF1C510080BFC6 /* DownloadStory */,
 				59DD2C612194BAE50025DF9D /* DataStory */,
 				591D320320C2D6E10045205D /* MapStory */,
 			);
@@ -94,15 +89,6 @@
 				591D0F482176EB8800E8EE73 /* DataViewController.swift */,
 			);
 			path = iPhoneGUI;
-			sourceTree = "<group>";
-		};
-		595AED0A21AF1C510080BFC6 /* DownloadStory */ = {
-			isa = PBXGroup;
-			children = (
-				595AED0B21AF1C750080BFC6 /* DownloadTableViewController.swift */,
-				595AED0D21AF1C950080BFC6 /* DownloadMapViewController.swift */,
-			);
-			path = DownloadStory;
 			sourceTree = "<group>";
 		};
 		5982227F20BEA7E500E7FD58 /* Model */ = {
@@ -254,10 +240,8 @@
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
 				595E291F21B06E2C00D958F5 /* DownloadDataSets.xcdatamodeld in Sources */,
-				595AED0C21AF1C750080BFC6 /* DownloadTableViewController.swift in Sources */,
 				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
-				595AED0E21AF1C950080BFC6 /* DownloadMapViewController.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
