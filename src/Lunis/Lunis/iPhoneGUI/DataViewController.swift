@@ -48,7 +48,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - instance variables
     
-    //a table view to store the search results
+    //a tableviewontroller to store the search results
     var resultsController: UITableViewController!
     
     //a variable to store, whether all rows are selected or not
