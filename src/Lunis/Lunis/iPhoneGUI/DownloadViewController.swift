@@ -46,6 +46,8 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //a tableviewontroller to store the search results
     var resultsController: UITableViewController!
     
+    // MARK: - instance functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,8 +58,8 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         resultsController.tableView.delegate = self
         
         //add a search bar to the navigation bar
-        let searchController = UISearchController(searchResultsController: resultsController)
-        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        let searchController = UISearchController(searchResultsController: self.resultsController)
+        searchController.searchResultsUpdater = self as UISearchResultsUpdating
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Cities"
         super.navigationItem.searchController = searchController
@@ -76,6 +78,10 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    func adjustSearchBar(showSearchBar: Bool) {
+        
+    }
+    
     // MARK: - IBActions
     
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
@@ -83,12 +89,14 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableView.alpha = 1
                 self.mapView.alpha = 0
+                self.navigationItem.searchController?.searchBar.isHidden  = false
                 self.navigationItem.largeTitleDisplayMode = .automatic
             })
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableView.alpha = 0
                 self.mapView.alpha = 1
+                self.navigationItem.searchController?.searchBar.isHidden = true
                 self.navigationItem.largeTitleDisplayMode = .never
             })
         }
@@ -137,7 +145,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         //download the selected dataset
         
         //deselect the current row
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -160,14 +168,14 @@ extension DownloadViewController: UISearchResultsUpdating {
         let searchText: String = searchController.searchBar.text!
         
         //get the rows of all sections
-        var allSchoolRows: [DataViewSchoolCell] = [DataViewSchoolCell]()
-        for section in self.testData {
-            allSchoolRows.append(contentsOf: section.data)
+        var allDatasets: [DownloadRow] = [DownloadRow]()
+        for section in self.tableData {
+            allDatasets.append(contentsOf: section.rows)
         }
         
         //filter all school rows
-        self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : DataViewSchoolCell) -> Bool in
-            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+        self.searchedDatasets = allDatasets.filter({(downloadRow : DownloadRow) -> Bool in
+            return downloadRow.name.lowercased().contains(searchText.lowercased())
         })
         
         //reload the table
