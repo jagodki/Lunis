@@ -58,13 +58,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         resultsController.tableView.delegate = self
         
         //add a search bar to the navigation bar
-        let searchController = UISearchController(searchResultsController: self.resultsController)
-        searchController.searchResultsUpdater = self as UISearchResultsUpdating
-        searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search Cities"
-        super.navigationItem.searchController = searchController
-        super.navigationItem.hidesSearchBarWhenScrolling = true
-        definesPresentationContext = true
+        self.adjustSearchBar(showSearchBar: true)
         
         //init GUI-elements
         self.segmentedControlContainer.selectedSegmentIndex = 0
@@ -79,7 +73,19 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func adjustSearchBar(showSearchBar: Bool) {
-        
+        if showSearchBar {
+            let searchController = UISearchController(searchResultsController: self.resultsController)
+            searchController.searchResultsUpdater = self as UISearchResultsUpdating
+            searchController.obscuresBackgroundDuringPresentation = true
+            searchController.searchBar.placeholder = "Search Cities"
+            super.navigationItem.searchController = searchController
+            super.navigationItem.hidesSearchBarWhenScrolling = true
+            definesPresentationContext = true
+            self.navigationItem.largeTitleDisplayMode = .automatic
+        } else {
+            self.navigationItem.searchController = nil
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
     }
     
     // MARK: - IBActions
@@ -89,15 +95,13 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableView.alpha = 1
                 self.mapView.alpha = 0
-                self.navigationItem.searchController?.searchBar.isHidden  = false
-                self.navigationItem.largeTitleDisplayMode = .automatic
+                self.adjustSearchBar(showSearchBar: true)
             })
         } else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.tableView.alpha = 0
                 self.mapView.alpha = 1
-                self.navigationItem.searchController?.searchBar.isHidden = true
-                self.navigationItem.largeTitleDisplayMode = .never
+                self.adjustSearchBar(showSearchBar: false)
             })
         }
     }
