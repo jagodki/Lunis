@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 
 /// This class is the controller for the first view of the map tab.
@@ -44,6 +45,47 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         
         //init the map content
         self.mapContent = 0
+        
+        
+        //write test data to coredata
+        var testDataCities: [NSManagedObject] = []
+        var testDataSchools: [NSManagedObject] = []
+        
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let entityCity = NSEntityDescription.entity(forEntityName: "City", in: managedContext)!
+        let entitySchools = NSEntityDescription.entity(forEntityName: "School", in: managedContext)!
+        
+        let city = NSManagedObject(entity: entityCity, insertInto: managedContext)
+        let school1 = NSManagedObject(entity: entityCity, insertInto: managedContext)
+        let school2 = NSManagedObject(entity: entityCity, insertInto: managedContext)
+        
+        city.setValue("Radebeul", forKeyPath: "name")
+        city.setValue("Sachsen", forKeyPath: "region")
+        city.setValue("Deutschland", forKeyPath: "country")
+        city.setValue("Deutschland", forKeyPath: "path")
+        city.setValue("Deutschland", forKeyPath: "lastUpdate")
+        city.setValue(51.110218, forKeyPath: "x")
+        city.setValue(13.641750, forKeyPath: "y")
+        
+        school1.setValue("Radebeul", forKeyPath: "name")
+        school1.setValue("Radebeul", forKeyPath: "city")
+        school1.setValue("Radebeul", forKeyPath: "mail")
+        school1.setValue("Radebeul", forKeyPath: "street")
+        school1.setValue("Radebeul", forKeyPath: "number")
+        school1.setValue("Radebeul", forKeyPath: "path")
+        school1.setValue("Radebeul", forKeyPath: "phone")
+        school1.setValue("Radebeul", forKeyPath: "postalCode")
+        school1.setValue("Radebeul", forKeyPath: "schoolSpecialisation")
+        school1.setValue("Radebeul", forKeyPath: "schoolType")
+        school1.setValue("Radebeul", forKeyPath: "website")
+        school1.setValue("Radebeul", forKeyPath: "wikipedia")
+        school1.setValue("Radebeul", forKeyPath: "x")
+        school1.setValue("Radebeul", forKeyPath: "y")
         
         super.viewDidLoad()
     }
