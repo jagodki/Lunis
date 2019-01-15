@@ -14,7 +14,7 @@
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,12 +23,12 @@
         <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wikipedia" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="x" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="administration" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Administration" inverseName="school" inverseEntity="Administration" syncable="YES"/>
     </entity>
     <elements>
         <element name="Administration" positionX="-243" positionY="-72" width="128" height="165"/>
-        <element name="School" positionX="-704" positionY="-205" width="128" height="268"/>
+        <element name="School" positionX="-704" positionY="-205" width="128" height="270"/>
     </elements>
 </model>
