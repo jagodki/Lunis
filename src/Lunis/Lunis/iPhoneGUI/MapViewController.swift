@@ -93,8 +93,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         school1.setValue("Gymnasium", forKeyPath: "schoolType")
         school1.setValue("https://www.loessnitzgymnasium-radebeul.de", forKeyPath: "website")
         school1.setValue("https://de.wikipedia.org/wiki/L%C3%B6%C3%9Fnitzgymnasium", forKeyPath: "wikipedia")
-        school1.setValue("51.104209", forKeyPath: "x")
-        school1.setValue("13.659038", forKeyPath: "y")
+        school1.setValue(51.104209, forKeyPath: "x")
+        school1.setValue(13.659038, forKeyPath: "y")
         
         school2.setValue("Sächsisches Landesgymnasium Sankt Afra", forKeyPath: "name")
         school2.setValue("Meißen", forKeyPath: "city")
@@ -108,8 +108,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         school2.setValue("Gymnasium", forKeyPath: "schoolType")
         school2.setValue("http://www.sankt-afra.de/", forKeyPath: "website")
         school2.setValue("https://de.wikipedia.org/wiki/S%C3%A4chsisches_Landesgymnasium_Sankt_Afra", forKeyPath: "wikipedia")
-        school2.setValue("51.163543", forKeyPath: "x")
-        school2.setValue("13.467966", forKeyPath: "y")
+        school2.setValue(51.163543, forKeyPath: "x")
+        school2.setValue(13.467966, forKeyPath: "y")
         
         testDataCities.append(city1)
         testDataCities.append(city2)
