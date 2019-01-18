@@ -18,9 +18,15 @@ class DataController: NSObject {
                 return
         }
         self.managedObjectContext  = appDelegate.persistentContainer.viewContext
+        
+        
+        //insert test data
+        if self.fetchAdministations(request: "").count == 0 {
+            self.initData()
+        }
     }
     
-    func saveData() {
+    func saveContext() {
         do {
             try self.managedObjectContext.save()
         } catch let error as NSError {
@@ -29,10 +35,10 @@ class DataController: NSObject {
     }
     
     func initData() {
-        let administration1 = NSEntityDescription.insertNewObjectForEntityForName("Administration", inManagedObjectContext: managedObjectContext) as! AdministrationMO
-        let administration2 = NSEntityDescription.insertNewObjectForEntityForName("Administration", inManagedObjectContext: managedObjectContext) as! AdministrationMO
-        let school1 = NSEntityDescription.insertNewObjectForEntityForName("School", inManagedObjectContext: managedObjectContext) as! SchoolMO
-        let school2 = NSEntityDescription.insertNewObjectForEntityForName("School", inManagedObjectContext: managedObjectContext) as! SchoolMO
+        let administration1 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! AdministrationMO
+        let administration2 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! AdministrationMO
+        let school1 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! SchoolMO
+        let school2 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! SchoolMO
         
         administration1.city = "Radebeul"
         administration1.region = "Sachsen"
@@ -65,6 +71,7 @@ class DataController: NSObject {
         school1.wikipedia = "https://de.wikipedia.org/wiki/L%C3%B6%C3%9Fnitzgymnasium"
         school1.x = 51.104209
         school1.y = 13.659038
+        school1.administration = administration1
         
         school2.name = "Sächsisches Landesgymnasium Sankt Afra"
         school2.city = "Meißen"
@@ -81,22 +88,40 @@ class DataController: NSObject {
         school2.wikipedia = "https://de.wikipedia.org/wiki/S%C3%A4chsisches_Landesgymnasium_Sankt_Afra"
         school2.x = 51.163543
         school2.y = 13.467966
+        school2.administration = administration2
         
-        administration1.school = school1
-        administration2.school = school2
+        administration1.addToSchools(school1)
+        administration2.addToSchools(school2)
         
         self.saveContext()
     }
     
-    func fetchAdministations(_request: String) -> [AdministrationMO] {
-        
+    func fetchAdministations(request: String = "") -> [AdministrationMO] {
+        let administrationFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Administration")
+        var administrationData: [AdministrationMO] = [AdministrationMO]()
+        self.fetchData(fetch: administrationFetch, request: request, administrations: administrationData)
+        return administrationData
     }
     
-    func fetchSchools(_request: String) -> [SchoolMO] {
-        
+    func fetchSchools(request: String = "") -> [SchoolMO] {
+        let schoolFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "School")
+        var schoolData: [SchoolMO] = [SchoolMO]()
+        self.fetchData(fetch: schoolFetch, request: request, schools: schoolData)
+        return schoolData
     }
     
-    func fetchData(entity: String, _request: String) {
+    func fetchData(fetch: NSFetchRequest<NSFetchRequestResult>, request: String, schools: [SchoolMO] = nil, administrations: [AdministrationMO] = nil) {
+        if request != "" {
+            fetch.predicate = NSPredicate(format: request)
+        }
         
-    }
-}
+        do {
+            if schools != nil {
+                schools = try self.managedObjectContext.executeFetchRequest(fetch) as! [SchoolMO]
+            } else if administrations != nil {
+                administrations = try self.managedObjectContext.executeFetchRequest(fetch) as! [AdministrationMO]
+            }
+        } catch {
+            fatalError("Failed to fetch administrations: \(error)")
+        }
+    }}
