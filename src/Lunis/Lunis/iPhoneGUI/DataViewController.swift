@@ -72,6 +72,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the selected cell
     var selectedSchoolName: String!
     
+    //the data controller for connecting to core data
+    var dataController: DataController!
+    
     // MARK: - functions
     
     override func viewDidLoad() {
@@ -99,11 +102,17 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
+        
+        //init the data controller
+        self.dataController = ((UIApplication.shared.delegate as? AppDelegate)?.dataController)!
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.toolbar.isHidden = true
+        
+        //fetch data from core data
+        
     }
     
     override func didReceiveMemoryWarning() {

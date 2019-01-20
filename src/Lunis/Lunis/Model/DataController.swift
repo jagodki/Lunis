@@ -10,9 +10,13 @@ import UIKit
 import CoreData
 
 class DataController: NSObject {
-    var managedObjectContext: NSManagedObjectContext
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     override init() {
+        super.init()
+        
+        //init the managed object context for connecting to core data
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -26,6 +30,7 @@ class DataController: NSObject {
         }
     }
     
+    /// This function stores the current managed objects into core data.
     func saveContext() {
         do {
             try self.managedObjectContext.save()
@@ -96,32 +101,40 @@ class DataController: NSObject {
         self.saveContext()
     }
     
+    /// This function fetches datasets from the administration entity.
+    ///
+    /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
+    /// - Returns: an array of AdministrationMO-objects as the result of the fetch
     func fetchAdministations(request: String = "") -> [AdministrationMO] {
+        //create the fetch request
         let administrationFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Administration")
         var administrationData: [AdministrationMO] = [AdministrationMO]()
-        self.fetchData(fetch: administrationFetch, request: request, administrations: administrationData)
-        return administrationData
-    }
-    
-    func fetchSchools(request: String = "") -> [SchoolMO] {
-        let schoolFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "School")
-        var schoolData: [SchoolMO] = [SchoolMO]()
-        self.fetchData(fetch: schoolFetch, request: request, schools: schoolData)
-        return schoolData
-    }
-    
-    func fetchData(fetch: NSFetchRequest<NSFetchRequestResult>, request: String, schools: [SchoolMO] = nil, administrations: [AdministrationMO] = nil) {
-        if request != "" {
-            fetch.predicate = NSPredicate(format: request)
-        }
         
+        //fetch the data
         do {
-            if schools != nil {
-                schools = try self.managedObjectContext.executeFetchRequest(fetch) as! [SchoolMO]
-            } else if administrations != nil {
-                administrations = try self.managedObjectContext.executeFetchRequest(fetch) as! [AdministrationMO]
-            }
+            administrationData = try self.managedObjectContext.fetch(administrationFetch) as! [AdministrationMO]
         } catch {
             fatalError("Failed to fetch administrations: \(error)")
         }
-    }}
+        return administrationData
+    }
+    
+    /// This function fetches datasets from the school entity.
+    ///
+    /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
+    /// - Returns: an array of SchoolMO-objects as the result of the fetch
+    func fetchSchools(request: String = "") -> [SchoolMO] {
+        //create the fetch request
+        let schoolFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "School")
+        var schoolData: [SchoolMO] = [SchoolMO]()
+        
+        //fetch the data
+        do {
+            schoolData = try self.managedObjectContext.fetch(schoolFetch) as! [SchoolMO]
+        } catch {
+            fatalError("Failed to fetch schools: \(error)")
+        }
+        return schoolData
+    }
+    
+}
