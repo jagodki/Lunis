@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 struct DataViewSchoolCell {
     var id: Int
@@ -74,6 +75,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //the data controller for connecting to core data
     var dataController: DataController!
+    var fetchedResultController: NSFetchedResultsController<SchoolMO>!
     
     // MARK: - functions
     
@@ -112,7 +114,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolbar.isHidden = true
         
         //fetch data from core data
-        
+        self.fetchedResultController = self.dataController.fetchSchools(request: "", groupedBy: "", orderedBy: "", orderedAscending: true)
     }
     
     override func didReceiveMemoryWarning() {

@@ -11,6 +11,11 @@ import CoreData
 
 class DataController: NSObject {
     
+    enum entityType {
+        case administration
+        case school
+    }
+    
     var managedObjectContext: NSManagedObjectContext!
     
     override init() {
@@ -135,6 +140,89 @@ class DataController: NSObject {
             fatalError("Failed to fetch schools: \(error)")
         }
         return schoolData
+    }
+    
+    
+    /// This function fetches datasets from the administration entity.
+    ///
+    /// - Parameters:
+    ///   - request: a filter argument to reduce the result
+    ///   - groupedBy: a group argument to create sections
+    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
+    /// - Returns: a result controller with objects of type AdministrationMO into it
+    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<AdministrationMO> {
+        //create fetch request and a result controller
+        var resultsController = NSFetchedResultsController<AdministrationMO>()
+        let fetch = NSFetchRequest<AdministrationMO>(entityName: "Administration")
+        
+        //sort the result
+        if orderedBy != "" {
+            let sort = NSSortDescriptor(key: orderedBy, ascending: orderedAscending)
+            fetch.sortDescriptors = [sort]
+        }
+        
+        //filter the result
+        if request != "" {
+            fetch.predicate = NSPredicate(format: request)
+        }
+        
+        //group the result
+        if groupedBy != "" {
+            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: groupedBy, cacheName: nil)
+        } else {
+            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        }
+        
+        //fetch the data
+        do {
+            try resultsController.performFetch()
+        } catch {
+            fatalError("Failed to fetch grouped administrations: \(error)")
+        }
+        
+        return resultsController
+    }
+    
+    /// This function fetches datasets from the school entity.
+    ///
+    /// - Parameters:
+    ///   - request: a filter argument to reduce the result
+    ///   - groupedBy: a group argument to create sections
+    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
+    /// - Returns: a result controller with objects of type SchoolMO into it
+    func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<SchoolMO> {
+        //create fetch request and a result controller
+        var resultsController = NSFetchedResultsController<SchoolMO>()
+        let fetch = NSFetchRequest<SchoolMO>(entityName: "School")
+        
+        //sort the result
+        if orderedBy != "" {
+            let sort = NSSortDescriptor(key: orderedBy, ascending: orderedAscending)
+            fetch.sortDescriptors = [sort]
+        }
+        
+        //filter the result
+        if request != "" {
+            fetch.predicate = NSPredicate(format: request)
+        }
+        
+        //group the result
+        if groupedBy != "" {
+            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: groupedBy, cacheName: nil)
+        } else {
+            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        }
+        
+        //fetch the data
+        do {
+            try resultsController.performFetch()
+        } catch {
+            fatalError("Failed to fetch grouped administrations: \(error)")
+        }
+        
+        return resultsController
     }
     
 }
