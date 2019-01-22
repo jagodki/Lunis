@@ -75,7 +75,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //the data controller for connecting to core data
     var dataController: DataController!
-    var fetchedResultController: NSFetchedResultsController<SchoolMO>!
+    var fetchedResultsController: NSFetchedResultsController<SchoolMO>!
     
     // MARK: - functions
     
@@ -114,7 +114,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolbar.isHidden = true
         
         //fetch data from core data
-        self.fetchedResultController = self.dataController.fetchSchools(request: "", groupedBy: "", orderedBy: "", orderedAscending: true)
+        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "school.schoolType", orderedBy: "school.name", orderedAscending: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -126,7 +126,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == self.tableView {
-            return self.testData.count
+            return self.fetchedResultsController.sections!.count
         } else {
             return 1
         }
@@ -134,7 +134,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.tableView {
-            return self.testData[section].data.count
+            return self.fetchedResultsController.sections![section].numberOfObjects
         } else {
             return self.searchedSchools.count
         }
@@ -143,15 +143,15 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellIdentifier: String!
         var textLabel: String!
-         
+        
         if tableView == self.tableView{
             cellIdentifier = "schoolCell"
-            textLabel = self.testData[indexPath.section].data[indexPath.row].name
+            textLabel = self.fetchedResultsController?.object(at: indexPath).name
         } else {
             cellIdentifier = "searchedSchoolsCell"
             textLabel = self.searchedSchools[indexPath.row].name
         }
-         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.textLabel?.text = textLabel
         return cell
@@ -159,7 +159,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.tableView {
-            return self.testData[section].name
+            return self.fetchedResultsController.sections![section].name
         } else {
             return ""
         }
@@ -372,10 +372,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewController.delegate = self
             
             case "showSchoolDetailFromData":
-                let viewController = segue.destination as! SchoolDetailView
-                
-                //get the school name of the selected row and pass it to the new view controller
-                viewController.schoolName = self.selectedSchoolName
+                if let cell = sender as? UITableViewCell {
+                    let school = self.tableView.indexPath(for: cell)!.row
+                    let viewController = segue.destination as! SchoolDetailView
+                    viewController.school = self.tableView.indexPath(for: cell)
+                }
             
             default:
                 _ = true
