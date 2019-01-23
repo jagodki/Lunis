@@ -9,34 +9,9 @@
 import UIKit
 import CoreData
 
-struct DataViewSchoolCell {
-    var id: Int
-    var name: String
-}
-
-struct DataViewSchoolSection {
-    var name: String
-    var data: [DataViewSchoolCell]
-}
 
 /// The controller for the data view.
 class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    //define testdata for the protoype
-    let testData = [
-        DataViewSchoolSection(name: "Grundschule", data: [
-            DataViewSchoolCell(id: 1, name: "1. Grundschule"),
-            DataViewSchoolCell(id: 2, name: "Knabengrundschule")
-            ]),
-        DataViewSchoolSection(name: "Gymnasium", data: [
-            DataViewSchoolCell(id: 1, name: "Lößnitzgymnasium"),
-            DataViewSchoolCell(id: 2, name: "Landesanstalt St. Afra")
-            ]),
-        DataViewSchoolSection(name: "Hochschule", data: [
-            DataViewSchoolCell(id: 1, name: "Uniwersytet Wrocławia"),
-            DataViewSchoolCell(id: 2, name: "HTW Dresden")
-            ])
-    ]
     
     // MARK: - Outlets
     @IBOutlet var buttonSelect: UIBarButtonItem!
@@ -50,7 +25,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - instance variables
     
     //a tableviewontroller to store the search results
-    var resultsController: UITableViewController!
+    var searchResultsController: UITableViewController!
     
     //a variable to store, whether all rows are selected or not
     var allSelected: Bool! = false
@@ -68,10 +43,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
     
     //store the filtered schools
-    var searchedSchools: [DataViewSchoolCell] = [DataViewSchoolCell]()
+    var searchedSchools: [SchoolMO] = [SchoolMO]()
     
     //store the selected cell
-    var selectedSchoolName: String!
+    var selectedSchool: SchoolMO!
     
     //the data controller for connecting to core data
     var dataController: DataController!
@@ -91,13 +66,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
         
         //set up a searchresultcontroller
-        resultsController = UITableViewController(style: .plain)
-        resultsController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchedSchoolsCell")
-        resultsController.tableView.dataSource = self
-        resultsController.tableView.delegate = self
+        self.searchResultsController = UITableViewController(style: .plain)
+        self.searchResultsController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchedSchoolsCell")
+        self.searchResultsController.tableView.dataSource = self
+        self.searchResultsController.tableView.delegate = self
         
         //set up a searchcontroller and add them to the navigationbar
-        let searchController: UISearchController = UISearchController(searchResultsController: resultsController)
+        let searchController: UISearchController = UISearchController(searchResultsController: self.searchResultsController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search Schools"
@@ -175,14 +150,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         //performe a segue and remove the selection, if the table view is not in editing mode
         if !self.tableView.isEditing {
             if tableView == self.tableView{
-                self.selectedSchoolName = (self.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
+                self.selectedSchool = self.fetchedResultsController?.object(at: indexPath)
             } else {
-                self.selectedSchoolName = (self.resultsController.tableView.cellForRow(at: indexPath)?.textLabel?.text)!
+                self.selectedSchool = self.searchedSchools[indexPath.row]
             }
             
             performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
             self.tableView.deselectRow(at: indexPath, animated: true)
-            self.resultsController.tableView.deselectRow(at: indexPath, animated: true)
+            self.searchResultsController.tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
@@ -375,7 +350,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if let cell = sender as? UITableViewCell {
                     let school = self.tableView.indexPath(for: cell)!.row
                     let viewController = segue.destination as! SchoolDetailView
-                    viewController.school = self.tableView.indexPath(for: cell)
+                    viewController.school = self.tableView.indexPath(for: cell)?.row
                 }
             
             default:
@@ -406,17 +381,14 @@ extension DataViewController: UISearchResultsUpdating {
          let searchText: String = searchController.searchBar.text!
          
          //get the rows of all sections
-         var allSchoolRows: [DataViewSchoolCell] = [DataViewSchoolCell]()
-         for section in self.testData {
-         allSchoolRows.append(contentsOf: section.data)
-         }
+        let allSchoolRows: [SchoolMO] = self.fetchedResultsController.fetchedObjects!
          
          //filter all school rows
-         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : DataViewSchoolCell) -> Bool in
-         return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : SchoolMO) -> Bool in
+            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
          })
          
          //reload the table
-         self.resultsController.tableView.reloadData()
+         self.searchResultsController.tableView.reloadData()
     }
 }

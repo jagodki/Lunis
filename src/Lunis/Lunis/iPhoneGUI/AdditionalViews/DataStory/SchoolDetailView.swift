@@ -22,39 +22,54 @@ struct SchoolDetailRow {
 class SchoolDetailView: UITableViewController {
     
     //the data of the tabel, will be edited in the constructor via delegation
-    var tableData = [
-        SchoolDetailGroup(title: "Adress", rows: [
-            SchoolDetailRow(title: "Name", value: ""),
-            SchoolDetailRow(title: "Street", value: ""),
-            SchoolDetailRow(title: "City", value: "")
-        ]),
-        SchoolDetailGroup(title: "School Type", rows: [
-            SchoolDetailRow(title: "Type", value: ""),
-            SchoolDetailRow(title: "Profile", value: "")
-            ]),
-        SchoolDetailGroup(title: "Contact", rows: [
-            SchoolDetailRow(title: "Phone", value: "111222333777888999"),
-            SchoolDetailRow(title: "Mail", value: "test@example.com"),
-            SchoolDetailRow(title: "Homepage", value: "www.duckduckgo.com")
-            ])
+    var tableData: [SchoolDetailGroup] = [
+//        SchoolDetailGroup(title: "Adress", rows: [
+//            SchoolDetailRow(title: "Name", value: ""),
+//            SchoolDetailRow(title: "Street", value: ""),
+//            SchoolDetailRow(title: "City", value: "")
+//        ]),
+//        SchoolDetailGroup(title: "School Type", rows: [
+//            SchoolDetailRow(title: "Type", value: ""),
+//            SchoolDetailRow(title: "Profile", value: "")
+//            ]),
+//        SchoolDetailGroup(title: "Contact", rows: [
+//            SchoolDetailRow(title: "Phone", value: "111222333777888999"),
+//            SchoolDetailRow(title: "Mail", value: "test@example.com"),
+//            SchoolDetailRow(title: "Homepage", value: "www.duckduckgo.com")
+//            ])
     ]
     
     // MARK: - Outlets
     @IBOutlet var buttonFavorite: UIBarButtonItem!
     
     //the name of the current school
-    var schoolName: String! = ""
+    var school: SchoolMO!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //replace the title of the view with the school name
-        self.navigationItem.title = self.schoolName
-        self.tableData[0].rows[0].value = self.schoolName
+        self.navigationItem.title = self.school.name
         
-        //edit the table data
+        //init the table data array
+        let rowName = SchoolDetailRow(title: "Name", value: self.school.name)
+        let rowStreet = SchoolDetailRow(title: "Street", value: self.school.street + " " + self.school.number)
+        let rowCity = SchoolDetailRow(title: "City", value: self.school.postalCode + " - " + self.school.city)
+        let groupAdress = SchoolDetailGroup(title: "Adress", rows: [rowName, rowStreet, rowCity])
         
+        let rowType = SchoolDetailRow(title: "Type", value: self.school.schoolType)
+        let rowProfile = SchoolDetailRow(title: "Profile", value: self.school.schoolSpecialisation)
+        let groupSchoolType = SchoolDetailGroup(title: "School Type", rows: [rowType, rowProfile])
         
+        let rowPhone = SchoolDetailRow(title: "Phone", value: self.school.phone)
+        let rowMail = SchoolDetailRow(title: "Mail", value: self.school.mail)
+        let rowHomepage = SchoolDetailRow(title: "Homepage", value: self.school.website)
+        let groupContact = SchoolDetailGroup(title: "Adress", rows: [rowPhone, rowMail, rowHomepage])
+        
+        let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia)
+        let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki])
+        
+        self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther]
     }
     
     // MARK: - methods
@@ -86,7 +101,7 @@ class SchoolDetailView: UITableViewController {
         cell.textLabel?.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
         //change the colour of the strings for the contact section to indicate an action
-        if self.tableData[indexPath.section].title == "Contact" {
+        if (self.tableData[indexPath.section].title == "Contact") || (self.tableData[indexPath.section].rows[indexPath.row].title == "Wikipedia") {
             cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
         
