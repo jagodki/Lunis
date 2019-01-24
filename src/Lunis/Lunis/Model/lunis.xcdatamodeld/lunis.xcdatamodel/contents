@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G3025" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Administration" representedClassName="Administration" syncable="YES" codeGenerationType="class">
+    <entity name="Administration" representedClassName="Administration" syncable="YES">
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="country" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -10,7 +10,7 @@
         <attribute name="y" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="School" inverseName="administration" inverseEntity="School" syncable="YES"/>
     </entity>
-    <entity name="School" representedClassName="School" syncable="YES" codeGenerationType="class">
+    <entity name="School" representedClassName="School" syncable="YES">
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="favorite" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mail" attributeType="String" syncable="YES"/>

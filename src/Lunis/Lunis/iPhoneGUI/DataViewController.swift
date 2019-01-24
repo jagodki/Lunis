@@ -118,17 +118,28 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellIdentifier: String!
         var textLabel: String!
+        var insertFavIcon: Bool!
+        var mainTable: Bool!
         
         if tableView == self.tableView{
             cellIdentifier = "schoolCell"
             textLabel = self.fetchedResultsController?.object(at: indexPath).name
+            insertFavIcon = self.fetchedResultsController?.object(at: indexPath).favorite
+            mainTable = true
         } else {
             cellIdentifier = "searchedSchoolsCell"
             textLabel = self.searchedSchools[indexPath.row].name
+            insertFavIcon = false
+            mainTable = false
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.textLabel?.text = textLabel
+        if insertFavIcon && mainTable {
+            cell.imageView?.image = UIImage(named: "favorite")
+        } else if mainTable {
+            cell.imageView?.image = UIImage(named: "no_favorite")
+        }
         return cell
     }
     
@@ -292,11 +303,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         if indexPathsOfSelectedRows != nil {
             if self.allFavorites {
                 for indexPath in indexPathsOfSelectedRows! {
-                    self.unmarkFavorite(section: indexPath.section, row: indexPath.row)
+                    self.unmarkFavorite(at: indexPath)
                 }
             } else {
                 for indexPath in indexPathsOfSelectedRows! {
-                    self.markFavorite(section: indexPath.section, row: indexPath.row)
+                    self.markFavorite(at: indexPath)
                 }
             }
             
@@ -317,9 +328,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
-    private func markFavorite(section: Int, row: Int) {
-        let cell = self.tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+    private func markFavorite(at indexPath: IndexPath) {
+        let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
+        self.fetchedResultsController?.object(at: indexPath).favorite = true
+        self.dataController.saveData()
         //self.tableView.reloadData()
     }
     
@@ -328,9 +341,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - section: the index of the section, where the row can be found
     ///   - row: the index of the row in the given section
-    private func unmarkFavorite(section: Int, row: Int) {
-        let cell = self.tableView.cellForRow(at: NSIndexPath(row: row, section: section) as IndexPath)
+    private func unmarkFavorite(at indexPath: IndexPath) {
+        let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
+        self.fetchedResultsController?.object(at: indexPath).favorite = false
+        self.dataController.saveData()
     }
     
     //checks the status of all selected rows to get the information, whether all selected rows are favorites or not
@@ -347,11 +362,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewController.delegate = self
             
             case "showSchoolDetailFromData":
-                if let cell = sender as? UITableViewCell {
-                    let school = self.tableView.indexPath(for: cell)!.row
-                    let viewController = segue.destination as! SchoolDetailView
-                    viewController.school = self.tableView.indexPath(for: cell)?.row
-                }
+                let viewController = segue.destination as! SchoolDetailView
+                viewController.school = self.selectedSchool
             
             default:
                 _ = true
@@ -391,4 +403,43 @@ extension DataViewController: UISearchResultsUpdating {
          //reload the table
          self.searchResultsController.tableView.reloadData()
     }
+}
+
+// MARK: - implementation of NSFetchedResultsControllerDelegate
+extension DataViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            self.tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move:
+            break
+        case .update:
+            break
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            self.tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            self.tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            self.tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            self.tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
+    }
+    
 }

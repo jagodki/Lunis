@@ -36,7 +36,7 @@ class DataController: NSObject {
     }
     
     /// This function stores the current managed objects into core data.
-    func saveContext() {
+    func saveData() {
         do {
             try self.managedObjectContext.save()
         } catch let error as NSError {
@@ -103,7 +103,7 @@ class DataController: NSObject {
         administration1.addToSchools(school1)
         administration2.addToSchools(school2)
         
-        self.saveContext()
+        self.saveData()
     }
     
     /// This function fetches datasets from the administration entity.
