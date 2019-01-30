@@ -16,17 +16,24 @@ class DataController: NSObject {
         case school
     }
     
-    var managedObjectContext: NSManagedObjectContext!
+    //var managedObjectContext: NSManagedObjectContext!
     
     override init() {
         super.init()
+        let persistentContainer = NSPersistentContainer(name: "lunis")
+        persistentContainer.loadPersistentStores() { (description, error) in
+            if let error = error {
+                fatalError("Failed to load Core Data stack: \(error)")
+            }
+        }
         
         //init the managed object context for connecting to core data
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        self.managedObjectContext  = appDelegate.persistentContainer.viewContext
+//        guard let appDelegate =
+//            UIApplication.shared.delegate as? AppDelegate else {
+//                return
+////        }
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        self.managedObjectContext  = appDelegate.persistentContainer.viewContext
         
         
         //insert test data
@@ -35,12 +42,30 @@ class DataController: NSObject {
         }
     }
     
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "lunis")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        return self.persistentContainer.viewContext
+    }()
+    
     /// This function stores the current managed objects into core data.
     func saveData() {
-        do {
-            try self.managedObjectContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+        if self.managedObjectContext.hasChanges {
+            do {
+                try self.managedObjectContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
     }
     
@@ -223,6 +248,11 @@ class DataController: NSObject {
         }
         
         return resultsController
+    }
+    
+    func delete(by objectID: NSManagedObjectID) {
+        let managedObject = self.managedObjectContext.object(with: objectID)
+        self.managedObjectContext.delete(managedObject)
     }
     
 }

@@ -64,7 +64,7 @@ class SchoolDetailView: UITableViewController {
         let rowPhone = SchoolDetailRow(title: "Phone", value: self.school.phone)
         let rowMail = SchoolDetailRow(title: "Mail", value: self.school.mail)
         let rowHomepage = SchoolDetailRow(title: "Homepage", value: self.school.website)
-        let groupContact = SchoolDetailGroup(title: "Adress", rows: [rowPhone, rowMail, rowHomepage])
+        let groupContact = SchoolDetailGroup(title: "Contact", rows: [rowPhone, rowMail, rowHomepage])
         
         let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia)
         let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki])
@@ -130,7 +130,10 @@ class SchoolDetailView: UITableViewController {
                 UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
             
             case "Homepage":
-                UIApplication.shared.open(URL(string: "https://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+            
+            case "Wikipedia":
+                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
             
             default:
                 _ = true

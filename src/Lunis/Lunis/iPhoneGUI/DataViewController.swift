@@ -81,7 +81,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         definesPresentationContext = true
         
         //init the data controller
-        self.dataController = ((UIApplication.shared.delegate as? AppDelegate)?.dataController)!
+        self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
+        
+        //fetch data from core data
+        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +92,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolbar.isHidden = true
         
         //fetch data from core data
-        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "school.schoolType", orderedBy: "school.name", orderedAscending: true)
+        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
     }
     
     override func didReceiveMemoryWarning() {
