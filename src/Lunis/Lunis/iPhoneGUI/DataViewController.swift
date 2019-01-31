@@ -182,14 +182,21 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        //define the actions
         let markAsFavorite = UIContextualAction(style: .normal, title: "\u{2605}") {(action, view, completion) in
-            print("favorite")
+//            self.fetchedResultsController.object(at: indexPath).favorite = true
+//            self.dataController.saveData()
+//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
+            self.markFavorite(at: indexPath, with: UITableViewRowAnimation.right)
             completion(true)
         }
         markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         
         let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
-            print("no favorite")
+//            self.fetchedResultsController.object(at: indexPath).favorite = false
+//            self.dataController.saveData()
+//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
+            self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.right)
             completion(true)
         }
         unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
@@ -200,10 +207,19 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
         
-        if self.allFavorites {
-            return UISwipeActionsConfiguration(actions: [unmarkAsFavorite, showOnMap])
+        //create an array of actions, depending on the favorite status of the current row
+        var actions: [UIContextualAction]
+        if self.fetchedResultsController.object(at: indexPath).favorite {
+            actions = [unmarkAsFavorite, showOnMap]
         } else {
-            return UISwipeActionsConfiguration(actions: [markAsFavorite, showOnMap])
+            actions = [markAsFavorite, showOnMap]
+        }
+        
+        //return only the map action, if the search is active
+        if self.tableView == tableView {
+            return UISwipeActionsConfiguration(actions: actions)
+        } else {
+            return UISwipeActionsConfiguration(actions: [showOnMap])
         }
     }
     
@@ -306,11 +322,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         if indexPathsOfSelectedRows != nil {
             if self.allFavorites {
                 for indexPath in indexPathsOfSelectedRows! {
-                    self.unmarkFavorite(at: indexPath)
+                    self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
                 }
             } else {
                 for indexPath in indexPathsOfSelectedRows! {
-                    self.markFavorite(at: indexPath)
+                    self.markFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
                 }
             }
             
@@ -329,26 +345,27 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// This function marks a given row as a favorite, i.e. a favorite icon will be inserted.
     ///
     /// - Parameters:
-    ///   - section: the index of the section, where the row can be found
-    ///   - row: the index of the row in the given section
-    private func markFavorite(at indexPath: IndexPath) {
+    ///   - indexPath: the index to find the row
+    ///   - animation: the animation for reloading the table row
+    private func markFavorite(at indexPath: IndexPath, with animation: UITableViewRowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = true
         self.dataController.saveData()
-        //self.tableView.reloadData()
+        self.tableView.reloadRows(at: [indexPath], with: animation)
     }
     
     /// This function unmarkes a given row as favorite.
     ///
     /// - Parameters:
-    ///   - section: the index of the section, where the row can be found
-    ///   - row: the index of the row in the given section
-    private func unmarkFavorite(at indexPath: IndexPath) {
+    ///   - indexPath: the index to find the row
+    ///   - animation: the animation for reloading the table row
+    private func unmarkFavorite(at indexPath: IndexPath, with animation: UITableViewRowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = false
         self.dataController.saveData()
+        self.tableView.reloadRows(at: [indexPath], with: animation)
     }
     
     //checks the status of all selected rows to get the information, whether all selected rows are favorites or not
