@@ -13,6 +13,13 @@ import CoreData
 /// The controller for the data view.
 class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //strings for titles of gui elements
+    let buttonFavoriteUnmarkTitle = "Unmark as Favorite"
+    let buttonFavoriteMarkTitle = "Mark as Favorite"
+    let buttonSelectAllTitle = "Select All"
+    let buttonDeselectAllTitle = "Deselect All"
+    
+    
     // MARK: - Outlets
     @IBOutlet var buttonSelect: UIBarButtonItem!
     @IBOutlet var buttonFilter: UIBarButtonItem!
@@ -155,10 +162,18 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //enable the mark/unmak as favorite button
+        self.buttonFavorite.isEnabled = true
+        
+        //adjust the title of the mark/unmark favorites button
+        if tableView.isEditing && tableView == self.tableView && self.fetchedResultsController.object(at: indexPath).favorite == false {
+            self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+        }
+        
         self.unselectedRows = self.unselectedRows - 1
         if self.unselectedRows == 0 {
             self.allSelected = true
-            self.buttonSelectAll.title = "Deselect All"
+            self.buttonSelectAll.title = self.buttonDeselectAllTitle
         }
         
         //performe a segue and remove the selection, if the table view is not in editing mode
@@ -178,7 +193,15 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.unselectedRows = self.unselectedRows + 1
         self.allSelected = false
-        self.buttonSelectAll.title = "Select All"
+        self.buttonSelectAll.title = self.buttonSelectAllTitle
+        
+        //disable the mark/unmak as favorite button, whether all rows are deselected
+        if tableView.indexPathsForSelectedRows?.count == 0 || tableView.indexPathsForSelectedRows?.count == nil {
+            self.buttonFavorite.isEnabled = false
+        }
+        
+        //adjust the title of the mark/unmak as favorite button
+        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -240,17 +263,18 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.segmentedControl.isEnabled = self.tableView.isEditing
         self.buttonFilter.isEnabled = self.tableView.isEditing
         self.tabBarController?.tabBar.isHidden = !self.tableView.isEditing
+        self.buttonFavorite.isEnabled = false
         
         //show/hide the toolbar and the tabbar
         UIView.animate(withDuration: 0.2, animations: {
             () -> Void in
             // show/hide toolbar
             if self.toolbar.isHidden {
-                self.buttonSelectAll.title = "Select All"
+                self.buttonSelectAll.title = self.buttonSelectAllTitle
                 self.toolbar.isHidden = false
                 self.toolbar.frame = self.tbRect
             }else {
-                let frameRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+                let frameRect = CGRect(x: self.toolbar.frame.origin.x , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
                 self.toolbar.frame = frameRect
                 self.toolbar.isHidden = true
             }
@@ -297,9 +321,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //update the appearence of the buttons
         if self.allSelected {
-            self.buttonSelectAll.title = "Select All"
+            self.buttonSelectAll.title = self.buttonSelectAllTitle
         } else {
-            self.buttonSelectAll.title = "Deselect All"
+            self.buttonSelectAll.title = self.buttonDeselectAllTitle
         }
         
         //update the variables to store the selection status
@@ -332,9 +356,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //update the appearence of the buttons
             if self.allFavorites {
-                self.buttonFavorite.title = "Mark Favorites"
+                self.buttonFavorite.title = self.buttonFavoriteMarkTitle
             } else {
-                self.buttonFavorite.title = "Unmark Favorites"
+                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
             }
             
             //change the status of the variable to store, whether all selected rows are favorites or not
