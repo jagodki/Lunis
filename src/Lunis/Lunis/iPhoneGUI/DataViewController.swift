@@ -14,8 +14,8 @@ import CoreData
 class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //strings for titles of gui elements
-    let buttonFavoriteUnmarkTitle = "Unmark as Favorite"
-    let buttonFavoriteMarkTitle = "Mark as Favorite"
+    let buttonFavoriteUnmarkTitle = "Unmark as Favorite(s)"
+    let buttonFavoriteMarkTitle = "Mark as Favorite(s)"
     let buttonSelectAllTitle = "Select All"
     let buttonDeselectAllTitle = "Deselect All"
     
@@ -162,22 +162,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //enable the mark/unmak as favorite button
-        self.buttonFavorite.isEnabled = true
-        
-        //adjust the title of the mark/unmark favorites button
-        if tableView.isEditing && tableView == self.tableView && self.fetchedResultsController.object(at: indexPath).favorite == false {
-            self.buttonFavorite.title = self.buttonFavoriteMarkTitle
-        }
-        
-        self.unselectedRows = self.unselectedRows - 1
-        if self.unselectedRows == 0 {
-            self.allSelected = true
-            self.buttonSelectAll.title = self.buttonDeselectAllTitle
-        }
-        
         //performe a segue and remove the selection, if the table view is not in editing mode
-        if !self.tableView.isEditing {
+        if !tableView.isEditing {
             if tableView == self.tableView{
                 self.selectedSchool = self.fetchedResultsController?.object(at: indexPath)
             } else {
@@ -187,21 +173,51 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             performSegue(withIdentifier: "showSchoolDetailFromData", sender: self)
             self.tableView.deselectRow(at: indexPath, animated: true)
             self.searchResultsController.tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            //enable the mark/unmak as favorite button
+            self.buttonFavorite.isEnabled = true
+            
+            //check the table view
+            guard tableView.isEditing && tableView == self.tableView else {
+                return
+            }
+            
+            //adjust the title of the mark/unmark favorites button
+            guard tableView.indexPathsForSelectedRows?.count != 0 && tableView.indexPathsForSelectedRows != nil else {
+                return
+            }
+            
+            //if at least one selection is not favorite, the button shows "mark as favorite"
+            for selectedIndexPath in tableView.indexPathsForSelectedRows! {
+                if self.fetchedResultsController.object(at: selectedIndexPath).favorite == false {
+                    self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+                    return
+                }
+                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        self.unselectedRows = self.unselectedRows + 1
-        self.allSelected = false
-        self.buttonSelectAll.title = self.buttonSelectAllTitle
-        
         //disable the mark/unmak as favorite button, whether all rows are deselected
         if tableView.indexPathsForSelectedRows?.count == 0 || tableView.indexPathsForSelectedRows?.count == nil {
             self.buttonFavorite.isEnabled = false
+            self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+        } else {
+            //adjust the title of the mark/unmak as favorite button
+            guard self.tableView == tableView else {
+                return
+            }
+            
+            //if at least one selection is not favorite, the button shows "mark as favorite"
+            for selectedIndexPath in tableView.indexPathsForSelectedRows! {
+                if self.fetchedResultsController.object(at: selectedIndexPath).favorite == false {
+                    self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+                    return
+                }
+                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
+            }
         }
-        
-        //adjust the title of the mark/unmak as favorite button
-        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

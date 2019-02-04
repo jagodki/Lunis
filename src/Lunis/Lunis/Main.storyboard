@@ -208,7 +208,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="JRd-24-saa"/>
-                                    <barButtonItem title="Mark as Favorites" id="Pyc-Xe-0JD">
+                                    <barButtonItem title="Mark as Favorite(s)" id="Pyc-Xe-0JD">
                                         <connections>
                                             <action selector="favoriteButtonPressed:" destination="8LT-sb-z2Y" id="Ptf-1p-iVx"/>
                                         </connections>
