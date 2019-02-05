@@ -34,15 +34,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //a tableviewontroller to store the search results
     var searchResultsController: UITableViewController!
     
-    //a variable to store, whether all rows are selected or not
-    var allSelected: Bool! = false
-    
-    //a variable to store the count of unselected rows
-    var unselectedRows: Int!
-    
-    //a variable to store, whether all rows are favorites or not
-    var allFavorites: Bool! = false
-    
     //store the dimension and position of the toolbar
     var tbRect: CGRect!
     
@@ -62,9 +53,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - functions
     
     override func viewDidLoad() {
-        //init the unselected rows var
-        self.unselectedRows = 6
-        
         super.viewDidLoad()
         
         //hide toolbar, store its size and position and show tabbar
@@ -174,27 +162,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.tableView.deselectRow(at: indexPath, animated: true)
             self.searchResultsController.tableView.deselectRow(at: indexPath, animated: true)
         } else {
+            //adjust the select all button
+            if tableView.indexPathsForSelectedRows?.count == self.fetchedResultsController.fetchedObjects?.count && tableView.isEditing && tableView == self.tableView {
+                self.buttonSelectAll.title = self.buttonDeselectAllTitle
+            }
+            
             //enable the mark/unmak as favorite button
-            self.buttonFavorite.isEnabled = true
-            
-            //check the table view
-            guard tableView.isEditing && tableView == self.tableView else {
-                return
-            }
-            
-            //adjust the title of the mark/unmark favorites button
-            guard tableView.indexPathsForSelectedRows?.count != 0 && tableView.indexPathsForSelectedRows != nil else {
-                return
-            }
-            
-            //if at least one selection is not favorite, the button shows "mark as favorite"
-            for selectedIndexPath in tableView.indexPathsForSelectedRows! {
-                if self.fetchedResultsController.object(at: selectedIndexPath).favorite == false {
-                    self.buttonFavorite.title = self.buttonFavoriteMarkTitle
-                    return
-                }
-                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
-            }
+            self.adjustFavoriteButton(tableView: tableView)
         }
     }
     
@@ -204,37 +178,23 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.buttonFavorite.isEnabled = false
             self.buttonFavorite.title = self.buttonFavoriteMarkTitle
         } else {
-            //adjust the title of the mark/unmak as favorite button
-            guard self.tableView == tableView else {
-                return
-            }
+            //adjust the select all button
+            self.buttonSelectAll.title = self.buttonSelectAllTitle
             
-            //if at least one selection is not favorite, the button shows "mark as favorite"
-            for selectedIndexPath in tableView.indexPathsForSelectedRows! {
-                if self.fetchedResultsController.object(at: selectedIndexPath).favorite == false {
-                    self.buttonFavorite.title = self.buttonFavoriteMarkTitle
-                    return
-                }
-                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
-            }
+            //enable the mark/unmak as favorite button
+            self.adjustFavoriteButton(tableView: tableView)
         }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //define the actions
         let markAsFavorite = UIContextualAction(style: .normal, title: "\u{2605}") {(action, view, completion) in
-//            self.fetchedResultsController.object(at: indexPath).favorite = true
-//            self.dataController.saveData()
-//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
             self.markFavorite(at: indexPath, with: UITableViewRowAnimation.right)
             completion(true)
         }
         markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         
         let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
-//            self.fetchedResultsController.object(at: indexPath).favorite = false
-//            self.dataController.saveData()
-//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
             self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.right)
             completion(true)
         }
@@ -303,15 +263,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         if self.tableView.isEditing {
             self.buttonSelect.title = "Done"
             self.buttonSelect.style = .done
-            self.allSelected = false
         } else {
             self.buttonSelect.title = "Select"
             self.buttonSelect.style = .plain
         }
-        
-        //update the vars to store the selection status
-        self.unselectedRows = 6
-        self.allSelected = false
     }
     
     /// This function selects all rows of the table view.
@@ -326,29 +281,22 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             let totalRows = self.tableView.numberOfRows(inSection: section)
             for row in 0..<totalRows {
                 
-                //select or deselect the current row
-                if self.allSelected {
-                    self.tableView.deselectRow(at: IndexPath(row: row, section: section), animated: true)
-                } else {
+                //select or deselect the current row depending on the button title
+                if self.buttonSelectAll.title == self.buttonSelectAllTitle {
                     self.tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
+                } else {
+                    self.tableView.deselectRow(at: IndexPath(row: row, section: section), animated: true)
                 }
             }
         }
         
         //update the appearence of the buttons
-        if self.allSelected {
-            self.buttonSelectAll.title = self.buttonSelectAllTitle
-        } else {
+        if self.buttonSelectAll.title == self.buttonSelectAllTitle {
             self.buttonSelectAll.title = self.buttonDeselectAllTitle
-        }
-        
-        //update the variables to store the selection status
-        self.allSelected = !self.allSelected
-        if self.allSelected {
-            self.unselectedRows = 0
         } else {
-            self.unselectedRows = 6
+            self.buttonSelectAll.title = self.buttonSelectAllTitle
         }
+        self.adjustFavoriteButton(tableView: self.tableView)
     }
     
     /// This function marks or unmarks all selected rows of the table view as favorites.
@@ -357,29 +305,30 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///
     /// - Parameter sender: any
     @IBAction private func favoriteButtonPressed(_ sender: Any) {
-        //iterate over all sections and mark or unmark them as favorites
-        let indexPathsOfSelectedRows = self.tableView.indexPathsForSelectedRows
-        if indexPathsOfSelectedRows != nil {
-            if self.allFavorites {
-                for indexPath in indexPathsOfSelectedRows! {
-                    self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
-                }
-            } else {
-                for indexPath in indexPathsOfSelectedRows! {
-                    self.markFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
-                }
-            }
-            
-            //update the appearence of the buttons
-            if self.allFavorites {
-                self.buttonFavorite.title = self.buttonFavoriteMarkTitle
-            } else {
-                self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
-            }
-            
-            //change the status of the variable to store, whether all selected rows are favorites or not
-            self.allFavorites = !self.allFavorites
+        //get all selected rows
+        guard let indexPathsOfSelectedRows = self.tableView.indexPathsForSelectedRows else {
+            return
         }
+        
+        //check the button title and mark or unmark all selected rows
+        if self.buttonFavorite.title == self.buttonFavoriteMarkTitle {
+            for indexPath in indexPathsOfSelectedRows {
+                self.markFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
+            }
+            self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
+        } else {
+            for indexPath in indexPathsOfSelectedRows {
+                self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
+            }
+            self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+        }
+        
+        //disable the button and adjust its title
+        self.buttonFavorite.isEnabled = false
+        self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+        
+        //adjust the title of the selection button
+        self.buttonSelectAll.title = self.buttonSelectAllTitle
     }
     
     /// This function marks a given row as a favorite, i.e. a favorite icon will be inserted.
@@ -408,9 +357,28 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadRows(at: [indexPath], with: animation)
     }
     
-    //checks the status of all selected rows to get the information, whether all selected rows are favorites or not
-    func checkFavoriteStatusOfSelectedRows() {
+    private func adjustFavoriteButton(tableView: UITableView) {
+        //check the table view
+        guard tableView.isEditing && tableView == self.tableView else {
+            return
+        }
         
+        //adjust the title of the mark/unmark favorites button
+        guard self.tableView.indexPathsForSelectedRows != nil && tableView.indexPathsForSelectedRows?.count != 0 else {
+            self.buttonFavorite.isEnabled = false
+            self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+            return
+        }
+        self.buttonFavorite.isEnabled = true
+        
+        //if at least one selection is not favorite, the button shows "mark as favorite"
+        for selectedIndexPath in tableView.indexPathsForSelectedRows! {
+            if self.fetchedResultsController.object(at: selectedIndexPath).favorite == false {
+                self.buttonFavorite.title = self.buttonFavoriteMarkTitle
+                return
+            }
+            self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
+        }
     }
     
     // MARK: - navigation
