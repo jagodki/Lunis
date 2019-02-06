@@ -79,7 +79,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //fetch data from core data
-        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        self.segmentedControlChanged((Any).self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +87,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolbar.isHidden = true
         
         //fetch data from core data
-        self.fetchedResultsController = self.dataController.fetchSchools(request: "", groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        self.segmentedControlChanged((Any).self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -357,6 +357,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadRows(at: [indexPath], with: animation)
     }
     
+    /// This function adjust the appearence of the Mark-/Unmark-as-Favorite-Button.
+    ///
+    /// - Parameter tableView: a UITableView, that content is mandatory to control the appearence of the button
     private func adjustFavoriteButton(tableView: UITableView) {
         //check the table view
         guard tableView.isEditing && tableView == self.tableView else {
@@ -379,6 +382,53 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
         }
+    }
+    
+    @IBAction func segmentedControlChanged(_ sender: Any) {
+        //init a variable to store the filter expression
+        var request: String = ""
+        
+        switch self.segmentedControl.selectedSegmentIndex {
+            case 0:
+                request = ""
+            case 1:
+                request = "favorite == true"
+            case 2:
+                if self.filter["Country"] != "All" {
+                    if request == "" {
+                        request.append("ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
+                    } else {
+                        request.append("AND ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
+                    }
+                }
+                if self.filter["District"] != "All" {
+                    if request == "" {
+                        request.append("ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
+                    } else {
+                        request.append("AND ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
+                    }
+                }
+                if self.filter["City"] != "All" {
+                    if request == "" {
+                        request.append("city CONTAINS \"" + self.filter["City"]! + "\"")
+                    } else {
+                        request.append("AND city CONTAINS \"" + self.filter["City"]! + "\"")
+                    }
+                }
+                if self.filter["School Type"] != "All" {
+                    if request == "" {
+                        request.append("schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
+                    } else {
+                        request.append("AND schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
+                    }
+                }
+            default:
+                break
+        }
+        
+        //fetch data from core data
+        self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        self.tableView.reloadData()
     }
     
     // MARK: - navigation
@@ -407,6 +457,8 @@ extension DataViewController: FilterDataViewDelegate {
         self.filter["District"] = district
         self.filter["City"] = city
         self.filter["School Type"] = schoolType
+        self.segmentedControl.selectedSegmentIndex = 2
+        self.tableView.reloadData()
     }
     
     func getCurrentFilterSettings() -> [String: String]! {

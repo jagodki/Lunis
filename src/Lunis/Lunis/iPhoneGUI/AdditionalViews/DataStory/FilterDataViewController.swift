@@ -140,12 +140,16 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         switch cell?.textLabel?.text {
             case "Country":
                 self.pickerData = self.countryData
+                self.pickerView.reloadAllComponents()
             case "District":
                 self.pickerData = self.districtData
+                self.pickerView.reloadAllComponents()
             case "City":
                 self.pickerData = self.cityData
+                self.pickerView.reloadAllComponents()
             case "School Type":
                 self.pickerData = self.schoolTypeData
+                self.pickerView.reloadAllComponents()
             default:
                 print("default")
         }

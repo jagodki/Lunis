@@ -235,13 +235,16 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
-                            <rect key="frame" x="63.5" y="7.5" width="186" height="29"/>
+                            <rect key="frame" x="63.5" y="7" width="186" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
-                                <segment title="Filtered"/>
                                 <segment title="Favorites"/>
+                                <segment title="Filtered"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentedControlChanged:" destination="8LT-sb-z2Y" eventType="valueChanged" id="bnP-To-kqQ"/>
+                            </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Select" id="duF-LL-Xto">
                             <connections>

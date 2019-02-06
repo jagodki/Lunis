@@ -22,22 +22,7 @@ struct SchoolDetailRow {
 class SchoolDetailView: UITableViewController {
     
     //the data of the tabel, will be edited in the constructor via delegation
-    var tableData: [SchoolDetailGroup] = [
-//        SchoolDetailGroup(title: "Adress", rows: [
-//            SchoolDetailRow(title: "Name", value: ""),
-//            SchoolDetailRow(title: "Street", value: ""),
-//            SchoolDetailRow(title: "City", value: "")
-//        ]),
-//        SchoolDetailGroup(title: "School Type", rows: [
-//            SchoolDetailRow(title: "Type", value: ""),
-//            SchoolDetailRow(title: "Profile", value: "")
-//            ]),
-//        SchoolDetailGroup(title: "Contact", rows: [
-//            SchoolDetailRow(title: "Phone", value: "111222333777888999"),
-//            SchoolDetailRow(title: "Mail", value: "test@example.com"),
-//            SchoolDetailRow(title: "Homepage", value: "www.duckduckgo.com")
-//            ])
-    ]
+    var tableData: [SchoolDetailGroup] = []
     
     // MARK: - Outlets
     @IBOutlet var buttonFavorite: UIBarButtonItem!

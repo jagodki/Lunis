@@ -118,7 +118,7 @@ class DataController: NSObject {
         school2.phone = "03521/87654321"
         school2.postalCode = "01662"
         school2.schoolSpecialisation = "sprachlich, künstlerich, naturwissenschaftlich"
-        school2.schoolType = "Gymnasium"
+        school2.schoolType = "Grundschule"
         school2.website = "http://www.sankt-afra.de/"
         school2.wikipedia = "https://de.wikipedia.org/wiki/S%C3%A4chsisches_Landesgymnasium_Sankt_Afra"
         school2.x = 51.163543
@@ -250,6 +250,9 @@ class DataController: NSObject {
         return resultsController
     }
     
+    /// This function deletes an object from core data.
+    ///
+    /// - Parameter objectID: the id of the object, which should be deleted
     func delete(by objectID: NSManagedObjectID) {
         let managedObject = self.managedObjectContext.object(with: objectID)
         self.managedObjectContext.delete(managedObject)
