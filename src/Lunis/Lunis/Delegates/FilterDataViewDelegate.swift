@@ -17,8 +17,7 @@ protocol FilterDataViewDelegate: AnyObject {
     ///   - district: the name of the district as String
     ///   - city: the name of the city as String
     ///   - schoolType: the school type as String
-    ///   - schoolProfile: the school profile as String
-    func sendFilterSettings(country: String, district: String, city: String, schoolType: String, schoolProfile: String)
+    func sendFilterSettings(country: String, district: String, city: String, schoolType: String)
     
     /// A function to get the current filter settings via delegation.
     ///

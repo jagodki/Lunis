@@ -438,10 +438,16 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             case "showFilterDataView":
                 let viewController = segue.destination as! FilterDataViewController
                 viewController.delegate = self
-                viewController.countryData = [""]
-                viewController.districtData = [""]
-                viewController.cityData = [""]
-                viewController.schoolTypeData = [""]
+                viewController.countryData = self.dataController.distinctValues(for: "country", in: "Administration")
+                viewController.countryData.insert("All", at: 0)
+                viewController.districtData = self.dataController.distinctValues(for: "region", in: "Administration")
+                viewController.districtData.insert("All", at: 0)
+                viewController.cityData = self.dataController.distinctValues(for: "city", in: "School")
+                viewController.cityData.insert("All", at: 0)
+                viewController.schoolTypeData = self.dataController.distinctValues(for: "schoolType", in: "School")
+                viewController.schoolTypeData.insert("All", at: 0)
+//                viewController.schoolProfileData = self.dataController.distinctValues(for: "schoolSpecialisation", in: "School")
+//                viewController.schoolProfileData.insert("All", at: 0)
             
             case "showSchoolDetailFromData":
                 let viewController = segue.destination as! SchoolDetailView
@@ -456,12 +462,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
 // MARK: - implementation of FilterDataViewDelegate
 extension DataViewController: FilterDataViewDelegate {
     
-    func sendFilterSettings(country: String, district: String, city: String, schoolType: String, schoolProfile: String) {
+    func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
         self.filter["Country"] = country
         self.filter["District"] = district
         self.filter["City"] = city
         self.filter["School Type"] = schoolType
-        self.filter["School Profile"] = schoolProfile
         self.segmentedControl.selectedSegmentIndex = 2
         self.tableView.reloadData()
     }

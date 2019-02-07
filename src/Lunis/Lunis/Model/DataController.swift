@@ -258,4 +258,28 @@ class DataController: NSObject {
         self.managedObjectContext.delete(managedObject)
     }
     
+    func distinctValues(for attribute: String, in entity: String) -> [String] {
+        //init the fetch request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        fetchRequest.propertiesToFetch = [attribute]
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.returnsDistinctResults = true
+        
+        //fetch data and return it
+        var result: [String] = []
+        var fetchResult: NSArray
+        do {
+            fetchResult = try self.managedObjectContext.fetch(fetchRequest) as NSArray
+        } catch {
+            fatalError("Failed to fetch distinct values: \(error)")
+        }
+        for entry in fetchResult {
+            let entryDictionary = entry as! NSDictionary
+            result.append(entryDictionary.object(forKey: attribute) as! String)
+        }
+        return result
+    }
+    
 }

@@ -27,8 +27,8 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
             Row(name: "Country", value: "All"),
             Row(name: "District", value: "All"),
             Row(name: "City", value: "All"),
-            Row(name: "School Type", value: "All"),
-            Row(name: "School Profile", value: "All")
+            Row(name: "School Type", value: "All")
+//            Row(name: "School Profile", value: "All")
         ])
     ]
     
@@ -39,7 +39,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     var districtData: [String]! = ["All", "Sachsen", "Dolnoslaskie"]
     var cityData: [String]! = ["All", "Dresden", "Radebeul", "Breslau"]
     var schoolTypeData: [String]! = ["All", "Grundschule", "Gymnasium", "Hochschule"]
-    var schoolProfileData: [String]! = ["All", "künstlerisch", "naturwissenschaftlich"]
+//    var schoolProfileData: [String]! = ["All", "künstlerisch", "naturwissenschaftlich"]
     var pickerData: [String]! = ["---"]
     
     //a delegate to send the filter settings to the parent view
@@ -72,7 +72,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableData[0].rows[1].value = filterSettings["District"]!
         self.tableData[0].rows[2].value = filterSettings["City"]!
         self.tableData[0].rows[3].value = filterSettings["School Type"]!
-        self.tableData[0].rows[4].value = filterSettings["School Profile"]!
+//        self.tableData[0].rows[4].value = filterSettings["School Profile"]!
     }
 
     override func didReceiveMemoryWarning() {
@@ -153,9 +153,9 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
             case "School Type":
                 self.pickerData = self.schoolTypeData
                 self.pickerView.reloadAllComponents()
-            case "School Profile":
-                self.pickerData = self.schoolProfileData
-                self.pickerView.reloadAllComponents()
+//            case "School Profile":
+//                self.pickerData = self.schoolProfileData
+//                self.pickerView.reloadAllComponents()
             default:
                 print("default")
         }
@@ -196,8 +196,8 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.delegate?.sendFilterSettings(country: (self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text)!,
                                           district: (self.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text)!,
                                           city: (self.tableView.cellForRow(at: IndexPath(row: 2, section: 0))?.detailTextLabel?.text)!,
-                                          schoolType: (self.tableView.cellForRow(at: IndexPath(row: 3, section: 0))?.detailTextLabel?.text)!,
-                                          schoolProfile: (self.tableView.cellForRow(at: IndexPath(row: 4, section: 0))?.detailTextLabel?.text)!)
+                                          schoolType: (self.tableView.cellForRow(at: IndexPath(row: 3, section: 0))?.detailTextLabel?.text)!)
+//                                          schoolProfile: (self.tableView.cellForRow(at: IndexPath(row: 4, section: 0))?.detailTextLabel?.text)!)
         self.dismiss(animated: true, completion: nil)
     }
     
