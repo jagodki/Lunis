@@ -38,7 +38,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tbRect: CGRect!
     
     //store the filter
-    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All"]
+    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All", "School Profile":"All"]
     
     //store the filtered schools
     var searchedSchools: [SchoolMO] = [SchoolMO]()
@@ -438,6 +438,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             case "showFilterDataView":
                 let viewController = segue.destination as! FilterDataViewController
                 viewController.delegate = self
+                viewController.countryData = [""]
+                viewController.districtData = [""]
+                viewController.cityData = [""]
+                viewController.schoolTypeData = [""]
             
             case "showSchoolDetailFromData":
                 let viewController = segue.destination as! SchoolDetailView
@@ -452,11 +456,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
 // MARK: - implementation of FilterDataViewDelegate
 extension DataViewController: FilterDataViewDelegate {
     
-    func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
+    func sendFilterSettings(country: String, district: String, city: String, schoolType: String, schoolProfile: String) {
         self.filter["Country"] = country
         self.filter["District"] = district
         self.filter["City"] = city
         self.filter["School Type"] = schoolType
+        self.filter["School Profile"] = schoolProfile
         self.segmentedControl.selectedSegmentIndex = 2
         self.tableView.reloadData()
     }
