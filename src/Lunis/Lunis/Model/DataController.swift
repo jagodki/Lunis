@@ -177,35 +177,7 @@ class DataController: NSObject {
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type AdministrationMO into it
     func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<AdministrationMO> {
-        //create fetch request and a result controller
-        var resultsController = NSFetchedResultsController<AdministrationMO>()
-        let fetch = NSFetchRequest<AdministrationMO>(entityName: "Administration")
-        
-        //sort the result
-        if orderedBy != "" {
-            let sort = NSSortDescriptor(key: orderedBy, ascending: orderedAscending)
-            fetch.sortDescriptors = [sort]
-        }
-        
-        //filter the result
-        if request != "" {
-            fetch.predicate = NSPredicate(format: request)
-        }
-        
-        //group the result
-        if groupedBy != "" {
-            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: groupedBy, cacheName: nil)
-        } else {
-            resultsController = NSFetchedResultsController(fetchRequest: fetch, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        }
-        
-        //fetch the data
-        do {
-            try resultsController.performFetch()
-        } catch {
-            fatalError("Failed to fetch grouped administrations: \(error)")
-        }
-        
+        let resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<AdministrationMO>
         return resultsController
     }
     
@@ -218,9 +190,14 @@ class DataController: NSObject {
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type SchoolMO into it
     func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<SchoolMO> {
+        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<SchoolMO>
+        return resultsController
+    }
+    
+    func fetchData(from entity: String, request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<NSFetchRequestResult> {
         //create fetch request and a result controller
-        var resultsController = NSFetchedResultsController<SchoolMO>()
-        let fetch = NSFetchRequest<SchoolMO>(entityName: "School")
+        var resultsController = NSFetchedResultsController<NSFetchRequestResult>()
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         
         //sort the result
         if orderedBy != "" {
@@ -258,6 +235,12 @@ class DataController: NSObject {
         self.managedObjectContext.delete(managedObject)
     }
     
+    /// This function extracts all unique values from Core Data and returns them as an array.
+    ///
+    /// - Parameters:
+    ///   - attribute: the name of the attribute for which the unique values are required
+    ///   - entity: the name of the entity for which the unique values are required
+    /// - Returns: an array of Strings containing the unique values
     func distinctValues(for attribute: String, in entity: String) -> [String] {
         //init the fetch request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
