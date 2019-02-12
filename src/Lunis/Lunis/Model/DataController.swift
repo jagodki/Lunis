@@ -194,7 +194,16 @@ class DataController: NSObject {
         return resultsController
     }
     
-    func fetchData(from entity: String, request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<NSFetchRequestResult> {
+    /// This function fetches datasets from any entity.
+    ///
+    /// - Parameters:
+    ///   - entity: the name of the entity fetching data from
+    ///   - request: a filter argument to reduce the result
+    ///   - groupedBy: a group argument to create sections
+    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
+    /// - Returns: a result controller with objects of given entity
+    private func fetchData(from entity: String, request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<NSFetchRequestResult> {
         //create fetch request and a result controller
         var resultsController = NSFetchedResultsController<NSFetchRequestResult>()
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)

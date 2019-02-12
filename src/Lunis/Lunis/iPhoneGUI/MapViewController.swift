@@ -24,10 +24,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var zoomToPosition: Bool!
     var mapContent: Int!
     
+    //the data controller for connecting to core data
+    var dataController: DataController!
+    var fetchedResultsControllerSchools: NSFetchedResultsController<SchoolMO>!
+    var fetchedResultsControllerAdministrations: NSFetchedResultsController<AdministrationMO>!
+    
     // MARK: - methods
     
     /// Constructor of this class.
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager = CLLocationManager()
@@ -46,14 +53,33 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //init the map content
         self.mapContent = 0
         
-        super.viewDidLoad()
+        //init the data controller
+        self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
+        
+        //fetch data from core data and add them to the map
+        self.addCoreDataObjectsToTheMap()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //fetch data from core data and add them to the map
+        self.addCoreDataObjectsToTheMap()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /// This function fetches objects from core data and add them to the map view of this class.
+    private func addCoreDataObjectsToTheMap() {
+        //fetch data from core data
+        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: "", groupedBy: "", orderedBy: "name", orderedAscending: true)
+        self.fetchedResultsControllerAdministrations = self.dataController.fetchAdministations(request: "", groupedBy: "", orderedBy: "city", orderedAscending: true)
+        
+        //add the fetched data to the map and zoom to it
+        self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
+        self.mapView.showAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!, animated: true)
+    }
     
     /// This function sets the searchbar as visible or hidden.
     ///
@@ -172,3 +198,25 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
 }
 
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? SchoolMO else { return nil }
+        
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            view.markerTintColor = annotation.markerTintColour
+            view.glyphText = String((annotation.title?.first!)!)
+        }
+        return view
+    }
+}
