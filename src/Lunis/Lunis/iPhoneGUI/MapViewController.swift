@@ -57,12 +57,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //fetch data from core data and add them to the map
-        self.addCoreDataObjectsToTheMap()
+        self.addCoreDataObjectsToTheMap(zoomToObjects: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //fetch data from core data and add them to the map
-        self.addCoreDataObjectsToTheMap()
+        self.addCoreDataObjectsToTheMap(zoomToObjects: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,15 +70,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         // Dispose of any resources that can be recreated.
     }
     
-    /// This function fetches objects from core data and add them to the map view of this class.
-    private func addCoreDataObjectsToTheMap() {
+    /// This function fetches objects from core data and add them to the map view of this class.an indic
+    ///
+    /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
+    private func addCoreDataObjectsToTheMap(zoomToObjects: Bool) {
         //fetch data from core data
         self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: "", groupedBy: "", orderedBy: "name", orderedAscending: true)
         self.fetchedResultsControllerAdministrations = self.dataController.fetchAdministations(request: "", groupedBy: "", orderedBy: "city", orderedAscending: true)
         
         //add the fetched data to the map and zoom to it
         self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
-        self.mapView.showAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!, animated: true)
+        if zoomToObjects {
+            self.mapView.showAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!, animated: true)
+        }
     }
     
     /// This function sets the searchbar as visible or hidden.

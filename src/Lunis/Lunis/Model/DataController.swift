@@ -35,6 +35,16 @@ class DataController: NSObject {
 //        let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //        self.managedObjectContext  = appDelegate.persistentContainer.viewContext
         
+        //remove data
+        let schools = self.fetchSchools()
+        for school in schools {
+            self.delete(by: school.objectID)
+        }
+        
+        let admins = self.fetchAdministations()
+        for admin in admins {
+            self.delete(by: admin.objectID)
+        }
         
         //insert test data
         if self.fetchAdministations(request: "").count == 0 {
@@ -80,16 +90,16 @@ class DataController: NSObject {
         administration1.country = "Deutschland"
         administration1.path = ""
         administration1.lastUpdate = NSDate()
-        administration1.x = 51.110218
-        administration1.y = 13.641750
+        administration1.x = 13.641750
+        administration1.y = 51.110218
         
         administration2.city = "Meißen"
         administration2.region = "Sachsen"
         administration2.country = "Deutschland"
         administration2.path = ""
         administration2.lastUpdate = NSDate()
-        administration2.x = 51.166734
-        administration2.y = 13.473048
+        administration2.x = 13.473048
+        administration2.y = 51.166734
         
         school1.name = "Lößnitzgymnasium"
         school1.city = "Radebeul"
@@ -104,8 +114,8 @@ class DataController: NSObject {
         school1.schoolType = "Gymnasium"
         school1.website = "https://www.loessnitzgymnasium-radebeul.de"
         school1.wikipedia = "https://de.wikipedia.org/wiki/L%C3%B6%C3%9Fnitzgymnasium"
-        school1.x = 51.104209
-        school1.y = 13.659038
+        school1.x = 13.659038
+        school1.y = 51.104209
         school1.administration = administration1
         
         school2.name = "Sächsisches Landesgymnasium Sankt Afra"
@@ -121,8 +131,8 @@ class DataController: NSObject {
         school2.schoolType = "Grundschule"
         school2.website = "http://www.sankt-afra.de/"
         school2.wikipedia = "https://de.wikipedia.org/wiki/S%C3%A4chsisches_Landesgymnasium_Sankt_Afra"
-        school2.x = 51.163543
-        school2.y = 13.467966
+        school2.x = 13.467966
+        school2.y = 51.163543
         school2.administration = administration2
         
         administration1.addToSchools(school1)
