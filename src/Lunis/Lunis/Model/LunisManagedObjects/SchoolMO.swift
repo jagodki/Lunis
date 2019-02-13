@@ -30,7 +30,7 @@ public class SchoolMO: NSManagedObject, MKAnnotation {
         return CLLocationCoordinate2D(latitude: self.y, longitude: self.x)
     }
     
-    public var markerTintColour: UIColor  {
+    public var markerTintColor: UIColor  {
         switch discipline {
         case "Grundschule":
             return .blue

@@ -35,6 +35,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set the map delegate
+        self.mapView.delegate = self
+        
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager = CLLocationManager()
@@ -218,7 +221,7 @@ extension MapViewController: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            view.markerTintColor = annotation.markerTintColour
+            view.markerTintColor = annotation.markerTintColor
             view.glyphText = String((annotation.title?.first!)!)
         }
         return view
