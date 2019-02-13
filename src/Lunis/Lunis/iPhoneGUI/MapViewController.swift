@@ -35,8 +35,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //set the map delegate
+        //set the map view
         self.mapView.delegate = self
+        self.mapView.register(SchoolMarkerView.self, forAnnotationViewWithReuseIdentifier: "schoolMarker")
+        self.mapView.showsScale = true
+        self.mapView.showsCompass = true
         
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
@@ -208,22 +211,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? SchoolMO else { return nil }
-        
-        let identifier = "marker"
-        var view: MKMarkerAnnotationView
-        
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
+            return annotationView
         } else {
-            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            view.markerTintColor = annotation.markerTintColor
-            view.glyphText = String((annotation.title?.first!)!)
+            return nil
         }
-        return view
     }
 }

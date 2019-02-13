@@ -29,6 +29,7 @@
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
 		59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */; };
 		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
+		59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
 		59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
+		59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMarkerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				591D320420C2D6FB0045205D /* InfoViewController.swift */,
 				595E2FE320CBE171008CC937 /* InfoTableView.swift */,
 				59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */,
+				59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */,
 			);
 			path = MapStory;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
+				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,
 				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
