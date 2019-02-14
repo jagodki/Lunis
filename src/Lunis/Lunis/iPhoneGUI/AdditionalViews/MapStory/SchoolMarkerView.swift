@@ -14,12 +14,12 @@ class SchoolMarkerView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             
-            guard let school = newValue as? SchoolMO else { return }
+            guard let annotation = newValue as? SchoolMO else { return }
             canShowCallout = true
             calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            markerTintColor = school.markerTintColor
-            glyphText = String(school.name.first!)
+            markerTintColor = annotation.markerTintColor
+            glyphText = String(annotation.name.first!)
         }
     }
     

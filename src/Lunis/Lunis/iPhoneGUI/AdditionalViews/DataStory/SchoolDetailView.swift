@@ -27,14 +27,23 @@ class SchoolDetailView: UITableViewController {
     // MARK: - Outlets
     @IBOutlet var buttonFavorite: UIBarButtonItem!
     
-    //the name of the current school
+    //the current school object
     var school: SchoolMO!
+    
+    //the data controller to edit values of the school object
+    var dataController: DataController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //init the data controller
+        self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
+        
         //replace the title of the view with the school name
         self.navigationItem.title = self.school.name
+        
+        //edit the appearence of the button
+        self.updateFavoriteButton()
         
         //init the table data array
         let rowName = SchoolDetailRow(title: "Name", value: self.school.name)
@@ -101,6 +110,12 @@ class SchoolDetailView: UITableViewController {
     ///
     /// - Parameter sender: any
     @IBAction func favoriteButtonPressed(_ sender: Any) {
+        //edit the data of the school object and save it in core data
+        self.school.favorite = !self.school.favorite
+        self.dataController.saveData()
+        
+        //edit the appearence of the button
+        self.updateFavoriteButton()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -131,7 +146,15 @@ class SchoolDetailView: UITableViewController {
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
     }
-
+    
+    private func updateFavoriteButton() {
+        if self.school.favorite {
+            self.buttonFavorite.title = "is Favorite"
+        } else {
+            self.buttonFavorite.title = "is not Favorite"
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

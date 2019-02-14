@@ -206,7 +206,22 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     @IBAction func showHideIsodistances(_ sender: Any) {
     }
     
+    // MARK: - navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "showSchoolDetailFromMap":
+                let viewController = segue.destination as! SchoolDetailView
+                viewController.school = self.mapView.selectedAnnotations[0] as! SchoolMO
+            
+            default:
+                _ = true
+        }
+    }
+    
 }
+
+// MARK: - MKMapViewDelegate
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -215,6 +230,12 @@ extension MapViewController: MKMapViewDelegate {
             return annotationView
         } else {
             return nil
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if view is SchoolMarkerView {
+            performSegue(withIdentifier: "showSchoolDetailFromMap", sender: self)
         }
     }
 }
