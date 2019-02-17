@@ -237,12 +237,12 @@
                                 <segue destination="uqw-PS-QdG" kind="presentation" identifier="showFilterDataView" modalTransitionStyle="coverVertical" id="TFo-g4-4KA"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
                             <rect key="frame" x="63.5" y="7" width="186" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
-                                <segment title="Favorites"/>
+                                <segment title="Favourites"/>
                                 <segment title="Filtered"/>
                             </segments>
                             <connections>
@@ -466,6 +466,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mbt-tH-MEa"/>
+        <segue reference="aDm-5k-pHL"/>
     </inferredMetricsTieBreakers>
 </document>

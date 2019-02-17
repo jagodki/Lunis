@@ -63,12 +63,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //fetch data from core data and add them to the map
-        self.addCoreDataObjectsToTheMap(zoomToObjects: true)
+        self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //fetch data from core data and add them to the map
-        self.addCoreDataObjectsToTheMap(zoomToObjects: false)
+        self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,11 +78,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     /// This function fetches objects from core data and add them to the map view of this class.an indic
     ///
+    /// - Parameter request: a String representing the request for fetching data
     /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
-    private func addCoreDataObjectsToTheMap(zoomToObjects: Bool) {
+    private func addCoreDataObjectsToTheMap(request: String, zoomToObjects: Bool) {
         //fetch data from core data
-        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: "", groupedBy: "", orderedBy: "name", orderedAscending: true)
-        self.fetchedResultsControllerAdministrations = self.dataController.fetchAdministations(request: "", groupedBy: "", orderedBy: "city", orderedAscending: true)
+        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: request, groupedBy: "", orderedBy: "name", orderedAscending: true)
+        //self.fetchedResultsControllerAdministrations = self.dataController.fetchAdministations(request: request, groupedBy: "", orderedBy: "city", orderedAscending: true)
         
         //add the fetched data to the map and zoom to it
         self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
@@ -161,20 +162,20 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //define the actions
         let allAction = UIAlertAction(title: "All schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("all schools")
             self.mapContent = 0
+            self.reloadMapContent()
         })
         
         let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("filtered schools")
             self.mapContent = 1
+            self.reloadMapContent()
         })
         
-        let favoritesAction = UIAlertAction(title: "Favorite schools", style: .default, handler: {
+        let favoritesAction = UIAlertAction(title: "Favourite schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("canceled")
             self.mapContent = 2
+            self.reloadMapContent()
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -185,14 +186,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //add the checkmark to the current selection
         let image = UIImage(named: "checkmark")
         switch self.mapContent {
-        case 0:
-            allAction.setValue(image, forKey: "image")
-        case 1:
-            filteredAction.setValue(image, forKey: "image")
-        case 2:
-            favoritesAction.setValue(image, forKey: "image")
-        default:
-            break
+            case 0:
+                allAction.setValue(image, forKey: "image")
+            case 1:
+                filteredAction.setValue(image, forKey: "image")
+            case 2:
+                favoritesAction.setValue(image, forKey: "image")
+            default:
+                break
         }
         
         //add actions to the action sheet
@@ -204,6 +205,26 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     @IBAction func showHideIsodistances(_ sender: Any) {
+    }
+    
+    private func reloadMapContent() {
+        //remove the current map content
+        self.mapView.removeAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
+        //self.mapView.removeAnnotations(self.fetchedResultsControllerAdministrations.fetchedObjects as! [MKAnnotation])
+        
+        switch self.mapContent {
+        case 0:
+            //all schools
+            self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
+        case 1:
+            //filtered schools
+            print(super.childViewControllers)
+        case 2:
+            //favourite schools
+            self.addCoreDataObjectsToTheMap(request: "favorite=true", zoomToObjects: true)
+        default:
+            return
+        }
     }
     
     // MARK: - navigation
