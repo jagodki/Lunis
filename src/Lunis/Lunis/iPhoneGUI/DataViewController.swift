@@ -37,9 +37,6 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the dimension and position of the toolbar
     var tbRect: CGRect!
     
-    //store the filter
-    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All", "School Profile":"All"]
-    
     //store the filtered schools
     var searchedSchools: [SchoolMO] = [SchoolMO]()
     
@@ -387,6 +384,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func segmentedControlChanged(_ sender: Any) {
         //init a variable to store the filter expression
         var request: String = ""
+        var filter: Bool = false
         
         switch self.segmentedControl.selectedSegmentIndex {
             case 0:
@@ -394,40 +392,18 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             case 1:
                 request = "favorite == true"
             case 2:
-                if self.filter["Country"] != "All" {
-                    if request == "" {
-                        request.append("ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
-                    } else {
-                        request.append("AND ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
-                    }
-                }
-                if self.filter["District"] != "All" {
-                    if request == "" {
-                        request.append("ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
-                    } else {
-                        request.append("AND ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
-                    }
-                }
-                if self.filter["City"] != "All" {
-                    if request == "" {
-                        request.append("city CONTAINS \"" + self.filter["City"]! + "\"")
-                    } else {
-                        request.append("AND city CONTAINS \"" + self.filter["City"]! + "\"")
-                    }
-                }
-                if self.filter["School Type"] != "All" {
-                    if request == "" {
-                        request.append("schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
-                    } else {
-                        request.append("AND schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
-                    }
-                }
+                filter = true
             default:
                 break
         }
         
         //fetch data from core data
-        self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        if filter {
+            self.fetchedResultsController = self.dataController.fetchSchools(filter: true, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        } else {
+            self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+        }
+        
         self.tableView.reloadData()
     }
     
@@ -463,16 +439,16 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
 extension DataViewController: FilterDataViewDelegate {
     
     func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
-        self.filter["Country"] = country
-        self.filter["District"] = district
-        self.filter["City"] = city
-        self.filter["School Type"] = schoolType
+        self.dataController.filter["Country"] = country
+        self.dataController.filter["District"] = district
+        self.dataController.filter["City"] = city
+        self.dataController.filter["School Type"] = schoolType
         self.segmentedControl.selectedSegmentIndex = 2
         self.tableView.reloadData()
     }
     
     func getCurrentFilterSettings() -> [String: String]! {
-        return self.filter
+        return self.dataController.filter
     }
 }
 

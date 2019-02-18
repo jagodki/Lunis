@@ -92,6 +92,20 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
+    /// This function fetches objects from core data and add them to the map view of this class.an indic
+    ///
+    /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
+    private func addFilteredCoreDataObjectsToTheMap(zoomToObjects: Bool) {
+        //fetch data from core data
+        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(filter: true, groupedBy: "", orderedBy: "name", orderedAscending: true)
+        
+        //add the fetched data to the map and zoom to it
+        self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
+        if zoomToObjects {
+            self.mapView.showAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!, animated: true)
+        }
+    }
+    
     /// This function sets the searchbar as visible or hidden.
     ///
     /// - Parameter sender: any
@@ -218,7 +232,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
         case 1:
             //filtered schools
-            print(super.childViewControllers)
+            self.addFilteredCoreDataObjectsToTheMap(zoomToObjects: true)
         case 2:
             //favourite schools
             self.addCoreDataObjectsToTheMap(request: "favorite=true", zoomToObjects: true)

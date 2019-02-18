@@ -16,7 +16,7 @@ class DataController: NSObject {
         case school
     }
     
-    //var managedObjectContext: NSManagedObjectContext!
+    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All", "School Profile":"All"]
     
     override init() {
         super.init()
@@ -26,14 +26,6 @@ class DataController: NSObject {
                 fatalError("Failed to load Core Data stack: \(error)")
             }
         }
-        
-        //init the managed object context for connecting to core data
-//        guard let appDelegate =
-//            UIApplication.shared.delegate as? AppDelegate else {
-//                return
-////        }
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        self.managedObjectContext  = appDelegate.persistentContainer.viewContext
         
         //remove data
         let schools = self.fetchSchools()
@@ -177,6 +169,63 @@ class DataController: NSObject {
         return schoolData
     }
     
+    /// This function fetches datasets from the school entity.
+    ///
+    /// - Parameters:
+    ///   - filter: a boolean value to indicate, whether the filter settings of this class will be used to create a request
+    ///   - groupedBy: a group argument to create sections
+    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
+    /// - Returns: a result controller with objects of type AdministrationMO into it
+    func fetchSchools(filter: Bool, groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<SchoolMO> {
+        //create the filter request
+        var request = ""
+        if filter {
+            request = self.createFilterRequest()
+        }
+        
+        //fetch data
+        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<SchoolMO>
+        return resultsController
+    }
+    
+    /// This function creates a request string from the filter settings of this class.
+    ///
+    /// - Returns: a string, which can be used as a core data request
+    private func createFilterRequest() -> String {
+        var request = ""
+        
+        if self.filter["Country"] != "All" {
+            if request == "" {
+                request.append("ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
+            } else {
+                request.append("AND ANY administration.country CONTAINS \"" + self.filter["Country"]! + "\"")
+            }
+        }
+        if self.filter["District"] != "All" {
+            if request == "" {
+                request.append("ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
+            } else {
+                request.append("AND ANY administration.region CONTAINS \"" + self.filter["District"]! + "\"")
+            }
+        }
+        if self.filter["City"] != "All" {
+            if request == "" {
+                request.append("city CONTAINS \"" + self.filter["City"]! + "\"")
+            } else {
+                request.append("AND city CONTAINS \"" + self.filter["City"]! + "\"")
+            }
+        }
+        if self.filter["School Type"] != "All" {
+            if request == "" {
+                request.append("schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
+            } else {
+                request.append("AND schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
+            }
+        }
+        
+        return request
+    }
     
     /// This function fetches datasets from the administration entity.
     ///
