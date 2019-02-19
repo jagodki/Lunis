@@ -37,7 +37,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     //store the dimension and position of the toolbar
     var tbRect: CGRect!
     
-    //store the filtered schools
+    //store the searched schools
     var searchedSchools: [SchoolMO] = [SchoolMO]()
     
     //store the selected cell
@@ -67,7 +67,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         let searchController: UISearchController = UISearchController(searchResultsController: self.searchResultsController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search Schools"
+        searchController.searchBar.placeholder = "Search for Schools"
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
@@ -462,7 +462,7 @@ extension DataViewController: UISearchResultsUpdating {
         let allSchoolRows: [SchoolMO] = self.fetchedResultsController.fetchedObjects!
          
          //filter all school rows
-         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : SchoolMO) -> Bool in
+         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell: SchoolMO) -> Bool in
             return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
          })
          

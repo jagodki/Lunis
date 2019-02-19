@@ -13,7 +13,7 @@ import CoreData
 
 
 /// This class is the controller for the first view of the map tab.
-class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - IBOutlets
     @IBOutlet var mapView: MKMapView!
@@ -23,17 +23,39 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var postionIsShown: Bool!
     var zoomToPosition: Bool!
     var mapContent: Int!
+    var searchController: UISearchController!
     
     //the data controller for connecting to core data
     var dataController: DataController!
     var fetchedResultsControllerSchools: NSFetchedResultsController<SchoolMO>!
     var fetchedResultsControllerAdministrations: NSFetchedResultsController<AdministrationMO>!
     
+    //a tableviewontroller to store the search results
+    var searchResultsController: UITableViewController!
+    
+    //store the searched schools
+    var searchedSchools: [SchoolMO] = [SchoolMO]()
+    
     // MARK: - methods
     
     /// Constructor of this class.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //init the searchresultcontroller
+        self.searchResultsController = UITableViewController(style: .plain)
+        self.searchResultsController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchedSchoolsCell")
+        self.searchResultsController.tableView.dataSource = self
+        self.searchResultsController.tableView.delegate = self
+        
+        //set up a searchcontroller and add them to the navigationbar
+        searchController = UISearchController(searchResultsController: self.searchResultsController)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = true
+        searchController.searchBar.placeholder = "Search for Schools"
+        searchController.searchBar.delegate = self
+        //self.navigationItem.searchController = searchController
+        definesPresentationContext = true
         
         //set the map view
         self.mapView.delegate = self
@@ -76,6 +98,27 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - UITableView implementation
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.searchController.dismiss(animated: true, completion: nil)
+        self.zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name, city: self.searchedSchools[indexPath.row].city)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchedSchoolsCell", for: indexPath)
+        cell.textLabel?.text = self.searchedSchools[indexPath.row].name
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.searchedSchools.count
+    }
+    
+    // MARK: - additional methods
     /// This function fetches objects from core data and add them to the map view of this class.an indic
     ///
     /// - Parameter request: a String representing the request for fetching data
@@ -110,8 +153,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     ///
     /// - Parameter sender: any
     @IBAction func showHideSearchBar(_ sender: Any) {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.delegate = self
         present(searchController, animated: true, completion: nil)
     }
     
@@ -165,6 +206,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func zoomToSchool(schoolName: String, city: String) {
+        let annotationToFocusOn = self.fetchedResultsControllerSchools.fetchedObjects?.filter({
+            (fetchedSchool: SchoolMO) -> Bool in
+            return schoolName == fetchedSchool.name && city == fetchedSchool.city
+        })
+        self.mapView.showAnnotations(annotationToFocusOn!, animated: true)
     }
     
     /// This function creates and displays an alert controller to let the user choose the data content of the map view.
@@ -242,7 +291,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     // MARK: - navigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
             case "showSchoolDetailFromMap":
@@ -257,7 +305,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
 }
 
 // MARK: - MKMapViewDelegate
-
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -272,5 +319,24 @@ extension MapViewController: MKMapViewDelegate {
         if view is SchoolMarkerView {
             performSegue(withIdentifier: "showSchoolDetailFromMap", sender: self)
         }
+    }
+}
+
+// MARK: - UISearchResultsUpdating Delegate
+extension MapViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        //get the search text
+        let searchText: String = searchController.searchBar.text!
+        
+        //get the rows of all sections
+        let allSchoolRows: [SchoolMO] = self.fetchedResultsControllerSchools.fetchedObjects!
+        
+        //filter all school rows
+        self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : SchoolMO) -> Bool in
+            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+        })
+        
+        //reload the table
+        self.searchResultsController.tableView.reloadData()
     }
 }

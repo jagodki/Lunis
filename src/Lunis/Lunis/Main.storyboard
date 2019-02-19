@@ -265,6 +265,7 @@
                         <outlet property="tableView" destination="fyY-GS-ggy" id="gKA-AO-VDA"/>
                         <outlet property="toolbar" destination="tI9-BN-oUO" id="VEB-nd-CFO"/>
                         <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailFromData" id="aDm-5k-pHL"/>
+                        <segue destination="Iy2-ZW-J59" kind="show" identifier="showShoolInMap" id="UfU-gG-2we"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dM4-A7-mmY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -466,6 +467,7 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aDm-5k-pHL"/>
+        <segue reference="mbt-tH-MEa"/>
+        <segue reference="UfU-gG-2we"/>
     </inferredMetricsTieBreakers>
 </document>
