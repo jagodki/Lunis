@@ -229,13 +229,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.reloadMapContent()
         })
         
-        let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
+        let favoritesAction = UIAlertAction(title: "Favourite schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 1
             self.reloadMapContent()
         })
         
-        let favoritesAction = UIAlertAction(title: "Favourite schools", style: .default, handler: {
+        let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 2
             self.reloadMapContent()
@@ -252,17 +252,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             case 0:
                 allAction.setValue(image, forKey: "image")
             case 1:
-                filteredAction.setValue(image, forKey: "image")
-            case 2:
                 favoritesAction.setValue(image, forKey: "image")
+            case 2:
+                filteredAction.setValue(image, forKey: "image")
             default:
                 break
         }
         
         //add actions to the action sheet
         actionSheet.addAction(allAction)
-        actionSheet.addAction(filteredAction)
         actionSheet.addAction(favoritesAction)
+        actionSheet.addAction(filteredAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -270,7 +270,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     @IBAction func showHideIsodistances(_ sender: Any) {
     }
     
-    private func reloadMapContent() {
+    func reloadMapContent() {
         //remove the current map content
         self.mapView.removeAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
         //self.mapView.removeAnnotations(self.fetchedResultsControllerAdministrations.fetchedObjects as! [MKAnnotation])
@@ -280,11 +280,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             //all schools
             self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
         case 1:
-            //filtered schools
-            self.addFilteredCoreDataObjectsToTheMap(zoomToObjects: true)
-        case 2:
             //favourite schools
             self.addCoreDataObjectsToTheMap(request: "favorite=true", zoomToObjects: true)
+        case 2:
+            //filtered schools
+            self.addFilteredCoreDataObjectsToTheMap(zoomToObjects: true)
         default:
             return
         }

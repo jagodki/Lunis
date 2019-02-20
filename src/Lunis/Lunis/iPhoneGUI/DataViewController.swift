@@ -198,7 +198,20 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         
         let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
-            print("map")
+            //prepare the mapviewcontroller
+            //print((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0])
+            ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).mapContent = self.segmentedControl.selectedSegmentIndex
+            ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).reloadMapContent()
+            
+            //zoom to the school
+            if tableView == self.tableView {
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).zoomToSchool(schoolName: self.fetchedResultsController.object(at: indexPath).name, city: self.fetchedResultsController.object(at: indexPath).city)
+            } else {
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name, city: self.searchedSchools[indexPath.row].city)
+            }
+            
+            //show the mapviewcontroller
+            (self.parent?.parent as! UITabBarController).selectedIndex = 0
             completion(true)
         }
         showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
