@@ -267,9 +267,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.present(actionSheet, animated: true, completion: nil)
     }
     
-    @IBAction func showHideIsodistances(_ sender: Any) {
-    }
-    
     func reloadMapContent() {
         //remove the current map content
         self.mapView.removeAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)

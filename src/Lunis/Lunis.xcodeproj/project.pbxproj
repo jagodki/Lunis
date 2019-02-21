@@ -11,6 +11,7 @@
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
 		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
+		59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */; };
 		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
 		598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598EDE7B21F03B5A00C2634D /* DataController.swift */; };
@@ -37,6 +38,7 @@
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDistancesController.swift; sourceTree = "<group>"; };
 		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		598EDE7B21F03B5A00C2634D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				595E2FE320CBE171008CC937 /* InfoTableView.swift */,
 				59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */,
 				59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */,
+				59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */,
 			);
 			path = MapStory;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,
+				59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */,
 				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
