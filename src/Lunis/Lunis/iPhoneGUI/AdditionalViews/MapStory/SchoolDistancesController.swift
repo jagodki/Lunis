@@ -53,55 +53,59 @@ class SchoolDistancesController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: "showDetailFromDistance", sender: self)
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showDetailFromDistance":
+            let viewController = segue.destination as! SchoolDetailView
+            viewController.school = self.tableDataSchools[(self.tableView.indexPathForSelectedRow?.row)!]
+            
+        default:
+            _ = true
+        }
     }
     
     // MARK: - additional methods
+    
     func calculateRoutes() {
- 
+        
     }
-
+    
+    private func shortestDistance(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) -> Double {
+        //set up the routing request
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
+        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
+        directionRequest.transportType = .any
+        
+        //set up the return variable
+        var shortestDistance = 999999999999.99
+        
+        // calculate the directions
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                return
+            }
+            
+            //iterate over all routes
+            for route in response.routes {
+                if route.distance < shortestDistance {
+                    shortestDistance = route.distance
+                }
+            }
+        }
+        
+        return shortestDistance
+    }
 }
