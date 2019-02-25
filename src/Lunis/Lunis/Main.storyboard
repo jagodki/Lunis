@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Distances to Schools-->
+        <!--Shortest Distances-->
         <scene sceneID="ORJ-Fn-kbY">
             <objects>
-                <tableViewController title="Distances to Schools" id="X8H-XW-Cql" customClass="SchoolDistancesController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Shortest Distances" id="X8H-XW-Cql" customClass="SchoolDistancesController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6HM-vd-mHg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" systemItem="play" id="nK6-Fv-8J3">
                                 <connections>
-                                    <segue destination="X8H-XW-Cql" kind="show" id="o6O-VF-cZ2"/>
+                                    <segue destination="X8H-XW-Cql" kind="show" identifier="showShortestDistances" id="o6O-VF-cZ2"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" systemItem="compose" id="TaJ-ou-tRr">
@@ -146,7 +146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iWV-9k-PUY">
-                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
+                                <rect key="frame" x="0.0" y="116" width="320" height="403"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="downloadTableCell" id="cl9-LP-EM4">
@@ -164,7 +164,7 @@
                                 </connections>
                             </tableView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MPD-fo-lYH">
-                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
+                                <rect key="frame" x="0.0" y="116" width="320" height="403"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -209,7 +209,7 @@
                 <navigationController hidesBottomBarWhenPushed="YES" id="dBO-Uj-GVg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Schools" image="second" selectedImage="second" id="zSD-Yk-Vg8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8xJ-ce-yd0">
-                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Tmv-FQ-AKn">
@@ -495,7 +495,7 @@
                     <tabBarItem key="tabBarItem" title="" systemItem="downloads" id="HAK-ZX-P4G"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gPA-hv-JeS">
-                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

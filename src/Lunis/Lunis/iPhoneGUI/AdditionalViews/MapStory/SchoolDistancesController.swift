@@ -14,15 +14,19 @@ class SchoolDistancesController: UITableViewController {
     
     //MARK: - instance variables
     
-    var tableDataSchools: [SchoolMO]!
-    var tableDataHash: [SchoolMO: Double]!
-    var start: CLLocation!
+    var tableDataSchools: [SchoolMO]! = [SchoolMO]()
+    var tableDataHash: [SchoolMO: Double]! = [SchoolMO: Double]()
+    var start: CLLocationCoordinate2D!
     var destinations: [SchoolMO]!
     
     //MARK: - standard methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.start != nil && self.destinations != nil {
+            self.calculateRoutes()
+        }
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,7 +77,19 @@ class SchoolDistancesController: UITableViewController {
     // MARK: - additional methods
     
     func calculateRoutes() {
+        //iterate over all schools/destinations
+        for destination in self.destinations {
+            let shortestDistance = self.shortestDistance(from: self.start, to: destination.coordinate)
+            
+            //insert the result into the table data hash
+            self.tableDataHash.updateValue(shortestDistance, forKey: destination)
+        }
         
+        //get the schools ordered by distance asc
+        let orderedValues = self.tableDataHash.sorted(by: {$0.1 < $1.1})
+        for (index, _) in orderedValues {
+            self.tableDataSchools.append(index)
+        }
     }
     
     private func shortestDistance(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) -> Double {

@@ -294,6 +294,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 let viewController = segue.destination as! SchoolDetailView
                 viewController.school = self.mapView.selectedAnnotations[0] as! SchoolMO
             
+            case "showShortestDistances":
+                let viewController = segue.destination as! SchoolDistancesController
+                viewController.start = self.locationManager.location?.coordinate
+                viewController.destinations = self.fetchedResultsControllerSchools.fetchedObjects
+            
             default:
                 _ = true
         }
@@ -305,11 +310,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
-            return annotationView
-        } else {
+        if annotation is SchoolMO {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
+                return annotationView
+            } else {
+                return nil
+            }
+        } else if annotation is MKUserLocation {
             return nil
         }
+        
+        return nil
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
