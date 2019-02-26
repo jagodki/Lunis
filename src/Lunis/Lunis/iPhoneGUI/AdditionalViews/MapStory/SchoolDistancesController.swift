@@ -24,7 +24,7 @@ class SchoolDistancesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.start != nil && self.destinations != nil {
-            self.calculateRoutes()
+            self.calculateShortestDistances()
         }
         self.tableView.reloadData()
     }
@@ -36,28 +36,31 @@ class SchoolDistancesController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.tableDataSchools.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "distanceSchoolCell", for: indexPath)
         cell.textLabel?.text = self.tableDataSchools[indexPath.row].name
-        cell.detailTextLabel?.text = String(format: "%.0f", self.tableDataHash[self.tableDataSchools[indexPath.row]]!)
+        cell.detailTextLabel?.text = String(format: "%.2f", self.tableDataHash[self.tableDataSchools[indexPath.row]]! / 1000) + " km"
         
         //change the colour of the detail label
-        cell.textLabel?.textColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        cell.detailTextLabel?.textColor = UIColor(hue: 0.333, saturation: 1.0, brightness: 0.85, alpha: 1)
 
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showDetailFromDistance", sender: self)
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "distances to the current position"
     }
 
     // MARK: - Navigation
@@ -76,52 +79,61 @@ class SchoolDistancesController: UITableViewController {
     
     // MARK: - additional methods
     
-    func calculateRoutes() {
+    private func calculateShortestDistances() {
         //iterate over all schools/destinations
         for destination in self.destinations {
-            let shortestDistance = self.shortestDistance(from: self.start, to: destination.coordinate)
             
-            //insert the result into the table data hash
-            self.tableDataHash.updateValue(shortestDistance, forKey: destination)
-        }
-        
-        //get the schools ordered by distance asc
-        let orderedValues = self.tableDataHash.sorted(by: {$0.1 < $1.1})
-        for (index, _) in orderedValues {
-            self.tableDataSchools.append(index)
-        }
-    }
-    
-    private func shortestDistance(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) -> Double {
-        //set up the routing request
-        let directionRequest = MKDirectionsRequest()
-        directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: start))
-        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: end))
-        directionRequest.transportType = .any
-        
-        //set up the return variable
-        var shortestDistance = 999999999999.99
-        
-        // calculate the directions
-        let directions = MKDirections(request: directionRequest)
-        directions.calculate {
-            (response, error) -> Void in
+            //set up the routing request
+            let directionRequest = MKDirectionsRequest()
+            directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: self.start))
+            directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination.coordinate))
+            directionRequest.transportType = .any
             
-            guard let response = response else {
-                if let error = error {
-                    print("Error: \(error)")
+            // calculate the directions
+            let directions = MKDirections(request: directionRequest)
+            directions.calculate {
+                (response, error) -> Void in
+                
+                guard let response = response else {
+                    if let error = error {
+                        print("Error: \(error)")
+                    }
+                    return
                 }
-                return
-            }
-            
-            //iterate over all routes
-            for route in response.routes {
-                if route.distance < shortestDistance {
-                    shortestDistance = route.distance
+                
+                //iterate over all routes
+                for route in response.routes {
+                    if self.tableDataHash.index(forKey: destination) == nil {
+                        self.tableDataHash.updateValue(route.distance, forKey: destination)
+                    } else {
+                        if route.distance < self.tableDataHash[destination]! {
+                            self.tableDataHash.updateValue(route.distance, forKey: destination)
+                        }
+                    }
                 }
+                
+                //insert schools into tableview array, ordered by distance asc
+                if self.tableDataSchools.count == 0 {
+                    //insert the first school
+                    self.tableDataSchools.append(destination)
+                } else {
+                    //iterate over all schools in the tableview array
+                    for (index, school) in self.tableDataSchools.enumerated() {
+                        if self.tableDataHash[destination]! < self.tableDataHash[school]! {
+                            //insert the school before the first school with a higher distance
+                            self.tableDataSchools.insert(destination, at: index)
+                        }
+                        
+                        if index == (self.tableDataSchools.count - 1) {
+                            //append the school, if the current distance is the highest
+                            self.tableDataSchools.append(destination)
+                        }
+                    }
+                    
+                }
+                self.tableView.reloadData()
+                
             }
         }
-        
-        return shortestDistance
     }
 }
