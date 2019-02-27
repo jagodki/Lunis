@@ -49,7 +49,11 @@ class SchoolDistancesController: UITableViewController {
         cell.detailTextLabel?.text = String(format: "%.2f", self.tableDataHash[self.tableDataSchools[indexPath.row]]! / 1000) + " km"
         
         //change the colour of the detail label
-        cell.detailTextLabel?.textColor = UIColor(hue: 0.333, saturation: 1.0, brightness: 0.85, alpha: 1)
+        var hue: Double = 1 / 3
+        if indexPath.row > 0 {
+            hue = (1 / 3) - (Double(indexPath.row) / Double(self.tableDataSchools.count - 1) * (1 / 3))
+        }
+        cell.detailTextLabel?.textColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 1)
 
         return cell
     }
@@ -79,6 +83,7 @@ class SchoolDistancesController: UITableViewController {
     
     // MARK: - additional methods
     
+    /// This function calculates the shortest distances to each destination of this class. The tableview will be reloaded after each successefull calculation.
     private func calculateShortestDistances() {
         //iterate over all schools/destinations
         for destination in self.destinations {

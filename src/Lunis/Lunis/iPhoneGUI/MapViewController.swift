@@ -57,7 +57,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //self.navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        //set the map view
+        //set up the map view
         self.mapView.delegate = self
         self.mapView.register(SchoolMarkerView.self, forAnnotationViewWithReuseIdentifier: "schoolMarker")
         self.mapView.showsScale = true

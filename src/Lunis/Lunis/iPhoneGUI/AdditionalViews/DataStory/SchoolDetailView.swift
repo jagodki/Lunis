@@ -63,7 +63,10 @@ class SchoolDetailView: UITableViewController {
         let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia)
         let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki])
         
-        self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther]
+        let rowReachability = SchoolDetailRow(title: "Reachability", value: "show reachability of this school")
+        let groupReachability = SchoolDetailGroup(title: "Reachability", rows: [rowReachability])
+        
+        self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther, groupReachability]
     }
     
     // MARK: - methods
@@ -86,6 +89,13 @@ class SchoolDetailView: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //check, which kind of cell prototype should be used
+        guard self.tableData[indexPath.section].title != "Reachability" else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "schoolReachabilityCell", for: indexPath)
+            cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "schoolDetailCell", for: indexPath)
         
         cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].title
@@ -103,6 +113,9 @@ class SchoolDetailView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard self.tableData[section].title != "Reachability" else {
+            return ""
+        }
         return self.tableData[section].title
     }
     
@@ -135,6 +148,9 @@ class SchoolDetailView: UITableViewController {
             case "Wikipedia":
                 UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
             
+        //case "Reachability":
+            //performSegue(withIdentifier: "", sender: self)
+            
             default:
                 _ = true
         }
@@ -155,14 +171,16 @@ class SchoolDetailView: UITableViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showReachability":
+            let viewController = segue.destination as! ReachabilityViewController
+            viewController.school = self.school
+            
+        default:
+            _ = true
+        }
     }
-    */
 
 }

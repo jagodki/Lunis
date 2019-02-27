@@ -10,9 +10,7 @@
 		590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */; };
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
-		591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320420C2D6FB0045205D /* InfoViewController.swift */; };
 		59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */; };
-		595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E2FE320CBE171008CC937 /* InfoTableView.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
 		598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598EDE7B21F03B5A00C2634D /* DataController.swift */; };
 		59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59921C20219F487E00767876 /* FilterDataViewDelegate.swift */; };
@@ -28,7 +26,7 @@
 		59C674D321F18EC100353A53 /* AdministrationMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* AdministrationMO.swift */; };
 		59C674D421F18EC100353A53 /* AdministrationMOCoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674D021F18EC100353A53 /* AdministrationMOCoreDataProperties.swift */; };
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
-		59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */; };
+		59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */; };
 		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
 		59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */; };
 /* End PBXBuildFile section */
@@ -37,9 +35,7 @@
 		590EE10621EEEE2B0049A95D /* lunis.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lunis.xcdatamodel; sourceTree = "<group>"; };
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
-		591D320420C2D6FB0045205D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDistancesController.swift; sourceTree = "<group>"; };
-		595E2FE320CBE171008CC937 /* InfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableView.swift; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		598EDE7B21F03B5A00C2634D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		59921C20219F487E00767876 /* FilterDataViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataViewDelegate.swift; sourceTree = "<group>"; };
@@ -57,7 +53,7 @@
 		59C674CF21F18EC100353A53 /* AdministrationMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrationMO.swift; sourceTree = "<group>"; };
 		59C674D021F18EC100353A53 /* AdministrationMOCoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrationMOCoreDataProperties.swift; sourceTree = "<group>"; };
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
-		59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
+		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
 		59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMarkerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,9 +83,6 @@
 		591D320320C2D6E10045205D /* MapStory */ = {
 			isa = PBXGroup;
 			children = (
-				591D320420C2D6FB0045205D /* InfoViewController.swift */,
-				595E2FE320CBE171008CC937 /* InfoTableView.swift */,
-				59DA9D6920D0CC4000FCC2B9 /* InfoContainerView.swift */,
 				59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */,
 				59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */,
 			);
@@ -183,6 +176,7 @@
 			children = (
 				59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */,
 				59D21E9521A27360009FAC63 /* SchoolDetailView.swift */,
+				59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */,
 			);
 			path = DataStory;
 			sourceTree = "<group>";
@@ -265,23 +259,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */,
+				59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */,
 				598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59C674D421F18EC100353A53 /* AdministrationMOCoreDataProperties.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
-				595E2FE420CBE171008CC937 /* InfoTableView.swift in Sources */,
 				59C674D121F18EC100353A53 /* SchoolMO.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
 				59C674D321F18EC100353A53 /* AdministrationMO.swift in Sources */,
 				590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */,
 				59C674D221F18EC100353A53 /* SchoolMOCoreDataProperties.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
-				59DA9D6A20D0CC4000FCC2B9 /* InfoContainerView.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,
 				59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */,
-				591D320520C2D6FB0045205D /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
