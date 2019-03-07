@@ -27,16 +27,16 @@ class DataController: NSObject {
             }
         }
         
-        //remove data
-        let schools = self.fetchSchools()
-        for school in schools {
-            self.delete(by: school.objectID)
-        }
-        
-        let admins = self.fetchAdministations()
-        for admin in admins {
-            self.delete(by: admin.objectID)
-        }
+//        //remove data
+//        let schools = self.fetchSchools()
+//        for school in schools {
+//            self.delete(by: school.objectID)
+//        }
+//        
+//        let admins = self.fetchAdministations()
+//        for admin in admins {
+//            self.delete(by: admin.objectID)
+//        }
         
         //insert test data
         if self.fetchAdministations(request: "").count == 0 {
@@ -72,26 +72,226 @@ class DataController: NSObject {
     }
     
     func initData() {
-        let administration1 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! AdministrationMO
-        let administration2 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! AdministrationMO
-        let school1 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! SchoolMO
-        let school2 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! SchoolMO
+        let administration1 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! Administration
+        let administration2 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! Administration
+        let school1 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! School
+        let school2 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! School
+        let boundaryAdmin1 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let boundaryAdmin2 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let grid = NSEntityDescription.insertNewObject(forEntityName: "Grid", into: managedObjectContext) as! Grid
+        let cell1 = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
+        let cell2 = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
+        let cell3 = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
+        let cell4 = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
+        let cellValue11 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue12 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue21 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue22 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue31 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue32 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue41 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellValue42 = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+        let cellBoundary1 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let cellBoundary2 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let cellBoundary3 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let cellBoundary4 = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        let pointAdmin11 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointAdmin12 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointAdmin13 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointAdmin21 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointAdmin22 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointAdmin23 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid11 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid12 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid13 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid14 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid21 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid22 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid23 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid24 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid31 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid32 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid33 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid34 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid41 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid42 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid43 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        let pointGrid44 = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+        
+        pointAdmin11.x = 13.6239115
+        pointAdmin11.y = 51.1483503
+        pointAdmin11.boundary = boundaryAdmin1
+        pointAdmin12.x = 13.6747015
+        pointAdmin12.y = 51.0966393
+        pointAdmin12.boundary = boundaryAdmin1
+        pointAdmin13.x = 13.5829519
+        pointAdmin13.y = 51.0972272
+        pointAdmin13.boundary = boundaryAdmin1
+        
+        pointAdmin21.x = 13.4757633
+        pointAdmin21.y = 51.1879868
+        pointAdmin21.boundary = boundaryAdmin2
+        pointAdmin22.x = 13.5213184
+        pointAdmin22.y = 51.1391547
+        pointAdmin22.boundary = boundaryAdmin2
+        pointAdmin23.x = 13.4340232
+        pointAdmin23.y = 51.1390139
+        pointAdmin23.boundary = boundaryAdmin2
+        
+        pointGrid11.x = 13.6611497
+        pointGrid11.y = 51.1069835
+        pointGrid11.boundary = cellBoundary1
+        pointGrid12.x = 13.6609024
+        pointGrid12.y = 51.0878690
+        pointGrid12.boundary = cellBoundary1
+        pointGrid13.x = 13.6304652
+        pointGrid13.y = 51.0880243
+        pointGrid13.boundary = cellBoundary1
+        pointGrid14.x = 13.6307125
+        pointGrid14.y = 51.1071388
+        pointGrid14.boundary = cellBoundary1
+        
+        pointGrid21.x = 13.6311666
+        pointGrid21.y = 51.1264104
+        pointGrid21.boundary = cellBoundary2
+        pointGrid22.x = 13.6307125
+        pointGrid22.y = 51.1071388
+        pointGrid22.boundary = cellBoundary2
+        pointGrid23.x = 13.5999737
+        pointGrid23.y = 51.1073931
+        pointGrid23.boundary = cellBoundary2
+        pointGrid24.x = 13.6004226
+        pointGrid24.y = 51.1266921
+        pointGrid24.boundary = cellBoundary2
+        
+        pointGrid31.x = 13.6611497
+        pointGrid31.y = 51.1264104
+        pointGrid31.boundary = cellBoundary3
+        pointGrid32.x = 13.6611497
+        pointGrid32.y = 51.1069835
+        pointGrid32.boundary = cellBoundary3
+        pointGrid33.x = 13.6307125
+        pointGrid33.y = 51.1071388
+        pointGrid33.boundary = cellBoundary3
+        pointGrid34.x = 13.6311666
+        pointGrid34.y = 51.1264104
+        pointGrid34.boundary = cellBoundary3
+        
+        pointGrid41.x = 13.6307125
+        pointGrid41.y = 51.1071388
+        pointGrid41.boundary = cellBoundary4
+        pointGrid42.x = 13.6304652
+        pointGrid42.y = 51.0880243
+        pointGrid42.boundary = cellBoundary4
+        pointGrid43.x = 13.5999737
+        pointGrid43.y = 51.0880243
+        pointGrid43.boundary = cellBoundary4
+        pointGrid44.x = 13.5999737
+        pointGrid44.y = 51.1073931
+        pointGrid44.boundary = cellBoundary4
+        
+        cellBoundary1.addToPoints(pointGrid11)
+        cellBoundary1.addToPoints(pointGrid12)
+        cellBoundary1.addToPoints(pointGrid13)
+        cellBoundary1.addToPoints(pointGrid14)
+        cellBoundary1.cell = cell1
+        
+        cellBoundary2.addToPoints(pointGrid21)
+        cellBoundary2.addToPoints(pointGrid22)
+        cellBoundary2.addToPoints(pointGrid23)
+        cellBoundary2.addToPoints(pointGrid24)
+        cellBoundary2.cell = cell2
+        
+        cellBoundary3.addToPoints(pointGrid31)
+        cellBoundary3.addToPoints(pointGrid32)
+        cellBoundary3.addToPoints(pointGrid33)
+        cellBoundary3.addToPoints(pointGrid34)
+        cellBoundary3.cell = cell3
+        
+        cellBoundary4.addToPoints(pointGrid41)
+        cellBoundary4.addToPoints(pointGrid42)
+        cellBoundary4.addToPoints(pointGrid43)
+        cellBoundary4.addToPoints(pointGrid44)
+        cellBoundary4.cell = cell4
+        
+        cellValue11.schoolName = "Lößnitzgymnasium"
+        cellValue11.value = 10
+        cellValue11.cell = cell1
+        
+        cellValue21.schoolName = "Lößnitzgymnasium"
+        cellValue21.value = 100
+        cellValue21.cell = cell2
+        
+        cellValue31.schoolName = "Lößnitzgymnasium"
+        cellValue31.value = 10000
+        cellValue31.cell = cell3
+        
+        cellValue41.schoolName = "Lößnitzgymnasium"
+        cellValue41.value = 100000
+        cellValue41.cell = cell4
+        
+        cellValue12.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue12.value = 50
+        cellValue12.cell = cell1
+        
+        cellValue22.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue22.value = 80
+        cellValue22.cell = cell2
+        
+        cellValue32.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue32.value = 10100
+        cellValue32.cell = cell3
+        
+        cellValue42.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue42.value = 90000
+        cellValue42.cell = cell4
+        
+        cell1.addToCellValues(cellValue11)
+        cell1.addToCellValues(cellValue12)
+        cell1.grid = grid
+        
+        cell2.addToCellValues(cellValue21)
+        cell2.addToCellValues(cellValue22)
+        cell2.grid = grid
+        
+        cell3.addToCellValues(cellValue31)
+        cell3.addToCellValues(cellValue32)
+        cell3.grid = grid
+        
+        cell4.addToCellValues(cellValue41)
+        cell4.addToCellValues(cellValue42)
+        cell4.grid = grid
+        
+        grid.addToCells(cell1)
+        grid.addToCells(cell2)
+        grid.addToCells(cell3)
+        grid.addToCells(cell4)
+        grid.administration = administration1
+        
+        boundaryAdmin1.addToPoints(pointAdmin11)
+        boundaryAdmin1.addToPoints(pointAdmin12)
+        boundaryAdmin1.addToPoints(pointAdmin13)
+        
+        boundaryAdmin2.addToPoints(pointAdmin21)
+        boundaryAdmin2.addToPoints(pointAdmin22)
+        boundaryAdmin2.addToPoints(pointAdmin23)
         
         administration1.city = "Radebeul"
         administration1.region = "Sachsen"
         administration1.country = "Deutschland"
-        administration1.path = ""
-        administration1.lastUpdate = NSDate()
+        administration1.lastUpdate = Date()
         administration1.x = 13.641750
         administration1.y = 51.110218
+        administration1.boundary = boundaryAdmin1
+        administration1.grid = grid
         
         administration2.city = "Meißen"
         administration2.region = "Sachsen"
         administration2.country = "Deutschland"
-        administration2.path = ""
-        administration2.lastUpdate = NSDate()
+        administration2.lastUpdate = Date()
         administration2.x = 13.473048
         administration2.y = 51.166734
+        administration2.boundary = boundaryAdmin2
         
         school1.name = "Lößnitzgymnasium"
         school1.city = "Radebeul"
@@ -99,7 +299,6 @@ class DataController: NSObject {
         school1.favorite = true
         school1.street = "Steinbachstraße"
         school1.number = "21"
-        school1.path = ""
         school1.phone = "0351/12345678"
         school1.postalCode = "01445"
         school1.schoolSpecialisation = "sprachlich, künstlerich"
@@ -116,7 +315,6 @@ class DataController: NSObject {
         school2.favorite = false
         school2.street = "Freiheit"
         school2.number = "13"
-        school2.path = ""
         school2.phone = "03521/87654321"
         school2.postalCode = "01662"
         school2.schoolSpecialisation = "sprachlich, künstlerich, naturwissenschaftlich"
@@ -136,15 +334,15 @@ class DataController: NSObject {
     /// This function fetches datasets from the administration entity.
     ///
     /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
-    /// - Returns: an array of AdministrationMO-objects as the result of the fetch
-    func fetchAdministations(request: String = "") -> [AdministrationMO] {
+    /// - Returns: an array of Administration-objects as the result of the fetch
+    func fetchAdministations(request: String = "") -> [Administration] {
         //create the fetch request
         let administrationFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Administration")
-        var administrationData: [AdministrationMO] = [AdministrationMO]()
+        var administrationData: [Administration] = [Administration]()
         
         //fetch the data
         do {
-            administrationData = try self.managedObjectContext.fetch(administrationFetch) as! [AdministrationMO]
+            administrationData = try self.managedObjectContext.fetch(administrationFetch) as! [Administration]
         } catch {
             fatalError("Failed to fetch administrations: \(error)")
         }
@@ -154,15 +352,15 @@ class DataController: NSObject {
     /// This function fetches datasets from the school entity.
     ///
     /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
-    /// - Returns: an array of SchoolMO-objects as the result of the fetch
-    func fetchSchools(request: String = "") -> [SchoolMO] {
+    /// - Returns: an array of School-objects as the result of the fetch
+    func fetchSchools(request: String = "") -> [School] {
         //create the fetch request
         let schoolFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "School")
-        var schoolData: [SchoolMO] = [SchoolMO]()
+        var schoolData: [School] = [School]()
         
         //fetch the data
         do {
-            schoolData = try self.managedObjectContext.fetch(schoolFetch) as! [SchoolMO]
+            schoolData = try self.managedObjectContext.fetch(schoolFetch) as! [School]
         } catch {
             fatalError("Failed to fetch schools: \(error)")
         }
@@ -176,8 +374,8 @@ class DataController: NSObject {
     ///   - groupedBy: a group argument to create sections
     ///   - orderedBy: the name of the attribute, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
-    /// - Returns: a result controller with objects of type AdministrationMO into it
-    func fetchSchools(filter: Bool, groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<SchoolMO> {
+    /// - Returns: a result controller with objects of type Administration into it
+    func fetchSchools(filter: Bool, groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
         //create the filter request
         var request = ""
         if filter {
@@ -185,7 +383,7 @@ class DataController: NSObject {
         }
         
         //fetch data
-        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<SchoolMO>
+        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<School>
         return resultsController
     }
     
@@ -234,9 +432,9 @@ class DataController: NSObject {
     ///   - groupedBy: a group argument to create sections
     ///   - orderedBy: the name of the attribute, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
-    /// - Returns: a result controller with objects of type AdministrationMO into it
-    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<AdministrationMO> {
-        let resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<AdministrationMO>
+    /// - Returns: a result controller with objects of type Administration into it
+    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<Administration> {
+        let resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<Administration>
         return resultsController
     }
     
@@ -247,9 +445,9 @@ class DataController: NSObject {
     ///   - groupedBy: a group argument to create sections
     ///   - orderedBy: the name of the attribute, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
-    /// - Returns: a result controller with objects of type SchoolMO into it
-    func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<SchoolMO> {
-        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<SchoolMO>
+    /// - Returns: a result controller with objects of type School into it
+    func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
+        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<School>
         return resultsController
     }
     

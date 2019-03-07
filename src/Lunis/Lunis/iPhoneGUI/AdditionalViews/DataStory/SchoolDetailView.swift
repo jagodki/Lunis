@@ -28,7 +28,7 @@ class SchoolDetailView: UITableViewController {
     @IBOutlet var buttonFavorite: UIBarButtonItem!
     
     //the current school object
-    var school: SchoolMO!
+    var school: School!
     
     //the data controller to edit values of the school object
     var dataController: DataController!
@@ -46,21 +46,21 @@ class SchoolDetailView: UITableViewController {
         self.updateFavoriteButton()
         
         //init the table data array
-        let rowName = SchoolDetailRow(title: "Name", value: self.school.name)
-        let rowStreet = SchoolDetailRow(title: "Street", value: self.school.street + " " + self.school.number)
-        let rowCity = SchoolDetailRow(title: "City", value: self.school.postalCode + " - " + self.school.city)
+        let rowName = SchoolDetailRow(title: "Name", value: self.school.name!)
+        let rowStreet = SchoolDetailRow(title: "Street", value: self.school.street! + " " + self.school.number!)
+        let rowCity = SchoolDetailRow(title: "City", value: self.school.postalCode! + " - " + self.school.city!)
         let groupAdress = SchoolDetailGroup(title: "Adress", rows: [rowName, rowStreet, rowCity])
         
-        let rowType = SchoolDetailRow(title: "Type", value: self.school.schoolType)
-        let rowProfile = SchoolDetailRow(title: "Profile", value: self.school.schoolSpecialisation)
+        let rowType = SchoolDetailRow(title: "Type", value: self.school.schoolType!)
+        let rowProfile = SchoolDetailRow(title: "Profile", value: self.school.schoolSpecialisation!)
         let groupSchoolType = SchoolDetailGroup(title: "School Type", rows: [rowType, rowProfile])
         
-        let rowPhone = SchoolDetailRow(title: "Phone", value: self.school.phone)
-        let rowMail = SchoolDetailRow(title: "Mail", value: self.school.mail)
-        let rowHomepage = SchoolDetailRow(title: "Homepage", value: self.school.website)
+        let rowPhone = SchoolDetailRow(title: "Phone", value: self.school.phone!)
+        let rowMail = SchoolDetailRow(title: "Mail", value: self.school.mail!)
+        let rowHomepage = SchoolDetailRow(title: "Homepage", value: self.school.website!)
         let groupContact = SchoolDetailGroup(title: "Contact", rows: [rowPhone, rowMail, rowHomepage])
         
-        let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia)
+        let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia!)
         let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki])
         
         let rowReachability = SchoolDetailRow(title: "Reachability", value: "show reachability of this school")
@@ -137,16 +137,16 @@ class SchoolDetailView: UITableViewController {
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
             case "Phone":
-                UIApplication.shared.open(URL(string: "telprompt://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: "telprompt://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Mail":
-                UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Homepage":
-                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Wikipedia":
-                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
         //case "Reachability":
             //performSegue(withIdentifier: "", sender: self)
@@ -183,4 +183,9 @@ class SchoolDetailView: UITableViewController {
         }
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

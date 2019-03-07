@@ -21,10 +21,8 @@
 		59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */; };
 		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
 		59A37EB320BD52250050E48D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37EB220BD52250050E48D /* MapKit.framework */; };
-		59C674D121F18EC100353A53 /* SchoolMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CD21F18EC100353A53 /* SchoolMO.swift */; };
-		59C674D221F18EC100353A53 /* SchoolMOCoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CE21F18EC100353A53 /* SchoolMOCoreDataProperties.swift */; };
-		59C674D321F18EC100353A53 /* AdministrationMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* AdministrationMO.swift */; };
-		59C674D421F18EC100353A53 /* AdministrationMOCoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674D021F18EC100353A53 /* AdministrationMOCoreDataProperties.swift */; };
+		59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */; };
+		59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */; };
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
 		59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */; };
 		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
@@ -48,10 +46,8 @@
 		59A37EA920BD50AD0050E48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		59A37EB220BD52250050E48D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		59C674CD21F18EC100353A53 /* SchoolMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMO.swift; sourceTree = "<group>"; };
-		59C674CE21F18EC100353A53 /* SchoolMOCoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMOCoreDataProperties.swift; sourceTree = "<group>"; };
-		59C674CF21F18EC100353A53 /* AdministrationMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrationMO.swift; sourceTree = "<group>"; };
-		59C674D021F18EC100353A53 /* AdministrationMOCoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrationMOCoreDataProperties.swift; sourceTree = "<group>"; };
+		59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "School+CoreDataClass.swift"; sourceTree = "<group>"; };
+		59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Administration+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
 		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
@@ -163,10 +159,8 @@
 		59C674D521F18EE000353A53 /* LunisManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				59C674CD21F18EC100353A53 /* SchoolMO.swift */,
-				59C674CE21F18EC100353A53 /* SchoolMOCoreDataProperties.swift */,
-				59C674CF21F18EC100353A53 /* AdministrationMO.swift */,
-				59C674D021F18EC100353A53 /* AdministrationMOCoreDataProperties.swift */,
+				59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */,
+				59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */,
 			);
 			path = LunisManagedObjects;
 			sourceTree = "<group>";
@@ -213,6 +207,7 @@
 				TargetAttributes = {
 					59A37E9720BD50AA0050E48D = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -262,14 +257,12 @@
 				59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */,
 				598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
-				59C674D421F18EC100353A53 /* AdministrationMOCoreDataProperties.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
-				59C674D121F18EC100353A53 /* SchoolMO.swift in Sources */,
+				59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
-				59C674D321F18EC100353A53 /* AdministrationMO.swift in Sources */,
+				59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */,
 				590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */,
-				59C674D221F18EC100353A53 /* SchoolMOCoreDataProperties.swift in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,
@@ -412,7 +405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PM6R3BPDX5;
 				INFOPLIST_FILE = Lunis/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -420,7 +413,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jagodki.Lunis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -432,7 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PM6R3BPDX5;
 				INFOPLIST_FILE = Lunis/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,7 +433,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jagodki.Lunis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

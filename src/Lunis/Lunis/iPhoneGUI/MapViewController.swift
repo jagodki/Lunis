@@ -27,14 +27,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     //the data controller for connecting to core data
     var dataController: DataController!
-    var fetchedResultsControllerSchools: NSFetchedResultsController<SchoolMO>!
-    var fetchedResultsControllerAdministrations: NSFetchedResultsController<AdministrationMO>!
+    var fetchedResultsControllerSchools: NSFetchedResultsController<School>!
+    var fetchedResultsControllerAdministrations: NSFetchedResultsController<Administration>!
     
     //a tableviewontroller to store the search results
     var searchResultsController: UITableViewController!
     
     //store the searched schools
-    var searchedSchools: [SchoolMO] = [SchoolMO]()
+    var searchedSchools: [School] = [School]()
     
     // MARK: - methods
     
@@ -101,7 +101,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     // MARK: - UITableView implementation
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.searchController.dismiss(animated: true, completion: nil)
-        self.zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name, city: self.searchedSchools[indexPath.row].city)
+        self.zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name!, city: self.searchedSchools[indexPath.row].city!)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -188,9 +188,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         if self.zoomToPosition {
             //zoom to user position
             if let location = locations.last  {
-                let span:MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+                let span:MKCoordinateSpan = MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let currentPosition:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-                let region = MKCoordinateRegionMake(currentPosition, span)
+                let region = MKCoordinateRegion.init(center: currentPosition, span: span)
                 self.mapView.setRegion(region, animated: true)
             }
             self.zoomToPosition = false
@@ -199,18 +199,18 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     /// This function show an alert, whether location services are disabled for this app.
     func showEnableLocationAlert() {
-        let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertActionStyle.default, handler: {
+        let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertAction.Style.default, handler: {
             (alert: UIAlertAction!) in
-            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     func zoomToSchool(schoolName: String, city: String) {
         let annotationToFocusOn = self.fetchedResultsControllerSchools.fetchedObjects?.filter({
-            (fetchedSchool: SchoolMO) -> Bool in
+            (fetchedSchool: School) -> Bool in
             return schoolName == fetchedSchool.name && city == fetchedSchool.city
         })
         self.mapView.showAnnotations(annotationToFocusOn!, animated: true)
@@ -292,7 +292,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         switch segue.identifier {
             case "showSchoolDetailFromMap":
                 let viewController = segue.destination as! SchoolDetailView
-                viewController.school = self.mapView.selectedAnnotations[0] as! SchoolMO
+                viewController.school = self.mapView.selectedAnnotations[0] as? School
             
             case "showShortestDistances":
                 let viewController = segue.destination as! SchoolDistancesController
@@ -310,7 +310,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is SchoolMO {
+        if annotation is School {
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
                 return annotationView
             } else {
@@ -337,14 +337,19 @@ extension MapViewController: UISearchResultsUpdating {
         let searchText: String = searchController.searchBar.text!
         
         //get the rows of all sections
-        let allSchoolRows: [SchoolMO] = self.fetchedResultsControllerSchools.fetchedObjects!
+        let allSchoolRows: [School] = self.fetchedResultsControllerSchools.fetchedObjects!
         
         //filter all school rows
-        self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : SchoolMO) -> Bool in
-            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+        self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : School) -> Bool in
+            return dataViewSchoolCell.name!.lowercased().contains(searchText.lowercased())
         })
         
         //reload the table
         self.searchResultsController.tableView.reloadData()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

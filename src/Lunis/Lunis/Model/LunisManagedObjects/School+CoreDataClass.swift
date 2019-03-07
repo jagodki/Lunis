@@ -12,7 +12,7 @@ import CoreData
 import MapKit
 
 @objc(School)
-public class SchoolMO: NSManagedObject, MKAnnotation {
+public class School: NSManagedObject, MKAnnotation {
     
     public var title: String? {
         return self.name

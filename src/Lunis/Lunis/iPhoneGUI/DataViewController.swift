@@ -38,14 +38,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tbRect: CGRect!
     
     //store the searched schools
-    var searchedSchools: [SchoolMO] = [SchoolMO]()
+    var searchedSchools: [School] = [School]()
     
     //store the selected cell
-    var selectedSchool: SchoolMO!
+    var selectedSchool: School!
     
     //the data controller for connecting to core data
     var dataController: DataController!
-    var fetchedResultsController: NSFetchedResultsController<SchoolMO>!
+    var fetchedResultsController: NSFetchedResultsController<School>!
     
     // MARK: - functions
     
@@ -186,13 +186,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //define the actions
         let markAsFavorite = UIContextualAction(style: .normal, title: "\u{2605}") {(action, view, completion) in
-            self.markFavorite(at: indexPath, with: UITableViewRowAnimation.right)
+            self.markFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
         markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         
         let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
-            self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.right)
+            self.unmarkFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
         unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
@@ -200,14 +200,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
             //prepare the mapviewcontroller
             //print((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0])
-            ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).mapContent = self.segmentedControl.selectedSegmentIndex
-            ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).reloadMapContent()
+            ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).mapContent = self.segmentedControl.selectedSegmentIndex
+            ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).reloadMapContent()
             
             //zoom to the school
             if tableView == self.tableView {
-                ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).zoomToSchool(schoolName: self.fetchedResultsController.object(at: indexPath).name, city: self.fetchedResultsController.object(at: indexPath).city)
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.fetchedResultsController.object(at: indexPath).name!, city: self.fetchedResultsController.object(at: indexPath).city!)
             } else {
-                ((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0] as! MapViewController).zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name, city: self.searchedSchools[indexPath.row].city)
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name!, city: self.searchedSchools[indexPath.row].city!)
             }
             
             //show the mapviewcontroller
@@ -233,7 +233,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
     }
     
@@ -293,7 +293,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 //select or deselect the current row depending on the button title
                 if self.buttonSelectAll.title == self.buttonSelectAllTitle {
-                    self.tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
+                    self.tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableView.ScrollPosition.none)
                 } else {
                     self.tableView.deselectRow(at: IndexPath(row: row, section: section), animated: true)
                 }
@@ -323,12 +323,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         //check the button title and mark or unmark all selected rows
         if self.buttonFavorite.title == self.buttonFavoriteMarkTitle {
             for indexPath in indexPathsOfSelectedRows {
-                self.markFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
+                self.markFavorite(at: indexPath, with: UITableView.RowAnimation.fade)
             }
             self.buttonFavorite.title = self.buttonFavoriteUnmarkTitle
         } else {
             for indexPath in indexPathsOfSelectedRows {
-                self.unmarkFavorite(at: indexPath, with: UITableViewRowAnimation.fade)
+                self.unmarkFavorite(at: indexPath, with: UITableView.RowAnimation.fade)
             }
             self.buttonFavorite.title = self.buttonFavoriteMarkTitle
         }
@@ -346,7 +346,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - indexPath: the index to find the row
     ///   - animation: the animation for reloading the table row
-    private func markFavorite(at indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+    private func markFavorite(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "favorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = true
@@ -359,7 +359,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// - Parameters:
     ///   - indexPath: the index to find the row
     ///   - animation: the animation for reloading the table row
-    private func unmarkFavorite(at indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+    private func unmarkFavorite(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
         cell?.imageView?.image = UIImage(named: "no_favorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = false
@@ -472,11 +472,11 @@ extension DataViewController: UISearchResultsUpdating {
          let searchText: String = searchController.searchBar.text!
          
          //get the rows of all sections
-        let allSchoolRows: [SchoolMO] = self.fetchedResultsController.fetchedObjects!
+        let allSchoolRows: [School] = self.fetchedResultsController.fetchedObjects!
          
          //filter all school rows
-         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell: SchoolMO) -> Bool in
-            return dataViewSchoolCell.name.lowercased().contains(searchText.lowercased())
+         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell: School) -> Bool in
+            return dataViewSchoolCell.name!.lowercased().contains(searchText.lowercased())
          })
          
          //reload the table

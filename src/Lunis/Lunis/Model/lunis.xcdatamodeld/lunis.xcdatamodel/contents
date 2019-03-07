@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G3025" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Administration" representedClassName="Administration" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G5019" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Administration" representedClassName="Administration" syncable="YES" codeGenerationType="category">
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="country" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="path" attributeType="String" syncable="YES"/>
         <attribute name="region" attributeType="String" syncable="YES"/>
         <attribute name="x" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="y" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="boundary" maxCount="1" deletionRule="Cascade" destinationEntity="Boundary" inverseName="administration" inverseEntity="Boundary" syncable="YES"/>
+        <relationship name="grid" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Grid" inverseName="administration" inverseEntity="Grid" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="School" inverseName="administration" inverseEntity="School" syncable="YES"/>
     </entity>
-    <entity name="School" representedClassName="School" syncable="YES">
+    <entity name="Boundary" representedClassName="Boundary" syncable="YES" codeGenerationType="class">
+        <relationship name="administration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="boundary" inverseEntity="Administration" syncable="YES"/>
+        <relationship name="cell" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Cell" inverseName="boundary" inverseEntity="Cell" syncable="YES"/>
+        <relationship name="points" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Point" inverseName="boundary" inverseEntity="Point" syncable="YES"/>
+    </entity>
+    <entity name="Cell" representedClassName="Cell" syncable="YES" codeGenerationType="class">
+        <relationship name="boundary" maxCount="1" deletionRule="Nullify" destinationEntity="Boundary" inverseName="cell" inverseEntity="Boundary" syncable="YES"/>
+        <relationship name="cellValues" toMany="YES" deletionRule="Cascade" destinationEntity="CellValue" inverseName="cell" inverseEntity="CellValue" syncable="YES"/>
+        <relationship name="grid" maxCount="1" deletionRule="Nullify" destinationEntity="Grid" inverseName="cells" inverseEntity="Grid" syncable="YES"/>
+    </entity>
+    <entity name="CellValue" representedClassName="CellValue" syncable="YES" codeGenerationType="class">
+        <attribute name="schoolName" attributeType="String" syncable="YES"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="cell" maxCount="1" deletionRule="Nullify" destinationEntity="Cell" inverseName="cellValues" inverseEntity="Cell" syncable="YES"/>
+    </entity>
+    <entity name="Grid" representedClassName="Grid" syncable="YES" codeGenerationType="class">
+        <relationship name="administration" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="grid" inverseEntity="Administration" syncable="YES"/>
+        <relationship name="cells" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Cell" inverseName="grid" inverseEntity="Cell" syncable="YES"/>
+    </entity>
+    <entity name="Point" representedClassName="Point" syncable="YES" codeGenerationType="class">
+        <attribute name="x" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="y" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="boundary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Boundary" inverseName="points" inverseEntity="Boundary" syncable="YES"/>
+    </entity>
+    <entity name="School" representedClassName="School" syncable="YES" codeGenerationType="category">
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="favorite" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mail" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="String" syncable="YES"/>
-        <attribute name="path" attributeType="String" syncable="YES"/>
         <attribute name="phone" attributeType="String" syncable="YES"/>
         <attribute name="postalCode" attributeType="String" syncable="YES"/>
         <attribute name="schoolSpecialisation" attributeType="String" syncable="YES"/>
@@ -26,10 +50,15 @@
         <attribute name="wikipedia" attributeType="String" syncable="YES"/>
         <attribute name="x" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="y" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="administration" maxCount="1" deletionRule="No Action" destinationEntity="Administration" inverseName="schools" inverseEntity="Administration" syncable="YES"/>
+        <relationship name="administration" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="schools" inverseEntity="Administration" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Administration" positionX="-63" positionY="-18" width="128" height="165"/>
-        <element name="School" positionX="-326" positionY="-135" width="128" height="285"/>
+        <element name="Administration" positionX="-81.48046875" positionY="-288.98828125" width="128" height="180"/>
+        <element name="School" positionX="-339.375" positionY="-370.57421875" width="128" height="270"/>
+        <element name="Point" positionX="186.91015625" positionY="-132.890625" width="128" height="90"/>
+        <element name="Grid" positionX="283.50390625" positionY="87.1796875" width="128" height="75"/>
+        <element name="Cell" positionX="387.94140625" positionY="-295.41015625" width="128" height="90"/>
+        <element name="Boundary" positionX="190" positionY="-310.62109375" width="128" height="90"/>
+        <element name="CellValue" positionX="462.58984375" positionY="-68.765625" width="128" height="90"/>
     </elements>
 </model>

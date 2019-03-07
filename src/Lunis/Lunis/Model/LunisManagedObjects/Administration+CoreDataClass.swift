@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(Administration)
-public class AdministrationMO: NSManagedObject {
+public class Administration: NSManagedObject {
 
 }

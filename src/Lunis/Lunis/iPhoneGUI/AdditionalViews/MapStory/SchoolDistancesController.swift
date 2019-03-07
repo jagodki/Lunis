@@ -14,10 +14,10 @@ class SchoolDistancesController: UITableViewController {
     
     //MARK: - instance variables
     
-    var tableDataSchools: [SchoolMO]! = [SchoolMO]()
-    var tableDataHash: [SchoolMO: Double]! = [SchoolMO: Double]()
+    var tableDataSchools: [School]! = [School]()
+    var tableDataHash: [School: Double]! = [School: Double]()
     var start: CLLocationCoordinate2D!
-    var destinations: [SchoolMO]!
+    var destinations: [School]!
     
     //MARK: - standard methods
     
@@ -89,7 +89,7 @@ class SchoolDistancesController: UITableViewController {
         for destination in self.destinations {
             
             //set up the routing request
-            let directionRequest = MKDirectionsRequest()
+            let directionRequest = MKDirections.Request()
             directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: self.start))
             directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination.coordinate))
             directionRequest.transportType = .any
