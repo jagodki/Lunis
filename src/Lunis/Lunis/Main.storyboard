@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +12,7 @@
         <!--Distances-->
         <scene sceneID="ORJ-Fn-kbY">
             <objects>
-                <tableViewController title="Distances" id="X8H-XW-Cql" customClass="SchoolDistancesController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Distances" hidesBottomBarWhenPushed="YES" id="X8H-XW-Cql" customClass="SchoolDistancesController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6HM-vd-mHg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,6 +81,7 @@
                         <viewLayoutGuide key="safeArea" id="hkf-Vd-a2l"/>
                     </view>
                     <navigationItem key="navigationItem" title="Map" largeTitleDisplayMode="never" id="AHo-GK-Zb1">
+                        <barButtonItem key="backBarButtonItem" title="Map" id="HAv-MQ-ohG"/>
                         <leftBarButtonItems>
                             <barButtonItem style="plain" systemItem="search" id="D9n-Vv-QkO">
                                 <connections>
@@ -225,13 +225,13 @@
         <!--Schools-->
         <scene sceneID="WjS-Eb-ERT">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="8LT-sb-z2Y" customClass="DataViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8LT-sb-z2Y" customClass="DataViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jY3-7N-B09">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
-                                <rect key="frame" x="0.0" y="113" width="320" height="411"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-GS-ggy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="schoolCell" id="7Ae-6U-jFZ">
@@ -248,36 +248,18 @@
                                     <outlet property="delegate" destination="8LT-sb-z2Y" id="WYm-FV-kz9"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI9-BN-oUO">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Select All" id="64M-Fw-EXy">
-                                        <connections>
-                                            <action selector="selectAllButtonPressed:" destination="8LT-sb-z2Y" id="WaK-kn-0cD"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JRd-24-saa"/>
-                                    <barButtonItem title="Mark as Favorite(s)" id="Pyc-Xe-0JD">
-                                        <connections>
-                                            <action selector="favoriteButtonPressed:" destination="8LT-sb-z2Y" id="Ptf-1p-iVx"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fyY-GS-ggy" secondAttribute="trailing" id="1a6-6Z-wx4"/>
-                            <constraint firstItem="tI9-BN-oUO" firstAttribute="bottom" secondItem="6La-Fh-Gqm" secondAttribute="bottom" id="65n-HH-cPn"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="tI9-BN-oUO" secondAttribute="leading" id="eCM-3P-SiB"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="fyY-GS-ggy" secondAttribute="bottom" constant="-5" id="asW-vc-fh0"/>
                             <constraint firstItem="fyY-GS-ggy" firstAttribute="leading" secondItem="jY3-7N-B09" secondAttribute="leading" id="hai-SF-OxU"/>
-                            <constraint firstItem="tI9-BN-oUO" firstAttribute="top" secondItem="fyY-GS-ggy" secondAttribute="bottom" id="puu-Gr-pKB"/>
                             <constraint firstItem="fyY-GS-ggy" firstAttribute="top" secondItem="jY3-7N-B09" secondAttribute="top" id="w9c-vQ-kX3"/>
-                            <constraint firstItem="fyY-GS-ggy" firstAttribute="trailing" secondItem="tI9-BN-oUO" secondAttribute="trailing" id="xNE-SJ-WcV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6La-Fh-Gqm"/>
                     </view>
                     <navigationItem key="navigationItem" title="Schools" id="RXP-bK-5he">
+                        <barButtonItem key="backBarButtonItem" title="Schools" id="QqT-Rz-Qud"/>
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="4CS-Vg-KfL">
                             <connections>
                                 <segue destination="uqw-PS-QdG" kind="presentation" identifier="showFilterDataView" modalTransitionStyle="coverVertical" id="TFo-g4-4KA"/>
@@ -301,15 +283,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="buttonFavorite" destination="Pyc-Xe-0JD" id="8fK-Ya-2XX"/>
                         <outlet property="buttonFilter" destination="4CS-Vg-KfL" id="359-Xa-tGk"/>
                         <outlet property="buttonSelect" destination="duF-LL-Xto" id="VET-IG-fwN"/>
-                        <outlet property="buttonSelectAll" destination="64M-Fw-EXy" id="Ykh-jF-Jaa"/>
                         <outlet property="segmentedControl" destination="yFQ-10-ZLe" id="IES-Nm-jgl"/>
                         <outlet property="tableView" destination="fyY-GS-ggy" id="gKA-AO-VDA"/>
-                        <outlet property="toolbar" destination="tI9-BN-oUO" id="VEB-nd-CFO"/>
                         <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailFromData" id="aDm-5k-pHL"/>
                     </connections>
                 </viewController>
@@ -320,7 +298,7 @@
         <!--School-->
         <scene sceneID="E5I-cx-yet">
             <objects>
-                <tableViewController id="Imn-Jn-LnJ" customClass="SchoolDetailView" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Imn-Jn-LnJ" customClass="SchoolDetailView" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Xq5-vH-NXm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -395,13 +373,13 @@
         <!--Reachability-->
         <scene sceneID="gIJ-fZ-dW6">
             <objects>
-                <viewController title="Reachability" id="kWY-g2-A8y" customClass="ReachabilityViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Reachability" hidesBottomBarWhenPushed="YES" id="kWY-g2-A8y" customClass="ReachabilityViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2z1-Dj-1rV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="B2u-9n-1VA">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -570,6 +548,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mbt-tH-MEa"/>
+        <segue reference="aDm-5k-pHL"/>
     </inferredMetricsTieBreakers>
 </document>

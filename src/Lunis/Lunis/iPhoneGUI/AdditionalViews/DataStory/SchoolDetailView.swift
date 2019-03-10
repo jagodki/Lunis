@@ -67,6 +67,11 @@ class SchoolDetailView: UITableViewController {
         let groupReachability = SchoolDetailGroup(title: "Reachability", rows: [rowReachability])
         
         self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther, groupReachability]
+        self.tableView.sizeToFit()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationItem.title = self.school.name
     }
     
     // MARK: - methods

@@ -24,12 +24,14 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var buttonSelect: UIBarButtonItem!
     @IBOutlet var buttonFilter: UIBarButtonItem!
     @IBOutlet var segmentedControl: UISegmentedControl!
-    @IBOutlet var buttonSelectAll: UIBarButtonItem!
-    @IBOutlet var buttonFavorite: UIBarButtonItem!
-    @IBOutlet var toolbar: UIToolbar!
     @IBOutlet var tableView: UITableView!
     
     // MARK: - instance variables
+    
+    //buttons for the toolbar
+    var buttonSelectAll: UIBarButtonItem!
+    var buttonFavorite: UIBarButtonItem!
+    var toolBarSpace: UIBarButtonItem!
     
     //a tableviewontroller to store the search results
     var searchResultsController: UITableViewController!
@@ -52,10 +54,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //hide toolbar, store its size and position and show tabbar
-        self.tabBarController?.tabBar.isHidden = false
-        self.toolbar.isHidden = true
-        self.tbRect = CGRect(x: self.toolbar.frame.origin.x   , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+        //init the toolbar
+        self.buttonSelectAll = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(DataViewController.selectAllButtonPressed))
+        self.buttonFavorite = UIBarButtonItem(title: "Mark as Favoutrites", style: .plain, target: self, action: #selector(DataViewController.favoriteButtonPressed))
+        self.toolBarSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        self.setToolbarItems([self.buttonSelectAll, self.toolBarSpace, self.buttonFavorite], animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: false)
         
         //set up a searchresultcontroller
         self.searchResultsController = UITableViewController(style: .plain)
@@ -77,11 +81,11 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //fetch data from core data
         self.segmentedControlChanged((Any).self)
+        self.tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-        self.toolbar.isHidden = true
+        self.navigationController?.setToolbarHidden(true, animated: false)
         
         //fetch data from core data
         self.segmentedControlChanged((Any).self)
@@ -160,7 +164,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.searchResultsController.tableView.deselectRow(at: indexPath, animated: true)
         } else {
             //adjust the select all button
-            if tableView.indexPathsForSelectedRows?.count == self.fetchedResultsController.fetchedObjects?.count && tableView.isEditing && tableView == self.tableView {
+            if tableView.indexPathsForSelectedRows?.count == self.fetchedResultsController.fetchedObjects?.count && tableView == self.tableView {
                 self.buttonSelectAll.title = self.buttonDeselectAllTitle
             }
             
@@ -248,23 +252,28 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         //enable and disable UI-elements depending on the editing status
         self.segmentedControl.isEnabled = self.tableView.isEditing
         self.buttonFilter.isEnabled = self.tableView.isEditing
-        self.tabBarController?.tabBar.isHidden = !self.tableView.isEditing
         self.buttonFavorite.isEnabled = false
+        self.navigationController?.setToolbarHidden(self.tableView.isEditing, animated: true)
         
-        //show/hide the toolbar and the tabbar
-        UIView.animate(withDuration: 0.2, animations: {
-            () -> Void in
-            // show/hide toolbar
-            if self.toolbar.isHidden {
-                self.buttonSelectAll.title = self.buttonSelectAllTitle
-                self.toolbar.isHidden = false
-                self.toolbar.frame = self.tbRect
-            }else {
-                let frameRect = CGRect(x: self.toolbar.frame.origin.x , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
-                self.toolbar.frame = frameRect
-                self.toolbar.isHidden = true
-            }
-        })
+//        //show/hide the toolbar and the tabbar
+//        UIView.animate(withDuration: 0.2, animations: {
+//            () -> Void in
+//            // show/hide toolbar
+//            if self.toolbar.isHidden {
+//                let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+//                let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+//                self.navigationController?.toolbar.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//                self.toolbar.setItems([add, spacer], animated: true)
+//                self.buttonSelectAll.title = self.buttonSelectAllTitle
+//                self.toolbar.isHidden = false
+//                self.toolbar.frame = self.tbRect
+//            }else {
+//                self.navigationController?.setToolbarHidden(true, animated: true)
+//                let frameRect = CGRect(x: self.toolbar.frame.origin.x , y: self.toolbar.frame.origin.y + self.toolbar.frame.height, width: self.toolbar.frame.width , height: self.toolbar.frame.height)
+//                self.toolbar.frame = frameRect
+//                self.toolbar.isHidden = true
+//            }
+//        })
         
         //update the editing status and make the tableview editable
         self.tableView.setEditing(!self.tableView.isEditing, animated: true)
@@ -280,9 +289,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     /// This function selects all rows of the table view.
-    ///
-    /// - Parameter sender: any
-    @IBAction private func selectAllButtonPressed(_ sender: Any) {
+    @objc func selectAllButtonPressed() {
         //iterate over all sections
         let totalSections = self.tableView.numberOfSections
         for section in 0..<totalSections {
@@ -312,9 +319,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// This function marks or unmarks all selected rows of the table view as favorites.
     /// If at least one row of the selected rows is not already marked as favorite, the selection will be marked as favorites.
     /// Otherwise the whole selection will be unmarked.
-    ///
-    /// - Parameter sender: any
-    @IBAction private func favoriteButtonPressed(_ sender: Any) {
+    @objc func favoriteButtonPressed() {
         //get all selected rows
         guard let indexPathsOfSelectedRows = self.tableView.indexPathsForSelectedRows else {
             return

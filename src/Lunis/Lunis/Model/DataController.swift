@@ -33,10 +33,10 @@ class DataController: NSObject {
 //            self.delete(by: school.objectID)
 //        }
 //        
-//        let admins = self.fetchAdministations()
-//        for admin in admins {
-//            self.delete(by: admin.objectID)
-//        }
+        let admins = self.fetchAdministations()
+        for admin in admins {
+            self.delete(by: admin.objectID)
+        }
         
         //insert test data
         if self.fetchAdministations(request: "").count == 0 {
