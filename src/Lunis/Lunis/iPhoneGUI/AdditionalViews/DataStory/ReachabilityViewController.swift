@@ -44,6 +44,10 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         
         //init the datacontroller to fetch from coredata
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
+        
+        //add the geo-objects to the map
+        self.mapView.addOverlay(self.school.administration!, level: MKOverlayLevel.aboveRoads)
+        self.mapView.setVisibleMapRect((self.school.administration?.boundingMapRect)!, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,22 +72,16 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
 // MARK: - MKMapViewDelegate
 extension ReachabilityViewController: MKMapViewDelegate {
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is School {
-            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
-                return annotationView
-            } else {
-                return nil
-            }
-        } else if annotation is MKUserLocation {
-            return nil
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is Administration {
+            let renderer = MKPolygonRenderer(polygon: (overlay as! Administration).polygon)
+            renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
+            renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            renderer.lineWidth = 2
+            return renderer
         }
         
-        return nil
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+        return MKOverlayRenderer()
     }
 }
 

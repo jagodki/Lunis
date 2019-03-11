@@ -11,7 +11,7 @@
         <relationship name="grid" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Grid" inverseName="administration" inverseEntity="Grid" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="School" inverseName="administration" inverseEntity="School" syncable="YES"/>
     </entity>
-    <entity name="Boundary" representedClassName="Boundary" syncable="YES" codeGenerationType="class">
+    <entity name="Boundary" representedClassName="Boundary" syncable="YES" codeGenerationType="category">
         <relationship name="administration" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="boundary" inverseEntity="Administration" syncable="YES"/>
         <relationship name="cell" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Cell" inverseName="boundary" inverseEntity="Cell" syncable="YES"/>
         <relationship name="points" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Point" inverseName="boundary" inverseEntity="Point" syncable="YES"/>
@@ -31,8 +31,8 @@
         <relationship name="cells" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Cell" inverseName="grid" inverseEntity="Cell" syncable="YES"/>
     </entity>
     <entity name="Point" representedClassName="Point" syncable="YES" codeGenerationType="class">
-        <attribute name="x" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="y" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="x" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="y" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="boundary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Boundary" inverseName="points" inverseEntity="Boundary" syncable="YES"/>
     </entity>
     <entity name="School" representedClassName="School" syncable="YES" codeGenerationType="category">
@@ -54,11 +54,11 @@
     </entity>
     <elements>
         <element name="Administration" positionX="-81.48046875" positionY="-288.98828125" width="128" height="180"/>
-        <element name="School" positionX="-339.375" positionY="-370.57421875" width="128" height="270"/>
-        <element name="Point" positionX="186.91015625" positionY="-132.890625" width="128" height="90"/>
-        <element name="Grid" positionX="283.50390625" positionY="87.1796875" width="128" height="75"/>
-        <element name="Cell" positionX="387.94140625" positionY="-295.41015625" width="128" height="90"/>
         <element name="Boundary" positionX="190" positionY="-310.62109375" width="128" height="90"/>
+        <element name="Cell" positionX="387.94140625" positionY="-295.41015625" width="128" height="90"/>
         <element name="CellValue" positionX="462.58984375" positionY="-68.765625" width="128" height="90"/>
+        <element name="Grid" positionX="283.50390625" positionY="87.1796875" width="128" height="75"/>
+        <element name="Point" positionX="186.91015625" positionY="-132.890625" width="128" height="90"/>
+        <element name="School" positionX="-339.375" positionY="-370.57421875" width="128" height="270"/>
     </elements>
 </model>
