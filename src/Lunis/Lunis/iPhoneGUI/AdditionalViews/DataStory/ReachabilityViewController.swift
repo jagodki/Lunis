@@ -46,8 +46,8 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //add the geo-objects to the map
-        self.mapView.addOverlay(self.school.administration!, level: MKOverlayLevel.aboveRoads)
-        self.mapView.setVisibleMapRect((self.school.administration?.boundingMapRect)!, animated: true)
+        self.mapView.addOverlay((self.school.administration?.polygon)!)
+        self.mapView.setVisibleMapRect((self.school.administration?.polygon.boundingMapRect)!, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,11 +73,19 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
 extension ReachabilityViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is Administration {
-            let renderer = MKPolygonRenderer(polygon: (overlay as! Administration).polygon)
-            renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
-            renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-            renderer.lineWidth = 2
+        if overlay is MKPolygon {
+            let renderer = MKPolygonRenderer(overlay: overlay)
+            switch overlay.title {
+            case "Administration":
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+                renderer.strokeColor =  _ColorLiteralType(red: 0, green: 0, blue: 0, alpha: 0.5)
+                renderer.lineWidth = 2
+            case .none:
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+            case .some(_):
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+            }
+            
             return renderer
         }
         

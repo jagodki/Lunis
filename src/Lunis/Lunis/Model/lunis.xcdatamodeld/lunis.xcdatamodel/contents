@@ -16,7 +16,7 @@
         <relationship name="cell" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Cell" inverseName="boundary" inverseEntity="Cell" syncable="YES"/>
         <relationship name="points" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Point" inverseName="boundary" inverseEntity="Point" syncable="YES"/>
     </entity>
-    <entity name="Cell" representedClassName="Cell" syncable="YES" codeGenerationType="class">
+    <entity name="Cell" representedClassName="Cell" syncable="YES" codeGenerationType="category">
         <relationship name="boundary" maxCount="1" deletionRule="Nullify" destinationEntity="Boundary" inverseName="cell" inverseEntity="Boundary" syncable="YES"/>
         <relationship name="cellValues" toMany="YES" deletionRule="Cascade" destinationEntity="CellValue" inverseName="cell" inverseEntity="CellValue" syncable="YES"/>
         <relationship name="grid" maxCount="1" deletionRule="Nullify" destinationEntity="Grid" inverseName="cells" inverseEntity="Grid" syncable="YES"/>
@@ -26,7 +26,7 @@
         <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="cell" maxCount="1" deletionRule="Nullify" destinationEntity="Cell" inverseName="cellValues" inverseEntity="Cell" syncable="YES"/>
     </entity>
-    <entity name="Grid" representedClassName="Grid" syncable="YES" codeGenerationType="class">
+    <entity name="Grid" representedClassName="Grid" syncable="YES" codeGenerationType="category">
         <relationship name="administration" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="grid" inverseEntity="Administration" syncable="YES"/>
         <relationship name="cells" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Cell" inverseName="grid" inverseEntity="Cell" syncable="YES"/>
     </entity>
