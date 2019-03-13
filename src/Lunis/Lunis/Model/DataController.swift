@@ -215,35 +215,35 @@ class DataController: NSObject {
         cellBoundary4.cell = cell4
         
         cellValue11.schoolName = "Lößnitzgymnasium"
-        cellValue11.value = 10
+        cellValue11.value = 1
         cellValue11.cell = cell1
         
         cellValue21.schoolName = "Lößnitzgymnasium"
-        cellValue21.value = 100
+        cellValue21.value = 5
         cellValue21.cell = cell2
         
         cellValue31.schoolName = "Lößnitzgymnasium"
-        cellValue31.value = 10000
+        cellValue31.value = 8
         cellValue31.cell = cell3
         
         cellValue41.schoolName = "Lößnitzgymnasium"
-        cellValue41.value = 100000
+        cellValue41.value = 10
         cellValue41.cell = cell4
         
         cellValue12.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
-        cellValue12.value = 50
+        cellValue12.value = 1
         cellValue12.cell = cell1
         
         cellValue22.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
-        cellValue22.value = 80
+        cellValue22.value = 3
         cellValue22.cell = cell2
         
         cellValue32.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
-        cellValue32.value = 10100
+        cellValue32.value = 5
         cellValue32.cell = cell3
         
         cellValue42.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
-        cellValue42.value = 90000
+        cellValue42.value = 10
         cellValue42.cell = cell4
         
         cell1.addToCellValues(cellValue11)
@@ -267,6 +267,7 @@ class DataController: NSObject {
         grid.addToCells(cell3)
         grid.addToCells(cell4)
         grid.administration = administration1
+        grid.administration = administration2
         
         boundaryAdmin1.addToPoints(pointAdmin11)
         boundaryAdmin1.addToPoints(pointAdmin12)
@@ -292,6 +293,7 @@ class DataController: NSObject {
         administration2.x = 13.473048
         administration2.y = 51.166734
         administration2.boundary = boundaryAdmin2
+        //administration2.grid = grid
         
         school1.name = "Lößnitzgymnasium"
         school1.city = "Radebeul"

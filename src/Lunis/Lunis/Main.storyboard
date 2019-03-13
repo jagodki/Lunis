@@ -392,15 +392,14 @@
                         <viewLayoutGuide key="safeArea" id="tHO-g5-cqP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reachability" largeTitleDisplayMode="never" id="TBH-cI-cwt">
-                        <barButtonItem key="rightBarButtonItem" title="Position" style="plain" id="IG1-ES-mW1">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="v9U-L9-B0x">
-                                <rect key="frame" x="233" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Position"/>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Position" id="6f5-8z-3D8">
+                            <connections>
+                                <action selector="positionButtonPressed:" destination="kWY-g2-A8y" id="bem-83-QMj"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonPosition" destination="6f5-8z-3D8" id="hkZ-Ne-Hge"/>
                         <outlet property="mapView" destination="B2u-9n-1VA" id="m6S-dM-F0l"/>
                     </connections>
                 </viewController>
