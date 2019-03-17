@@ -109,7 +109,10 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.4971372003)
                 renderer.lineWidth = 2
             case "Cell":
-                let ratio = self.cellValue / ((self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!)
+                var ratio: Double = self.cellValue
+                if (self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))! == 0.0 {
+                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!) / ((self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!)
+                }
                 let hue = (1 / 3) - (ratio * (1 / 3))
                 renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 0.25)
                 renderer.strokeColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 0.4952910959)

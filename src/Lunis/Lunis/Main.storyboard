@@ -100,6 +100,11 @@
                                     <segue destination="X8H-XW-Cql" kind="show" identifier="showShortestDistances" id="o6O-VF-cZ2"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Hexa" id="eA3-R1-TQ0">
+                                <connections>
+                                    <action selector="buttonHexagonsTapped:" destination="Iy2-ZW-J59" id="j9o-Au-OuJ"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem style="plain" systemItem="compose" id="TaJ-ou-tRr">
                                 <connections>
                                     <action selector="selectMapContent:" destination="Iy2-ZW-J59" id="OWb-rS-Grs"/>
@@ -109,6 +114,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonHexagons" destination="eA3-R1-TQ0" id="yb4-hF-JbL"/>
                         <outlet property="mapView" destination="oMd-d3-UIV" id="E8d-2y-0cZ"/>
                         <segue destination="Imn-Jn-LnJ" kind="show" identifier="showSchoolDetailFromMap" id="mbt-tH-MEa"/>
                     </connections>
@@ -547,6 +553,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aDm-5k-pHL"/>
+        <segue reference="mbt-tH-MEa"/>
     </inferredMetricsTieBreakers>
 </document>

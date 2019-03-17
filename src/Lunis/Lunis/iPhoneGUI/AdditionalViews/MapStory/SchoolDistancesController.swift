@@ -50,7 +50,7 @@ class SchoolDistancesController: UITableViewController {
         
         //change the colour of the detail label
         var hue: Double = 1 / 3
-        if indexPath.row > 0 {
+        if indexPath.row > 0 && self.tableDataSchools.count > 1 {
             hue = (1 / 3) - (Double(indexPath.row) / Double(self.tableDataSchools.count - 1) * (1 / 3))
         }
         cell.detailTextLabel?.textColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 1)

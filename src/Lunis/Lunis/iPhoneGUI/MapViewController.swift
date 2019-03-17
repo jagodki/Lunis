@@ -17,6 +17,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     // MARK: - IBOutlets
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var buttonHexagons: UIBarButtonItem!
     
     // MARK: - instance variables
     var locationManager: CLLocationManager!
@@ -35,6 +36,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     //store the searched schools
     var searchedSchools: [School] = [School]()
+    
+    //store information to colour the polygons
+    var minCellValue: Double! = 99999999999999999999.9
+    var polygonIndex: Int!
+    var polygonSorts: Int!
     
     // MARK: - methods
     
@@ -287,6 +293,61 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
+    @IBAction func buttonHexagonsTapped(_ sender: Any) {
+        if self.buttonHexagons.title == "Hexa" {
+            //adjust the button
+            self.buttonHexagons.title = "noHex"
+            
+            //get all administrations of the visible schools
+            var administrations: [Administration] = []
+            for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
+                administrations.append(school.administration!)
+            }
+            administrations = Array(Set(administrations))
+            
+            //iterate over all the administrations
+            for administration in administrations {
+                
+                //extract all school names
+                var schoolNames: [String] = []
+                for school in administration.schools?.allObjects as! [School] {
+                    schoolNames.append(school.name!)
+                }
+                self.polygonSorts = schoolNames.count
+                
+                //iterate over all cells
+                if administration.grid != nil && administration.grid!.cells != nil {
+                    for cell in administration.grid!.cells!.array as! [Cell] {
+                        
+                        //compare the cellValues
+                        for cellValue in cell.cellValues?.allObjects as! [CellValue] {
+                            if schoolNames.contains(cellValue.schoolName!) {
+                                if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
+                                    self.minCellValue = (cellValue.value?.doubleValue)!
+                                    for (index, schoolName) in schoolNames.enumerated() {
+                                        if schoolName == cellValue.schoolName {
+                                            self.polygonIndex = index
+                                            break
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //add the polygon of the cell to the map
+                        self.mapView.addOverlay(cell.polygon)
+                    }
+                }
+            }
+            
+        } else {
+            //adjust the button
+            self.buttonHexagons.title = "Hexa"
+            self.mapView.removeOverlays(self.mapView.overlays)
+        }
+    }
+    
+    
     // MARK: - navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -327,6 +388,30 @@ extension MapViewController: MKMapViewDelegate {
         if view is SchoolMarkerView {
             performSegue(withIdentifier: "showSchoolDetailFromMap", sender: self)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolygon {
+            let renderer = MKPolygonRenderer(overlay: overlay)
+            switch overlay.title {
+            case "Cell":
+                var hue = 340 / 360
+                if self.polygonSorts > 1 {
+                    hue = (340 / 360) - ((self.polygonIndex / (self.polygonSorts - 1)) * (180 / 360))
+                }
+                renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.5)
+                renderer.strokeColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.75)
+                renderer.lineWidth = 1
+            case .none:
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+            case .some(_):
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+            }
+            
+            return renderer
+        }
+        
+        return MKOverlayRenderer()
     }
 }
 
