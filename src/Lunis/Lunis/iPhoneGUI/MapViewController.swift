@@ -37,10 +37,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     //store the searched schools
     var searchedSchools: [School] = [School]()
     
-    //store information to colour the polygons
+    //store information about the hexagonal raster
     var minCellValue: Double! = 99999999999999999999.9
-    var polygonIndex: Int!
-    var polygonSorts: Int!
+    var polygonColour: UIColor!
+    var showHexagonalRaster: Bool! = false
     
     // MARK: - methods
     
@@ -97,6 +97,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     override func viewDidAppear(_ animated: Bool) {
         //fetch data from core data and add them to the map
         self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
+        
+        //add the hexagonal raster if necessary
+        if self.buttonHexagons.title != "Hex" {
+            self.buttonHexagons.title = "Hex"
+            self.showHideHexagons()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,14 +131,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     // MARK: - additional methods
-    /// This function fetches objects from core data and add them to the map view of this class.an indic
+    /// This function fetches objects from core data and add them to the map view of this class
     ///
     /// - Parameter request: a String representing the request for fetching data
     /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
     private func addCoreDataObjectsToTheMap(request: String, zoomToObjects: Bool) {
         //fetch data from core data
         self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: request, groupedBy: "", orderedBy: "name", orderedAscending: true)
-        //self.fetchedResultsControllerAdministrations = self.dataController.fetchAdministations(request: request, groupedBy: "", orderedBy: "city", orderedAscending: true)
+        self.updateMarkerTintColours()
         
         //add the fetched data to the map and zoom to it
         self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
@@ -141,17 +147,27 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
-    /// This function fetches objects from core data and add them to the map view of this class.an indic
+    /// This function fetches objects from core data and add them to the map view of this class
     ///
     /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
     private func addFilteredCoreDataObjectsToTheMap(zoomToObjects: Bool) {
         //fetch data from core data
         self.fetchedResultsControllerSchools = self.dataController.fetchSchools(filter: true, groupedBy: "", orderedBy: "name", orderedAscending: true)
+        self.updateMarkerTintColours()
         
         //add the fetched data to the map and zoom to it
         self.mapView.addAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
         if zoomToObjects {
             self.mapView.showAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!, animated: true)
+        }
+    }
+    
+    /// This function adjusts the variables index and maxIndex of all fetched schools to update their marker tint colors.
+    private func updateMarkerTintColours() {
+        let countOfFetchedSchools = (self.fetchedResultsControllerSchools.fetchedObjects?.count)!
+        for index in 0...(countOfFetchedSchools - 1) {
+            self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).index = index
+            self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).maxIndex = countOfFetchedSchools
         }
     }
     
@@ -294,6 +310,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     @IBAction func buttonHexagonsTapped(_ sender: Any) {
+        self.showHideHexagons()
+    }
+    
+    private func showHideHexagons() {
         if self.buttonHexagons.title == "Hexa" {
             //adjust the button
             self.buttonHexagons.title = "noHex"
@@ -309,11 +329,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             for administration in administrations {
                 
                 //extract all school names
-                var schoolNames: [String] = []
+                var schoolNamesAndColours: [String: UIColor] = [:]
                 for school in administration.schools?.allObjects as! [School] {
-                    schoolNames.append(school.name!)
+                    schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.name!)
                 }
-                self.polygonSorts = schoolNames.count
                 
                 //iterate over all cells
                 if administration.grid != nil && administration.grid!.cells != nil {
@@ -321,21 +340,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                         
                         //compare the cellValues
                         for cellValue in cell.cellValues?.allObjects as! [CellValue] {
-                            if schoolNames.contains(cellValue.schoolName!) {
+                            if schoolNamesAndColours[cellValue.schoolName!] != nil {
                                 if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
                                     self.minCellValue = (cellValue.value?.doubleValue)!
-                                    for (index, schoolName) in schoolNames.enumerated() {
-                                        if schoolName == cellValue.schoolName {
-                                            self.polygonIndex = index
-                                            break
-                                        }
-                                    }
+                                    self.polygonColour = schoolNamesAndColours[cellValue.schoolName!]!.withAlphaComponent(0.3)
                                 }
                             }
                         }
                         
                         //add the polygon of the cell to the map
                         self.mapView.addOverlay(cell.polygon)
+                        self.minCellValue = 99999999999999999999.9
                     }
                 }
             }
@@ -395,12 +410,8 @@ extension MapViewController: MKMapViewDelegate {
             let renderer = MKPolygonRenderer(overlay: overlay)
             switch overlay.title {
             case "Cell":
-                var hue = 340 / 360
-                if self.polygonSorts > 1 {
-                    hue = (340 / 360) - ((self.polygonIndex / (self.polygonSorts - 1)) * (180 / 360))
-                }
-                renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.5)
-                renderer.strokeColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.75)
+                renderer.fillColor = self.polygonColour
+                renderer.strokeColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 0.4952910959)
                 renderer.lineWidth = 1
             case .none:
                 renderer.fillColor = UIColor.black.withAlphaComponent(0)

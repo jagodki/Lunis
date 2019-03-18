@@ -227,11 +227,11 @@ class DataController: NSObject {
         cellValue31.cell = cell3
         
         cellValue41.schoolName = "Lößnitzgymnasium"
-        cellValue41.value = 10
+        cellValue41.value = 9
         cellValue41.cell = cell4
         
         cellValue12.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
-        cellValue12.value = 1
+        cellValue12.value = 2
         cellValue12.cell = cell1
         
         cellValue22.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
@@ -325,10 +325,11 @@ class DataController: NSObject {
         school2.wikipedia = "https://de.wikipedia.org/wiki/S%C3%A4chsisches_Landesgymnasium_Sankt_Afra"
         school2.x = 13.467966
         school2.y = 51.163543
-        school2.administration = administration2
+        school2.administration = administration1
         
         administration1.addToSchools(school1)
-        administration2.addToSchools(school2)
+        administration1.addToSchools(school2)
+        //administration2.addToSchools(school2)
         
         self.saveData()
     }

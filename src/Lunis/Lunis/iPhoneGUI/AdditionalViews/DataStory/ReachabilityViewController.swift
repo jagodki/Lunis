@@ -110,7 +110,7 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.lineWidth = 2
             case "Cell":
                 var ratio: Double = self.cellValue
-                if (self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))! == 0.0 {
+                if (self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))! != 0.0 {
                     ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!) / ((self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!)
                 }
                 let hue = (1 / 3) - (ratio * (1 / 3))

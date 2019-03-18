@@ -271,7 +271,7 @@
                                 <segue destination="uqw-PS-QdG" kind="presentation" identifier="showFilterDataView" modalTransitionStyle="coverVertical" id="TFo-g4-4KA"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
                             <rect key="frame" x="63.5" y="7" width="186" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -411,7 +411,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpp-0t-hz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4562" y="-514"/>
+            <point key="canvasLocation" x="4560.8000000000002" y="-514.28571428571433"/>
         </scene>
         <!--Filter-->
         <scene sceneID="t6Q-6W-fhv">
@@ -421,28 +421,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJX-HR-S8l">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Filter" largeTitleDisplayMode="never" id="ziU-qy-Yfk">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="RFg-KJ-ETb">
-                                            <connections>
-                                                <action selector="cancelButtonPressed:" destination="uqw-PS-QdG" id="Sry-in-Qni"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dHP-G4-Ya4">
-                                            <connections>
-                                                <action selector="doneButtonPressed:" destination="uqw-PS-QdG" id="m2a-Zm-zv2"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bXH-Nm-rCx">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="119" translatesAutoresizingMaskIntoConstraints="NO" id="bXH-Nm-rCx">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
+                                    <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJX-HR-S8l">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <items>
+                                            <navigationItem title="Filter" largeTitleDisplayMode="never" id="ziU-qy-Yfk">
+                                                <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="RFg-KJ-ETb">
+                                                    <connections>
+                                                        <action selector="cancelButtonPressed:" destination="uqw-PS-QdG" id="Sry-in-Qni"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                                <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dHP-G4-Ya4">
+                                                    <connections>
+                                                        <action selector="doneButtonPressed:" destination="uqw-PS-QdG" id="m2a-Zm-zv2"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Dqo-fo-7iF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="288"/>
+                                        <rect key="frame" x="0.0" y="163" width="320" height="50"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filterCell" textLabel="gmU-nV-lB9" detailTextLabel="Jlw-14-aVi" style="IBUITableViewCellStyleValue1" id="lwu-OT-XRX">
@@ -476,7 +476,7 @@
                                         </connections>
                                     </tableView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0og-Lq-UQv">
-                                        <rect key="frame" x="0.0" y="288" width="320" height="216"/>
+                                        <rect key="frame" x="0.0" y="332" width="320" height="216"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="uqw-PS-QdG" id="U3m-lT-NYf"/>
@@ -488,13 +488,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="top" secondItem="HDL-kZ-J9e" secondAttribute="top" constant="64" id="EpO-OB-LsO"/>
-                            <constraint firstAttribute="trailing" secondItem="bXH-Nm-rCx" secondAttribute="trailing" id="Ojs-2c-POC"/>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="top" secondItem="SJX-HR-S8l" secondAttribute="bottom" id="Sqd-C1-bZ4"/>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="leading" secondItem="HDL-kZ-J9e" secondAttribute="leading" id="U8b-tf-ulT"/>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="leading" secondItem="SJX-HR-S8l" secondAttribute="leading" id="cKZ-WY-5qJ"/>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="bottom" secondItem="NmG-PJ-mvf" secondAttribute="bottom" id="seb-fM-6dU"/>
-                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="trailing" secondItem="SJX-HR-S8l" secondAttribute="trailing" id="sv3-2N-bG9"/>
+                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="bottom" secondItem="NmG-PJ-mvf" secondAttribute="bottom" id="9w6-Yx-mLC"/>
+                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="top" secondItem="NmG-PJ-mvf" secondAttribute="top" id="HMQ-p6-2ec"/>
+                            <constraint firstItem="bXH-Nm-rCx" firstAttribute="leading" secondItem="HDL-kZ-J9e" secondAttribute="leading" id="V5b-tn-LtO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NmG-PJ-mvf"/>
                     </view>
@@ -507,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aop-mX-O4B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3638" y="179"/>
+            <point key="canvasLocation" x="3635.625" y="177.46478873239437"/>
         </scene>
         <!--Map-->
         <scene sceneID="bLg-wL-Egd">
@@ -553,6 +549,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mbt-tH-MEa"/>
+        <segue reference="aDm-5k-pHL"/>
     </inferredMetricsTieBreakers>
 </document>

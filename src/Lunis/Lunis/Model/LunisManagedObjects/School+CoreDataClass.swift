@@ -30,15 +30,27 @@ public class School: NSManagedObject, MKAnnotation {
         return CLLocationCoordinate2D(latitude: self.y, longitude: self.x)
     }
     
+    public var index: Int = 0
+    
+    public var maxIndex: Int = 1
+    
     public var markerTintColor: UIColor  {
-        switch discipline {
-        case "Grundschule":
-            return .blue
-        case "Gymnasium":
-            return .purple
-        default:
-            return .red
+        var hue = 350.0 / 360.0
+        
+        if self.maxIndex > 1 {
+            let ratio = Double(self.index) / Double(self.maxIndex - 1)
+            hue = (350.0 / 360.0) - (ratio * (140.0 / 360.0))
         }
+        return UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 1)
+        
+//        switch discipline {
+//        case "Grundschule":
+//            return .blue
+//        case "Gymnasium":
+//            return .purple
+//        default:
+//            return .red
+//        }
     }
     
 }
