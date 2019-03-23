@@ -144,6 +144,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.tableView {
+            //return self.fetchedResultsController.object(at: IndexPath(row: 0, section: section)).schoolType
             return self.fetchedResultsController.sections![section].name
         } else {
             return ""
@@ -205,7 +206,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             //prepare the mapviewcontroller
             //print((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0])
             ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).mapContent = self.segmentedControl.selectedSegmentIndex
-            ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).reloadMapContent()
+            ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).reloadMapContent(removeOverlays: true, zoomToObjects: true)
             
             //zoom to the school
             if tableView == self.tableView {
@@ -370,6 +371,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.fetchedResultsController?.object(at: indexPath).favorite = false
         self.dataController.saveData()
         self.tableView.reloadRows(at: [indexPath], with: animation)
+        self.segmentedControlChanged((Any).self)
     }
     
     /// This function adjust the appearence of the Mark-/Unmark-as-Favorite-Button.
@@ -417,9 +419,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //fetch data from core data
         if filter {
-            self.fetchedResultsController = self.dataController.fetchSchools(filter: true, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+            self.fetchedResultsController = self.dataController.fetchSchools(filter: true, groupedBy: "schoolType", orderedBy: "schoolType", orderedAscending: true)
         } else {
-            self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "name", orderedAscending: true)
+            self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "schoolType", orderedAscending: true)
         }
         
         self.tableView.reloadData()

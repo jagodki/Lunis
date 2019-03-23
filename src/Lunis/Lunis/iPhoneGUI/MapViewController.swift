@@ -91,12 +91,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //fetch data from core data and add them to the map
+        //self.reloadMapContent()
         self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //fetch data from core data and add them to the map
-        self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
+        self.reloadMapContent(removeOverlays: false, zoomToObjects: false)
+        //self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
         
         //add the hexagonal raster if necessary
         if self.showHexagonalRaster {
@@ -164,9 +166,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     /// This function adjusts the variables index and maxIndex of all fetched schools to update their marker tint colors.
     private func updateMarkerTintColours() {
         let countOfFetchedSchools = (self.fetchedResultsControllerSchools.fetchedObjects?.count)!
-        for index in 0...(countOfFetchedSchools - 1) {
-            self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).index = index
-            self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).maxIndex = countOfFetchedSchools
+        if countOfFetchedSchools != 0 {
+            for index in 0...(countOfFetchedSchools - 1) {
+                self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).index = index
+                self.fetchedResultsControllerSchools.object(at: IndexPath(row: index, section: 0)).maxIndex = countOfFetchedSchools
+            }
         }
     }
     
@@ -229,6 +233,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.present(alert, animated: true, completion: nil)
     }
     
+    /// This function zooms to a school, identified by its name and city.
+    ///
+    /// - Parameters:
+    ///   - schoolName: the name of the school
+    ///   - city: the city of the school
     func zoomToSchool(schoolName: String, city: String) {
         let annotationToFocusOn = self.fetchedResultsControllerSchools.fetchedObjects?.filter({
             (fetchedSchool: School) -> Bool in
@@ -247,19 +256,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         let allAction = UIAlertAction(title: "All schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 0
-            self.reloadMapContent()
+            self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
         let favoritesAction = UIAlertAction(title: "Favourite schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 1
-            self.reloadMapContent()
+            self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
         let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 2
-            self.reloadMapContent()
+            self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -289,37 +298,51 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     }
     
     /// This function reloads the map content depending of the layer settings.
-    func reloadMapContent() {
+    ///
+    /// - Parameter removeOverlays: a boolean whether possible overlays should be removed or not
+    /// - Parameter zoomToObjects: a boolean whether the map should be zoomed to the loaded objects
+    func reloadMapContent(removeOverlays: Bool, zoomToObjects: Bool) {
         //remove the current map content
         self.mapView.removeAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
-        self.mapView.removeOverlays(self.mapView.overlays)
-        self.setHexagonalButton(to: false)
+        if removeOverlays {
+            self.mapView.removeOverlays(self.mapView.overlays)
+            self.setHexagonalButton(to: false)
+        }
         //self.mapView.removeAnnotations(self.fetchedResultsControllerAdministrations.fetchedObjects as! [MKAnnotation])
         
         switch self.mapContent {
         case 0:
             //all schools
-            self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
+            self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: zoomToObjects)
         case 1:
             //favourite schools
-            self.addCoreDataObjectsToTheMap(request: "favorite=true", zoomToObjects: true)
+            self.addCoreDataObjectsToTheMap(request: "favorite=true", zoomToObjects: zoomToObjects)
         case 2:
             //filtered schools
-            self.addFilteredCoreDataObjectsToTheMap(zoomToObjects: true)
+            self.addFilteredCoreDataObjectsToTheMap(zoomToObjects: zoomToObjects)
         default:
             return
         }
     }
     
     @IBAction func buttonHexagonsTapped(_ sender: Any) {
+        self.showHexagonalRaster = !self.showHexagonalRaster
         self.showHideHexagons()
     }
     
     /// This function shows or hides the hexagonal raster of the reachebilities.
     private func showHideHexagons() {
-        if self.buttonHexagons.title == "Hexa" {
+        if self.showHexagonalRaster {
+            //remove existing overlays
+            self.mapView.removeOverlays(self.mapView.overlays)
+            
             //adjust the button and the instance var
-            self.setHexagonalButton(to: true)
+            if self.fetchedResultsControllerSchools!.fetchedObjects!.count == 0 {
+                self.setHexagonalButton(to: false)
+            } else {
+                self.setHexagonalButton(to: true)
+            }
+            
             
             //get all administrations plus the names and colours of the visible schools
             var administrations: [Administration] = []
