@@ -99,8 +99,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
         
         //add the hexagonal raster if necessary
-        if self.buttonHexagons.title != "Hex" {
-            self.buttonHexagons.title = "Hex"
+        if self.showHexagonalRaster {
             self.showHideHexagons()
         }
     }
@@ -289,9 +288,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.present(actionSheet, animated: true, completion: nil)
     }
     
+    /// This function reloads the map content depending of the layer settings.
     func reloadMapContent() {
         //remove the current map content
         self.mapView.removeAnnotations(self.fetchedResultsControllerSchools.fetchedObjects!)
+        self.mapView.removeOverlays(self.mapView.overlays)
+        self.setHexagonalButton(to: false)
         //self.mapView.removeAnnotations(self.fetchedResultsControllerAdministrations.fetchedObjects as! [MKAnnotation])
         
         switch self.mapContent {
@@ -313,26 +315,23 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.showHideHexagons()
     }
     
+    /// This function shows or hides the hexagonal raster of the reachebilities.
     private func showHideHexagons() {
         if self.buttonHexagons.title == "Hexa" {
-            //adjust the button
-            self.buttonHexagons.title = "noHex"
+            //adjust the button and the instance var
+            self.setHexagonalButton(to: true)
             
-            //get all administrations of the visible schools
+            //get all administrations plus the names and colours of the visible schools
             var administrations: [Administration] = []
+            var schoolNamesAndColours: [String: UIColor] = [:]
             for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
+                schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.name!)
                 administrations.append(school.administration!)
             }
             administrations = Array(Set(administrations))
             
             //iterate over all the administrations
             for administration in administrations {
-                
-                //extract all school names
-                var schoolNamesAndColours: [String: UIColor] = [:]
-                for school in administration.schools?.allObjects as! [School] {
-                    schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.name!)
-                }
                 
                 //iterate over all cells
                 if administration.grid != nil && administration.grid!.cells != nil {
@@ -356,9 +355,21 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             }
             
         } else {
-            //adjust the button
-            self.buttonHexagons.title = "Hexa"
+            //adjust the button, the instance var and the map content
+            self.setHexagonalButton(to: false)
             self.mapView.removeOverlays(self.mapView.overlays)
+        }
+    }
+    
+    /// This function adjusts the appearence of the hexagonal button and the corresponding instance variable.
+    ///
+    /// - Parameter value: a boolean whether the raster is enabled or not.
+    private func setHexagonalButton(to value: Bool) {
+        self.showHexagonalRaster = value
+        if value {
+            self.buttonHexagons.title = "noHex"
+        } else {
+            self.buttonHexagons.title = "Hexa"
         }
     }
     
