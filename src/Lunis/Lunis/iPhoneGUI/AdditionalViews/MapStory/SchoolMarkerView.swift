@@ -19,7 +19,7 @@ class SchoolMarkerView: MKMarkerAnnotationView {
             calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             markerTintColor = annotation.markerTintColor
-            glyphText = String(annotation.name!.first!)
+            glyphText = String(annotation.schoolName!.first!)
         }
     }
     

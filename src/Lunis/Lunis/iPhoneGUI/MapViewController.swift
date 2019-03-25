@@ -114,12 +114,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     // MARK: - UITableView implementation
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.searchController.dismiss(animated: true, completion: nil)
-        self.zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name!, city: self.searchedSchools[indexPath.row].city!)
+        self.zoomToSchool(schoolName: self.searchedSchools[indexPath.row].schoolName!, city: self.searchedSchools[indexPath.row].city!)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchedSchoolsCell", for: indexPath)
-        cell.textLabel?.text = self.searchedSchools[indexPath.row].name
+        cell.textLabel?.text = self.searchedSchools[indexPath.row].schoolName
         return cell
     }
     
@@ -138,7 +138,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
     private func addCoreDataObjectsToTheMap(request: String, zoomToObjects: Bool) {
         //fetch data from core data
-        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: request, groupedBy: "", orderedBy: "name", orderedAscending: true)
+        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(request: request, groupedBy: "", orderedBy: ["schoolType", "schoolName"], orderedAscending: true)
         self.updateMarkerTintColours()
         
         //add the fetched data to the map and zoom to it
@@ -153,7 +153,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     /// - Parameter zoomToObjects: an indicator whether the map view should be zoomed to the loaded map objects
     private func addFilteredCoreDataObjectsToTheMap(zoomToObjects: Bool) {
         //fetch data from core data
-        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(filter: true, groupedBy: "", orderedBy: "name", orderedAscending: true)
+        self.fetchedResultsControllerSchools = self.dataController.fetchSchools(filter: true, groupedBy: "", orderedBy: ["schoolType", "schoolName"], orderedAscending: true)
         self.updateMarkerTintColours()
         
         //add the fetched data to the map and zoom to it
@@ -241,7 +241,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     func zoomToSchool(schoolName: String, city: String) {
         let annotationToFocusOn = self.fetchedResultsControllerSchools.fetchedObjects?.filter({
             (fetchedSchool: School) -> Bool in
-            return schoolName == fetchedSchool.name && city == fetchedSchool.city
+            return schoolName == fetchedSchool.schoolName && city == fetchedSchool.city
         })
         self.mapView.showAnnotations(annotationToFocusOn!, animated: true)
     }
@@ -348,7 +348,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             var administrations: [Administration] = []
             var schoolNamesAndColours: [String: UIColor] = [:]
             for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
-                schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.name!)
+                schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.schoolName!)
                 administrations.append(school.administration!)
             }
             administrations = Array(Set(administrations))
@@ -471,7 +471,7 @@ extension MapViewController: UISearchResultsUpdating {
         
         //filter all school rows
         self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell : School) -> Bool in
-            return dataViewSchoolCell.name!.lowercased().contains(searchText.lowercased())
+            return dataViewSchoolCell.schoolName!.lowercased().contains(searchText.lowercased())
         })
         
         //reload the table

@@ -39,10 +39,10 @@
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="favorite" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mail" attributeType="String" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="String" syncable="YES"/>
         <attribute name="phone" attributeType="String" syncable="YES"/>
         <attribute name="postalCode" attributeType="String" syncable="YES"/>
+        <attribute name="schoolName" attributeType="String" defaultValueString="test" syncable="YES"/>
         <attribute name="schoolSpecialisation" attributeType="String" syncable="YES"/>
         <attribute name="schoolType" attributeType="String" syncable="YES"/>
         <attribute name="street" attributeType="String" syncable="YES"/>

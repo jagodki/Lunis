@@ -27,15 +27,40 @@ class DataController: NSObject {
             }
         }
         
-//        //remove data
-//        let schools = self.fetchSchools()
-//        for school in schools {
-//            self.delete(by: school.objectID)
-//        }
-//        
+        //remove data
+        let schools = self.fetchSchools()
+        for school in schools {
+            self.delete(by: school.objectID)
+        }
+        
         let admins = self.fetchAdministations()
         for admin in admins {
             self.delete(by: admin.objectID)
+        }
+        
+        let boundaries = (self.fetchData(from: "Boundary", orderedBy: ["administration"]) as! NSFetchedResultsController<Boundary>).fetchedObjects
+        for boundary in boundaries! {
+            self.delete(by: boundary.objectID)
+        }
+
+        let points = (self.fetchData(from: "Point", orderedBy: ["x"]) as! NSFetchedResultsController<Point>).fetchedObjects
+        for point in points! {
+            self.delete(by: point.objectID)
+        }
+
+        let cells = (self.fetchData(from: "Cell", orderedBy: ["boundary"]) as! NSFetchedResultsController<Cell>).fetchedObjects
+        for cell in cells! {
+            self.delete(by: cell.objectID)
+        }
+
+        let grids = (self.fetchData(from: "Grid", orderedBy: ["administration"]) as! NSFetchedResultsController<Grid>).fetchedObjects
+        for grid in grids! {
+            self.delete(by: grid.objectID)
+        }
+
+        let cellValues = (self.fetchData(from: "CellValue", orderedBy: ["schoolName"]) as! NSFetchedResultsController<CellValue>).fetchedObjects
+        for cellValue in cellValues! {
+            self.delete(by: cellValue.objectID)
         }
         
         //insert test data
@@ -295,7 +320,7 @@ class DataController: NSObject {
         administration2.boundary = boundaryAdmin2
         //administration2.grid = grid
         
-        school1.name = "Lößnitzgymnasium"
+        school1.schoolName = "Lößnitzgymnasium"
         school1.city = "Radebeul"
         school1.mail = "info@test.xyz"
         school1.favorite = true
@@ -311,7 +336,7 @@ class DataController: NSObject {
         school1.y = 51.104209
         school1.administration = administration1
         
-        school2.name = "Sächsisches Landesgymnasium Sankt Afra"
+        school2.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
         school2.city = "Meißen"
         school2.mail = "info@test.xyz"
         school2.favorite = false
@@ -375,10 +400,10 @@ class DataController: NSObject {
     /// - Parameters:
     ///   - filter: a boolean value to indicate, whether the filter settings of this class will be used to create a request
     ///   - groupedBy: a group argument to create sections
-    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedBy: the names of the attributes, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type Administration into it
-    func fetchSchools(filter: Bool, groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
+    func fetchSchools(filter: Bool, groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
         //create the filter request
         var request = ""
         if filter {
@@ -433,11 +458,18 @@ class DataController: NSObject {
     /// - Parameters:
     ///   - request: a filter argument to reduce the result
     ///   - groupedBy: a group argument to create sections
-    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedBy: the names of the attributes, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type Administration into it
-    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<Administration> {
-        let resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<Administration>
+    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<Administration> {
+        let resultsController: NSFetchedResultsController<Administration>
+        
+        if orderedBy.count == 0 {
+            resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: ["country"], orderedAscending: orderedAscending) as! NSFetchedResultsController<Administration>
+        } else {
+            resultsController = self.fetchData(from: "Administration", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<Administration>
+        }
+        
         return resultsController
     }
     
@@ -446,11 +478,18 @@ class DataController: NSObject {
     /// - Parameters:
     ///   - request: a filter argument to reduce the result
     ///   - groupedBy: a group argument to create sections
-    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedBy: the names of the attributes, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type School into it
-    func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
-        let resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<School>
+    func fetchSchools(request: String = "", groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<School> {
+        let resultsController: NSFetchedResultsController<School>
+        
+        if orderedBy.count == 0 {
+            resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: ["name"], orderedAscending: orderedAscending) as! NSFetchedResultsController<School>
+        } else {
+            resultsController = self.fetchData(from: "School", request: request, groupedBy: groupedBy, orderedBy: orderedBy, orderedAscending: orderedAscending) as! NSFetchedResultsController<School>
+        }
+        
         return resultsController
     }
     
@@ -460,19 +499,24 @@ class DataController: NSObject {
     ///   - entity: the name of the entity fetching data from
     ///   - request: a filter argument to reduce the result
     ///   - groupedBy: a group argument to create sections
-    ///   - orderedBy: the name of the attribute, which should be used for order the results
+    ///   - orderedBy: the names of the attributes, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of given entity
-    private func fetchData(from entity: String, request: String = "", groupedBy: String = "", orderedBy: String = "", orderedAscending: Bool = false) -> NSFetchedResultsController<NSFetchRequestResult> {
+    private func fetchData(from entity: String, request: String = "", groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<NSFetchRequestResult> {
         //create fetch request and a result controller
         var resultsController = NSFetchedResultsController<NSFetchRequestResult>()
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         
         //sort the result
-        if orderedBy != "" {
-            let sort = NSSortDescriptor(key: orderedBy, ascending: orderedAscending)
-            fetch.sortDescriptors = [sort]
+        var sortDesc: [NSSortDescriptor] = []
+        for attr in orderedBy {
+            sortDesc.append(NSSortDescriptor(key: attr, ascending: orderedAscending))
         }
+        fetch.sortDescriptors = sortDesc
+//        if orderedBy != "" {
+//            let sort = NSSortDescriptor(key: orderedBy, ascending: orderedAscending)
+//            fetch.sortDescriptors = [sort]
+//        }
         
         //filter the result
         if request != "" {
@@ -490,7 +534,7 @@ class DataController: NSObject {
         do {
             try resultsController.performFetch()
         } catch {
-            fatalError("Failed to fetch grouped administrations: \(error)")
+            fatalError("Failed to fetch data: \(error)")
         }
         
         return resultsController
@@ -502,6 +546,7 @@ class DataController: NSObject {
     func delete(by objectID: NSManagedObjectID) {
         let managedObject = self.managedObjectContext.object(with: objectID)
         self.managedObjectContext.delete(managedObject)
+        self.saveData()
     }
     
     /// This function extracts all unique values from Core Data and returns them as an array.

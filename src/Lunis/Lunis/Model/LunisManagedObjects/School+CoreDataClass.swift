@@ -15,7 +15,7 @@ import MapKit
 public class School: NSManagedObject, MKAnnotation {
     
     public var title: String? {
-        return self.name
+        return self.schoolName
     }
     
     public var subtitle: String? {

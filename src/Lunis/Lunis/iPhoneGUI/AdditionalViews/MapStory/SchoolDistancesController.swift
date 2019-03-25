@@ -45,7 +45,7 @@ class SchoolDistancesController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "distanceSchoolCell", for: indexPath)
-        cell.textLabel?.text = self.tableDataSchools[indexPath.row].name
+        cell.textLabel?.text = self.tableDataSchools[indexPath.row].schoolName
         cell.detailTextLabel?.text = String(format: "%.2f", self.tableDataHash[self.tableDataSchools[indexPath.row]]! / 1000) + " km"
         
         //change the colour of the detail label

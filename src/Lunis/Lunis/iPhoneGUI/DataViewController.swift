@@ -122,12 +122,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if tableView == self.tableView{
             cellIdentifier = "schoolCell"
-            textLabel = self.fetchedResultsController?.object(at: indexPath).name
+            textLabel = self.fetchedResultsController?.object(at: indexPath).schoolName
             insertFavIcon = self.fetchedResultsController?.object(at: indexPath).favorite
             mainTable = true
         } else {
             cellIdentifier = "searchedSchoolsCell"
-            textLabel = self.searchedSchools[indexPath.row].name
+            textLabel = self.searchedSchools[indexPath.row].schoolName
             insertFavIcon = false
             mainTable = false
         }
@@ -210,9 +210,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //zoom to the school
             if tableView == self.tableView {
-                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.fetchedResultsController.object(at: indexPath).name!, city: self.fetchedResultsController.object(at: indexPath).city!)
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.fetchedResultsController.object(at: indexPath).schoolName!, city: self.fetchedResultsController.object(at: indexPath).city!)
             } else {
-                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.searchedSchools[indexPath.row].name!, city: self.searchedSchools[indexPath.row].city!)
+                ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).zoomToSchool(schoolName: self.searchedSchools[indexPath.row].schoolName!, city: self.searchedSchools[indexPath.row].city!)
             }
             
             //show the mapviewcontroller
@@ -419,9 +419,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //fetch data from core data
         if filter {
-            self.fetchedResultsController = self.dataController.fetchSchools(filter: true, groupedBy: "schoolType", orderedBy: "schoolType", orderedAscending: true)
+            self.fetchedResultsController = self.dataController.fetchSchools(filter: true, groupedBy: "schoolType", orderedBy: ["schoolType", "schoolName"], orderedAscending: true)
         } else {
-            self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: "schoolType", orderedAscending: true)
+            self.fetchedResultsController = self.dataController.fetchSchools(request: request, groupedBy: "schoolType", orderedBy: ["schoolType", "schoolName"], orderedAscending: true)
         }
         
         self.tableView.reloadData()
@@ -483,7 +483,7 @@ extension DataViewController: UISearchResultsUpdating {
          
          //filter all school rows
          self.searchedSchools = allSchoolRows.filter({(dataViewSchoolCell: School) -> Bool in
-            return dataViewSchoolCell.name!.lowercased().contains(searchText.lowercased())
+            return dataViewSchoolCell.schoolName!.lowercased().contains(searchText.lowercased())
          })
          
          //reload the table

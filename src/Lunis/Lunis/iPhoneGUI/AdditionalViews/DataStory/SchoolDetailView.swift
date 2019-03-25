@@ -40,13 +40,13 @@ class SchoolDetailView: UITableViewController {
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //replace the title of the view with the school name
-        self.navigationItem.title = self.school.name
+        self.navigationItem.title = self.school.schoolName
         
         //edit the appearence of the button
         self.updateFavoriteButton()
         
         //init the table data array
-        let rowName = SchoolDetailRow(title: "Name", value: self.school.name!)
+        let rowName = SchoolDetailRow(title: "Name", value: self.school.schoolName!)
         let rowStreet = SchoolDetailRow(title: "Street", value: self.school.street! + " " + self.school.number!)
         let rowCity = SchoolDetailRow(title: "City", value: self.school.postalCode! + " - " + self.school.city!)
         let groupAdress = SchoolDetailGroup(title: "Adress", rows: [rowName, rowStreet, rowCity])
@@ -71,7 +71,7 @@ class SchoolDetailView: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationItem.title = self.school.name
+        self.navigationItem.title = self.school.schoolName
     }
     
     // MARK: - methods

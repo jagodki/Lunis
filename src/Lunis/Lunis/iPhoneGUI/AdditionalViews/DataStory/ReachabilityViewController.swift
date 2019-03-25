@@ -51,7 +51,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         //self.mapView.addOverlays((self.school.administration?.grid!.cells!.array as! [Cell]).map({$0.polygon}))
         if self.school.administration?.grid!.cells != nil {
             for cell in self.school.administration?.grid!.cells!.array as! [Cell] {
-                self.cellValue = cell.cellValue(for: self.school.name!)
+                self.cellValue = cell.cellValue(for: self.school.schoolName!)
                 self.mapView.addOverlay(cell.polygon)
             }
         }
@@ -110,8 +110,8 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.lineWidth = 2
             case "Cell":
                 var ratio: Double = self.cellValue
-                if (self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))! != 0.0 {
-                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!) / ((self.school.administration?.grid!.maximumCellValue(for: self.school.name!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.name!))!)
+                if (self.school.administration?.grid!.maximumCellValue(for: self.school.schoolName!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))! != 0.0 {
+                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))!) / ((self.school.administration?.grid!.maximumCellValue(for: self.school.schoolName!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))!)
                 }
                 let hue = (1 / 3) - (ratio * (1 / 3))
                 renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 0.25)
