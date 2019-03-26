@@ -30,6 +30,10 @@ public class Cell: NSManagedObject {
         }
     }
     
+    /// This functions is looking for an intersection between the cell and a given position.
+    ///
+    /// - Parameter position: a position with lat/lon-coordinates
+    /// - Returns: 1 ... position is within the cell, 0 ... position touches the cell, -1 ... no intersection
     public func interacts(with position: CLLocationCoordinate2D) -> Int {
         //init the counter of intersections and the result value
         var intersections: Int = 0

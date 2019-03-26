@@ -94,6 +94,33 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    @IBAction func longPressGestureOnMapView(_ sender: Any) {
+        //get the coordinates
+        if (sender as AnyObject).state != UIGestureRecognizer.State.began { return }
+        let touchLocation = (sender as AnyObject).location(in: self.mapView)
+        let locationCoordinate = self.mapView.convert(touchLocation, toCoordinateFrom: self.mapView)
+        
+        //remove all old annotations
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        //create a new annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = locationCoordinate
+        
+        //get the distance to the tapped position
+        let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: self.school.schoolName!)
+        if distanceAtPosition == -99.9 {
+            annotation.title = "Position is not within the raster"
+            annotation.subtitle = String(format: "Coordinates: %.5f, %.5f", [locationCoordinate.longitude, locationCoordinate.latitude])
+        } else {
+            annotation.title = String(format: "Average distance to the position: %.0f m", distanceAtPosition!)
+        }
+        
+        //add the annonation to the map and select it, i.e. show the callout
+        self.mapView.addAnnotation(annotation)
+        self.mapView.selectedAnnotations = self.mapView.annotations
+    }
+    
 
 }
 
@@ -127,6 +154,29 @@ extension ReachabilityViewController: MKMapViewDelegate {
         }
         
         return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            //return nil so map view draws "blue dot" for standard user location
+            return nil
+        }
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.animatesDrop = true
+            pinView!.pinTintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
     }
     
 }
