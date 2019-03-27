@@ -30,7 +30,7 @@ public class Cell: NSManagedObject {
         }
     }
     
-    /// This functions is looking for an intersection between the cell and a given position.
+    /// This functions is looking for an intersection between the cell and a given position using the ray beam algorithm.
     ///
     /// - Parameter position: a position with lat/lon-coordinates
     /// - Returns: 1 ... position is within the cell, 0 ... position touches the cell, -1 ... no intersection
@@ -63,22 +63,37 @@ public class Cell: NSManagedObject {
                 //check whether we have a vertical line
                 if pointA.x == pointB.x {
                     
-                    //lines are crossing, if latitude is between the y-values of the two points (vertical line)
-                    if (pointA.y <= position.latitude && position.latitude < pointB.y) || (pointA.y > position.latitude && position.latitude >= pointB.y) {
+                    //check whether the vertical line will be touched or intersect
+                    if pointA.x == position.longitude {
+                        
+                        //the position is on the line, i.e. touches the line
+                        if (pointA.y <= position.latitude && position.latitude <= pointB.y) || (pointA.y >= position.latitude && position.latitude >= pointB.y) {
+                            return 0
+                        }
+                        
+                    } else if (pointA.x > position.longitude) && (pointA.y <= position.latitude && position.latitude < pointB.y) || (pointA.y > position.latitude && position.latitude >= pointB.y) {
+                        
+                        //the position is not on the line, but the ray beam intersects with the line
                         intersections += 1
+                        
                     }
                     
                 } else {
                     
                     //create the linear equation based on the two points
-                    let m = (pointB.x - pointA.x) != 0.0 ? (pointB.y - pointA.y) / (pointB.x - pointA.x) : 0.0
+                    let m = (pointB.y - pointA.y) / (pointB.x - pointA.x)
                     let n = pointA.y - (m * pointA.x)
+                    
+                    //check, whether the position touches the line
+                    if position.latitude == m * position.longitude + n {
+                        return 0
+                    }
                     
                     //get the intersection point
                     let intersectionPointX = (position.latitude - n) / m
                     
                     //compare the coordinates of the intersection point with the two points
-                    let betweenXValues = (pointA.x <= intersectionPointX && intersectionPointX < pointB.x) || (pointA.x > intersectionPointX && intersectionPointX >= pointB.x)
+                    let betweenXValues = ((pointA.x <= intersectionPointX && intersectionPointX < pointB.x) || (pointA.x > intersectionPointX && intersectionPointX >= pointB.x)) && (intersectionPointX >= position.longitude)
                     let betweenYValues = (pointA.y <= position.latitude && position.latitude < pointB.y) || (pointA.y > position.latitude && position.latitude >= pointB.y)
                     
                     if betweenXValues && betweenYValues {

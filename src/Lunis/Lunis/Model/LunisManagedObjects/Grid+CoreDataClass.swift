@@ -30,7 +30,9 @@ public class Grid: NSManagedObject {
     /// - Returns: the value for the school at the position, returns -99.9 if the position is not interacting with the grid
     public func cellValue(at position: CLLocationCoordinate2D, for school: String) -> Double {
         //iterate over all cells
-        for cell in self.cells?.array as! [Cell] {
+        for index in 0...((self.cells?.count)! - 1) {
+            
+            let cell = self.cells?.object(at: index) as! Cell
             
             let intersectionCode = cell.interacts(with: position)
             

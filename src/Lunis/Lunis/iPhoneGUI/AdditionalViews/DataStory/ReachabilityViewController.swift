@@ -111,14 +111,16 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: self.school.schoolName!)
         if distanceAtPosition == -99.9 {
             annotation.title = "Position is not within the raster"
-            annotation.subtitle = String(format: "Coordinates: %.5f, %.5f", [locationCoordinate.longitude, locationCoordinate.latitude])
+            annotation.subtitle = String(format: "Coordinates: %.5f, %.5f", locationCoordinate.longitude, locationCoordinate.latitude)
         } else {
-            annotation.title = String(format: "Average distance to the position: %.0f m", distanceAtPosition!)
+            annotation.title = String(format: "Average distance to the school: %.0f m", distanceAtPosition!)
         }
         
         //add the annonation to the map and select it, i.e. show the callout
         self.mapView.addAnnotation(annotation)
-        self.mapView.selectedAnnotations = self.mapView.annotations
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.mapView.selectedAnnotations = self.mapView.annotations
+        }
     }
     
 
