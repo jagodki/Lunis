@@ -142,7 +142,8 @@ class SchoolDetailView: UITableViewController {
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
             case "Phone":
-                UIApplication.shared.open(URL(string: "telprompt://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                let cleanedUpNumber = self.tableData[indexPath.section].rows[indexPath.row].value.unicodeScalars.filter({CharacterSet.decimalDigits.contains($0)})
+                UIApplication.shared.open(URL(string: "telprompt://" + String(cleanedUpNumber))!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Mail":
                 UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
