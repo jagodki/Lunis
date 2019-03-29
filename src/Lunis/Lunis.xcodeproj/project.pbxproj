@@ -28,6 +28,7 @@
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
 		59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */; };
 		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
+		59DF4604224E520500E8B423 /* DownloadDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DF4603224E520500E8B423 /* DownloadDetailController.swift */; };
 		59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */; };
 		59E96332223648AB0057375A /* Boundary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
 		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
+		59DF4603224E520500E8B423 /* DownloadDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDetailController.swift; sourceTree = "<group>"; };
 		59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolMarkerView.swift; sourceTree = "<group>"; };
 		59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Boundary+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,6 +78,7 @@
 		591D320220C2D6D40045205D /* AdditionalViews */ = {
 			isa = PBXGroup;
 			children = (
+				59DF4602224E51E100E8B423 /* DownloadStory */,
 				59DD2C612194BAE50025DF9D /* DataStory */,
 				591D320320C2D6E10045205D /* MapStory */,
 			);
@@ -184,6 +187,14 @@
 			path = DataStory;
 			sourceTree = "<group>";
 		};
+		59DF4602224E51E100E8B423 /* DownloadStory */ = {
+			isa = PBXGroup;
+			children = (
+				59DF4603224E520500E8B423 /* DownloadDetailController.swift */,
+			);
+			path = DownloadStory;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +275,7 @@
 			files = (
 				59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */,
 				5935DD932237DCE4004E2FB7 /* Grid+CoreDataClass.swift in Sources */,
+				59DF4604224E520500E8B423 /* DownloadDetailController.swift in Sources */,
 				59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */,
 				598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,

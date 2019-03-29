@@ -46,6 +46,9 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //a tableviewontroller to store the search results
     var resultsController: UITableViewController!
     
+    //a variable to the selected administration
+    var selectedAdministration: Administration!
+    
     // MARK: - instance functions
     
     override func viewDidLoad() {
@@ -161,6 +164,20 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             return self.tableData.count
         } else {
             return 1
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showDownloadDetail":
+            let viewController = segue.destination as! DownloadDetailController
+            viewController.administration = self.selectedAdministration
+            
+            
+        default:
+            _ = true
         }
     }
 }

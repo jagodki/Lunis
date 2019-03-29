@@ -107,7 +107,7 @@ class SchoolDetailView: UITableViewController {
         cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
         
         //change the colour of the text label
-        cell.textLabel?.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        //cell.textLabel?.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
         //change the colour of the strings for the contact section to indicate an action
         if (self.tableData[indexPath.section].title == "Contact") || (self.tableData[indexPath.section].rows[indexPath.row].title == "Wikipedia") {
