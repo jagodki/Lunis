@@ -341,7 +341,7 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="yFQ-10-ZLe">
-                            <rect key="frame" x="63.5" y="10" width="186" height="30"/>
+                            <rect key="frame" x="63.5" y="7" width="186" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="All"/>
@@ -630,6 +630,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mbt-tH-MEa"/>
+        <segue reference="aDm-5k-pHL"/>
     </inferredMetricsTieBreakers>
 </document>
