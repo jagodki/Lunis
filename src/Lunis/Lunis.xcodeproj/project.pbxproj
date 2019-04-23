@@ -10,6 +10,7 @@
 		590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */; };
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
+		59233A87226F1EC3008F4EEE /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233A86226F1EC3008F4EEE /* CloudKitController.swift */; };
 		59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */; };
 		5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */; };
 		5935DD932237DCE4004E2FB7 /* Grid+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */; };
@@ -38,6 +39,7 @@
 		590EE10621EEEE2B0049A95D /* lunis.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lunis.xcdatamodel; sourceTree = "<group>"; };
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		59233A86226F1EC3008F4EEE /* CloudKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CloudKitController.swift; path = Lunis/Model/CloudKitController.swift; sourceTree = SOURCE_ROOT; };
 		59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDistancesController.swift; sourceTree = "<group>"; };
 		5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Grid+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				59C674D521F18EE000353A53 /* LunisManagedObjects */,
 				590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */,
+				59233A86226F1EC3008F4EEE /* CloudKitController.swift */,
 				598EDE7B21F03B5A00C2634D /* DataController.swift */,
 			);
 			path = Model;
@@ -291,6 +294,7 @@
 				59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */,
 				598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
+				59233A87226F1EC3008F4EEE /* CloudKitController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
 				59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */,

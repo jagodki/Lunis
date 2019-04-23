@@ -8,32 +8,27 @@
 
 import UIKit
 import MapKit
+import CloudKit
+import CoreLocation
 
-struct DownloadSection {
-    var title: String
-    var rows: [DownloadRow]
-}
-
-struct DownloadRow {
-    var name: String
-}
 
 class DownloadViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Table Data
-    var tableData = [
-        DownloadSection(title: "Sverige", rows: [
-            DownloadRow(name: "Stockholm"),
-            DownloadRow(name: "Malmö")
-        ]),
-        DownloadSection(title: "Polska", rows: [
-            DownloadRow(name: "Warszawa")
-        ]),
-        DownloadSection(title: "Deutschland", rows: [
-            DownloadRow(name: "Radebeul"),
-            DownloadRow(name: "Meißen")
-        ])
-    ]
+//    var tableData = [
+//        DownloadSection(title: "Sverige", rows: [
+//            DownloadRow(name: "Stockholm"),
+//            DownloadRow(name: "Malmö")
+//        ]),
+//        DownloadSection(title: "Polska", rows: [
+//            DownloadRow(name: "Warszawa")
+//        ]),
+//        DownloadSection(title: "Deutschland", rows: [
+//            DownloadRow(name: "Radebeul"),
+//            DownloadRow(name: "Meißen")
+//        ])
+//    ]
+    var tableData: [CloudKitAdministrationSection] = []
     
     // MARK: - Outlets
     @IBOutlet var segmentedControlContainer: UISegmentedControl!
@@ -41,13 +36,16 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var tableView: UITableView!
     
     //store the filtered datasets
-    var searchedDatasets: [DownloadRow] = [DownloadRow]()
+    var searchedDatasets: [CloudKitAdministrationRow] = [CloudKitAdministrationRow]()
     
     //a tableviewontroller to store the search results
     var resultsController: UITableViewController!
     
     //a variable to the selected administration
     var selectedAdministration: Administration!
+    
+    //the controller for connecting to CloudKit
+    var ckController: CloudKitController!
     
     // MARK: - instance functions
     
@@ -67,6 +65,12 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.segmentedControlContainer.selectedSegmentIndex = 0
         self.tableView.alpha = 1
         self.mapView.alpha = 0
+        
+        //init the CloudKit controller
+        self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
+        
+        //get all administrations from CloudKit and init the table data
+        self.tableData = self.ckController.queryAllAdministrations(sortBy: "country", ascending: true)
         
     }
     
@@ -125,10 +129,10 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         
         if tableView == self.tableView{
             cellIdentifier = "downloadTableCell"
-            textLabel = self.tableData[indexPath.section].rows[indexPath.row].name
+            textLabel = self.tableData[indexPath.section].rows[indexPath.row].city
         } else {
             cellIdentifier = "searchedDatasetCell"
-            textLabel = self.searchedDatasets[indexPath.row].name
+            textLabel = self.searchedDatasets[indexPath.row].city
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
@@ -142,7 +146,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.tableView {
-            return self.tableData[section].title
+            return self.tableData[section].country
         } else {
             return ""
         }
@@ -189,14 +193,14 @@ extension DownloadViewController: UISearchResultsUpdating {
         let searchText: String = searchController.searchBar.text!
         
         //get the rows of all sections
-        var allDatasets: [DownloadRow] = [DownloadRow]()
+        var allDatasets: [CloudKitAdministrationRow] = [CloudKitAdministrationRow]()
         for section in self.tableData {
             allDatasets.append(contentsOf: section.rows)
         }
         
         //filter all school rows
-        self.searchedDatasets = allDatasets.filter({(downloadRow : DownloadRow) -> Bool in
-            return downloadRow.name.lowercased().contains(searchText.lowercased())
+        self.searchedDatasets = allDatasets.filter({(row : CloudKitAdministrationRow) -> Bool in
+            return row.city.lowercased().contains(searchText.lowercased())
         })
         
         //reload the table
