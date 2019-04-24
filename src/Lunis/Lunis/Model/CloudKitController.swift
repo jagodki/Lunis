@@ -23,7 +23,7 @@ struct CloudKitAdministrationRow {
     var source: String
     var lastUpdate: Date
     var geojson: CKAsset
-    var recordName: String
+    var recordID: CKRecord.ID
 }
 
 class CloudKitController: NSObject {
@@ -31,6 +31,11 @@ class CloudKitController: NSObject {
     //CloudKit vars
     var container: CKContainer
     var publicDB: CKDatabase
+    
+    //instance vars
+    var delegate: CloudKitDelegate?
+    var cloudKitAdministrations: [CloudKitAdministrationSection] = []
+    var query: CKQuery?
     
     override init() {
         
@@ -43,36 +48,58 @@ class CloudKitController: NSObject {
     /// This functions queries all administrations from the public database of the default container.
     ///
     /// - Parameters:
-    ///   - query: the query to execute
-    ///   - zone: the zoneID
-    /// - Returns: an array of CloudKitAdministrationSection, that is ready to be used in the download views
-    private func queryAdministrations(query: CKQuery, zone: CKRecordZone.ID?) -> [CloudKitAdministrationSection] {
-        //init the result object
-        var result: [CloudKitAdministrationSection] = []
+    ///   - query: the argument that should be used to filter the records of the database
+    ///   - sortBy: the name of the column for sorting the records
+    ///   - ascending: true if records should be sortered ascending, otherwise desending
+    @objc func queryAdministrations(filterArgument: String, sortBy: String, ascending: Bool) {
+        //clear the result array
+        self.cloudKitAdministrations.removeAll()
         
-        self.publicDB.perform(query, inZoneWith: zone) { results, error in
-            
-            if let error = error {
-                DispatchQueue.main.async {
-                    print("Cloud Query Error - Fetch Establishments: \(error)")
-                }
-                return
-            }
-            
-            results?.forEach({ (record: CKRecord) in
-                
-                //create a new section if necessary
-                if result.count == 0 || result[result.count - 1].country != record["country"] {
-                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
-                    result.append(newSection)
-                }
-                
-                //add a new row
-                result[result.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: record["centroid"]! as! CLLocationCoordinate2D, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record["modifiedAt"]! as! Date, geojson: record["geojson"]! as! CKAsset, recordName: record["recordName"]!))
-            })
-        }
+        //create the query object
+        let predicate = NSPredicate(format: filterArgument)
+        self.query = CKQuery(recordType: "administration", predicate: predicate)
+        self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
-        return result
+        self.fetchAdministrations()
+        
+//        self.publicDB.perform(query, inZoneWith: zone) { results, error in
+//
+//            if let error = error {
+//                DispatchQueue.main.async {
+//                    self.delegate?.errorUpdating(error as NSError)
+//                    print("Cloud Query Error - Fetch Establishments: \(error)")
+//                }
+//                return
+//            }
+//
+//            for record in results! {
+//                //create a new section if necessary
+//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
+//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
+//                    self.cloudKitAdministrations.append(newSection)
+//                }
+//
+//                //add a new row
+//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.delegate?.modelUpdated()
+//            }
+        
+//            results?.forEach({(record: CKRecord) in
+//
+//                //create a new section if necessary
+//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
+//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
+//                    self.cloudKitAdministrations.append(newSection)
+//                }
+//
+//                //add a new row
+//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
+//            })
+            
+//        }
     }
     
     /// This function queries all administrations from CloudKit.
@@ -80,12 +107,68 @@ class CloudKitController: NSObject {
     /// - Parameters:
     ///   - sortBy: the name of the column for sorting the records
     ///   - ascending: true if records should be sortered ascending, otherwise desending
-    /// - Returns: an array of CloudKitAdministrationSection, that is ready to be used in the download views
-    func queryAllAdministrations(sortBy: String, ascending: Bool) -> [CloudKitAdministrationSection] {
-        let predicate = NSPredicate(format: "recordName = %@", "*")
-        let query = CKQuery(recordType: "administration", predicate: predicate)
-        query.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
+    func queryAllAdministrations(sortBy: String, ascending: Bool) {
+        let predicate = NSPredicate(value: true)
+        self.query = CKQuery(recordType: "administration", predicate: predicate)
+        self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
-        return self.queryAdministrations(query: query, zone: nil)
+        self.fetchAdministrations()
+        
+//        self.publicDB.perform(query, inZoneWith: nil) { results, error in
+//
+//            if let error = error {
+//                DispatchQueue.main.async {
+//                    self.delegate?.errorUpdating(error as NSError)
+//                    print("Cloud Query Error - Fetch Establishments: \(error)")
+//                }
+//                return
+//            }
+//
+//            for record in results! {
+//                //create a new section if necessary
+//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
+//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
+//                    self.cloudKitAdministrations.append(newSection)
+//                }
+//
+//                //add a new row
+//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.delegate?.modelUpdated()
+//            }
+//
+//        }
+    }
+    
+    @objc func fetchAdministrations() {
+        self.publicDB.perform(self.query!, inZoneWith: nil) { results, error in
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.delegate?.errorUpdating(error as NSError)
+                    print("Cloud Query Error - Fetch Establishments: \(error)")
+                }
+                return
+            }
+            
+            for record in results! {
+                //create a new section if necessary
+                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
+                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
+                    self.cloudKitAdministrations.append(newSection)
+                }
+                
+                //add a new row
+                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
+            }
+            
+            DispatchQueue.main.async {
+                self.delegate?.updateTableData(with: self.cloudKitAdministrations)
+                self.delegate?.modelUpdated()
+            }
+            
+        }
     }
 }
