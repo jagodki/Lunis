@@ -61,45 +61,6 @@ class CloudKitController: NSObject {
         self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
         self.fetchAdministrations()
-        
-//        self.publicDB.perform(query, inZoneWith: zone) { results, error in
-//
-//            if let error = error {
-//                DispatchQueue.main.async {
-//                    self.delegate?.errorUpdating(error as NSError)
-//                    print("Cloud Query Error - Fetch Establishments: \(error)")
-//                }
-//                return
-//            }
-//
-//            for record in results! {
-//                //create a new section if necessary
-//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
-//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
-//                    self.cloudKitAdministrations.append(newSection)
-//                }
-//
-//                //add a new row
-//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.delegate?.modelUpdated()
-//            }
-        
-//            results?.forEach({(record: CKRecord) in
-//
-//                //create a new section if necessary
-//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
-//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
-//                    self.cloudKitAdministrations.append(newSection)
-//                }
-//
-//                //add a new row
-//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
-//            })
-            
-//        }
     }
     
     /// This function queries all administrations from CloudKit.
@@ -113,33 +74,6 @@ class CloudKitController: NSObject {
         self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
         self.fetchAdministrations()
-        
-//        self.publicDB.perform(query, inZoneWith: nil) { results, error in
-//
-//            if let error = error {
-//                DispatchQueue.main.async {
-//                    self.delegate?.errorUpdating(error as NSError)
-//                    print("Cloud Query Error - Fetch Establishments: \(error)")
-//                }
-//                return
-//            }
-//
-//            for record in results! {
-//                //create a new section if necessary
-//                if self.cloudKitAdministrations.count == 0 || self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].country != record["country"] {
-//                    let newSection = CloudKitAdministrationSection(country: record["country"]!, rows: [])
-//                    self.cloudKitAdministrations.append(newSection)
-//                }
-//
-//                //add a new row
-//                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.delegate?.modelUpdated()
-//            }
-//
-//        }
     }
     
     @objc func fetchAdministrations() {
@@ -165,6 +99,9 @@ class CloudKitController: NSObject {
             }
             
             DispatchQueue.main.async {
+                for index in 0...(self.cloudKitAdministrations.count - 1) {
+                    self.cloudKitAdministrations[index].rows = self.cloudKitAdministrations[index].rows.sorted {$0.city < $1.city}
+                }
                 self.delegate?.updateTableData(with: self.cloudKitAdministrations)
                 self.delegate?.modelUpdated()
             }

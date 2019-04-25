@@ -32,6 +32,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         self.mapView.delegate = self
         self.mapView.showsScale = true
         self.mapView.showsCompass = true
+        self.mapView.register(SchoolMarkerView.self, forAnnotationViewWithReuseIdentifier: "schoolMarker")
         
         //configure location manager
         if CLLocationManager.locationServicesEnabled() {
@@ -56,6 +57,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
         self.mapView.addOverlay((self.school.administration?.polygon)!)
+        self.mapView.addAnnotation(self.school)
         self.mapView.setVisibleMapRect((self.school.administration?.polygon.boundingMapRect)!, animated: true)
     }
     
@@ -163,6 +165,12 @@ extension ReachabilityViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
             return nil
+        } else if annotation is School {
+            if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
+                return annotationView
+            } else {
+                return nil
+            }
         }
         
         let reuseId = "pin"

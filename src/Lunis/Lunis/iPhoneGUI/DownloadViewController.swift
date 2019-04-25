@@ -14,20 +14,6 @@ import CoreLocation
 
 class DownloadViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Table Data
-//    var tableData = [
-//        DownloadSection(title: "Sverige", rows: [
-//            DownloadRow(name: "Stockholm"),
-//            DownloadRow(name: "Malmö")
-//        ]),
-//        DownloadSection(title: "Polska", rows: [
-//            DownloadRow(name: "Warszawa")
-//        ]),
-//        DownloadSection(title: "Deutschland", rows: [
-//            DownloadRow(name: "Radebeul"),
-//            DownloadRow(name: "Meißen")
-//        ])
-//    ]
     var tableData: [CloudKitAdministrationSection] = []
     
     // MARK: - Outlets
@@ -50,6 +36,9 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //a controller to handle asynchronious actions
     var refreshControl: UIRefreshControl!
     
+    //an acitivity indicator, that should be shown during fetching data from CloudKit
+    var alert: UIAlertController!
+    
     // MARK: - instance functions
     
     override func viewDidLoad() {
@@ -69,22 +58,40 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.alpha = 1
         self.mapView.alpha = 0
         
+        //init the alert controller to show an activity indicator while fetching data from CloudKit
+        self.alert = UIAlertController(title: "Fetching data", message: "please wait...", preferredStyle: .alert)
+        let indicator = UIActivityIndicatorView(frame: self.alert.view.bounds)
+        indicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        indicator.isUserInteractionEnabled = false
+        indicator.startAnimating()
+        indicator.style = .gray
+        self.alert.view.addSubview(indicator)
+        
         //init the CloudKit controller
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
         self.ckController.delegate = self
         
-        // Set up a refresh control.
+        // Set up a refresh control
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self.ckController, action: #selector(CloudKitController.fetchAdministrations), for: .valueChanged)
         
-        //get all administrations from CloudKit and init the table data
-        self.ckController.queryAllAdministrations(sortBy: "country", ascending: true)
+        //get all administrations from CloudKit and show an activity indicator
+        self.fetchData()
         
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.fetchData()
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /// This function fetches all administrations from CloudKit and presents an activity indicator.
+    func fetchData() {
+        self.present(self.alert, animated: true, completion: nil)
+        self.ckController.queryAllAdministrations(sortBy: "country", ascending: true)
     }
     
     func adjustSearchBar(showSearchBar: Bool) {
@@ -148,7 +155,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         
         //add subtitle
         if cellIdentifier == "downloadTableCell" {
-            cell.detailTextLabel?.text = String(self.tableData[indexPath.section].rows[indexPath.row].countOfSchools) + " Schools"
+            cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].region
         }
         
         //mark datasets, that are already downloaded
@@ -227,6 +234,7 @@ extension DownloadViewController: CloudKitDelegate {
     func modelUpdated() {
         self.refreshControl.endRefreshing()
         self.tableView.reloadData()
+        self.alert.dismiss(animated: true, completion: nil)
     }
     
     func errorUpdating(_ error: NSError) {

@@ -273,7 +273,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("canceled")
         })
         
         //add the checkmark to the current selection
