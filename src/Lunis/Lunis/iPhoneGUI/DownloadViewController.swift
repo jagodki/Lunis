@@ -58,6 +58,11 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.alpha = 1
         self.mapView.alpha = 0
         
+        //set up the map view
+        self.mapView.delegate = self
+        self.mapView.showsScale = true
+        self.mapView.showsCompass = true
+        
         //init the alert controller to show an activity indicator while fetching data from CloudKit
         self.alert = UIAlertController(title: "Fetching data", message: "please wait...", preferredStyle: .alert)
         let indicator = UIActivityIndicatorView(frame: self.alert.view.bounds)
@@ -234,13 +239,22 @@ extension DownloadViewController: CloudKitDelegate {
     func modelUpdated() {
         self.refreshControl.endRefreshing()
         self.tableView.reloadData()
+        for section in self.tableData {
+            self.mapView.addAnnotations(section.rows.map({(value: CloudKitAdministrationRow) -> MKPointAnnotation in
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = value.centroid
+                annotation.title = value.city
+                annotation.subtitle = value.region
+                return annotation
+            }))
+        }
         self.alert.dismiss(animated: true, completion: nil)
     }
     
     func errorUpdating(_ error: NSError) {
         let message: String
         if error.code == 1 {
-            message = "Log into iCloud on your device and make sure the iCloud drive is turned on for this app."
+            message = "Log into iCloud on your device."
         } else {
             message = error.localizedDescription
         }
@@ -257,5 +271,33 @@ extension DownloadViewController: CloudKitDelegate {
         self.tableData = data
     }
     
+}
+
+// MARK: - MKMapViewDelegate
+extension DownloadViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            pinView!.animatesDrop = false
+            pinView!.pinTintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            performSegue(withIdentifier: "showDownloadDetail", sender: self)
+        }
+    }
 }
 
