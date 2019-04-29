@@ -28,7 +28,8 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     var resultsController: UITableViewController!
     
     //a variable to the selected administration
-    var selectedAdministration: Administration!
+    var selectedAdministration: CloudKitAdministrationRow!
+    var selectedCountry: String!
     
     //the controller for connecting to CloudKit
     var ckController: CloudKitController!
@@ -39,10 +40,16 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //an acitivity indicator, that should be shown during fetching data from CloudKit
     var alert: UIAlertController!
     
+    //the controller to access data from core data
+    var coreDataController: DataController!
+    
     // MARK: - instance functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //init the data controller
+        self.coreDataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
         //set up a searchresultcontroller
         resultsController = UITableViewController(style: .plain)
@@ -163,9 +170,6 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].region
         }
         
-        //mark datasets, that are already downloaded
-        
-        
         return cell
     }
     
@@ -178,10 +182,10 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //download the selected dataset
-        
-        //deselect the current row
-        tableView.deselectRow(at: indexPath, animated: true)
+        //store the selected administration
+        self.selectedAdministration = self.tableData[indexPath.section].rows[indexPath.row]
+        self.selectedCountry = self.tableData[indexPath.section].country
+        performSegue(withIdentifier: "showDownloadDetail", sender: self)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -203,7 +207,8 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         case "showDownloadDetail":
             let viewController = segue.destination as! DownloadDetailController
             viewController.administration = self.selectedAdministration
-            
+            viewController.coreDataController = self.coreDataController
+            viewController.country = self.selectedCountry
             
         default:
             _ = true
@@ -296,6 +301,17 @@ extension DownloadViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
+            
+            //store the selected administration
+            for section in self.tableData {
+                for row in section.rows {
+                    if row.centroid.latitude == view.annotation?.coordinate.latitude && row.city == view.annotation?.title && row.region == view.annotation?.subtitle {
+                        self.selectedAdministration = row
+                        self.selectedCountry = section.country
+                    }
+                }
+            }
+            
             performSegue(withIdentifier: "showDownloadDetail", sender: self)
         }
     }

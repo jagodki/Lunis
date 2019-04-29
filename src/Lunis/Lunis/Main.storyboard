@@ -177,9 +177,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="iDh-Sx-Gxv" kind="show" identifier="showDownloadDetail" id="6Q5-HX-ybE"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -221,6 +218,7 @@
                         <outlet property="mapView" destination="MPD-fo-lYH" id="cuJ-tD-btp"/>
                         <outlet property="segmentedControlContainer" destination="OT0-H3-uwP" id="tzW-RQ-ZLF"/>
                         <outlet property="tableView" destination="iWV-9k-PUY" id="DKX-A1-RRL"/>
+                        <segue destination="iDh-Sx-Gxv" kind="show" identifier="showDownloadDetail" id="Ags-gK-QS3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCy-0Y-euz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -231,7 +229,7 @@
         <scene sceneID="TjM-qC-cJk">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="iDh-Sx-Gxv" customClass="DownloadDetailController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="DaN-e4-NxH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="DaN-e4-NxH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -630,6 +628,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mbt-tH-MEa"/>
+        <segue reference="aDm-5k-pHL"/>
     </inferredMetricsTieBreakers>
 </document>
