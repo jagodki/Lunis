@@ -68,8 +68,28 @@ class DownloadDetailController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "downloadDetailCell", for: indexPath)
         cell.textLabel?.text = self.tableData[indexPath.row].title
         cell.detailTextLabel?.text = self.tableData[indexPath.row].value
+        
+        if self.tableData[indexPath.row].title.lowercased() == "source" {
+            cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        }
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellType: String = self.tableData[indexPath.row].title.lowercased()
+        
+        //show a message dialog to ask the user, whether the phone number should be called or not
+        switch cellType {
+        case "source":
+            UIApplication.shared.open(URL(string: self.tableData[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            
+        default:
+            _ = true
+        }
+        
+        //deselect the row
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - additional functions
@@ -97,4 +117,9 @@ class DownloadDetailController: UITableViewController {
     
     
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

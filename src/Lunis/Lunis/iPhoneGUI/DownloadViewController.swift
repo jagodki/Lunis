@@ -34,14 +34,19 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //the controller for connecting to CloudKit
     var ckController: CloudKitController!
     
-    //a controller to handle asynchronious actions
-    var refreshControl: UIRefreshControl!
-    
     //an acitivity indicator, that should be shown during fetching data from CloudKit
     var alert: UIAlertController!
     
     //the controller to access data from core data
     var coreDataController: DataController!
+    
+    //the refresh controller for the table view
+    lazy var refreshController: UIRefreshControl = {
+        let refreshController = UIRefreshControl()
+        refreshController.attributedTitle = NSAttributedString(string: "loading data")
+        refreshController.addTarget(self, action: #selector(DownloadViewController.fetchData), for: UIControl.Event.valueChanged)
+        return refreshController
+    }()
     
     // MARK: - instance functions
     
@@ -60,6 +65,9 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         //add a search bar to the navigation bar
         self.adjustSearchBar(showSearchBar: true)
         
+        //init the refresh control
+        self.tableView.addSubview(self.refreshController)
+        
         //init GUI-elements
         self.segmentedControlContainer.selectedSegmentIndex = 0
         self.tableView.alpha = 1
@@ -71,20 +79,17 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.mapView.showsCompass = true
         
         //init the alert controller to show an activity indicator while fetching data from CloudKit
-        self.alert = UIAlertController(title: "Fetching data", message: "please wait...", preferredStyle: .alert)
-        let indicator = UIActivityIndicatorView(frame: self.alert.view.bounds)
-        indicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        indicator.isUserInteractionEnabled = false
-        indicator.startAnimating()
-        indicator.style = .gray
-        self.alert.view.addSubview(indicator)
+//        self.alert = UIAlertController(title: "Fetching data", message: "please wait...", preferredStyle: .alert)
+//        let indicator = UIActivityIndicatorView(frame: self.alert.view.bounds)
+//        indicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        indicator.isUserInteractionEnabled = false
+//        indicator.startAnimating()
+//        indicator.style = .gray
+//        self.alert.view.addSubview(indicator)
         
         //init the CloudKit controller
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
         self.ckController.delegate = self
-        
-        // Set up a refresh control
-        self.refreshControl = UIRefreshControl()
         
         //get all administrations from CloudKit and show an activity indicator
         self.fetchData()
@@ -101,8 +106,9 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     /// This function fetches all administrations from CloudKit and presents an activity indicator.
-    func fetchData() {
-        self.present(self.alert, animated: true, completion: nil)
+    @objc func fetchData() {
+        self.refreshController.beginRefreshing()
+//        self.present(self.alert, animated: true, completion: nil)
         self.ckController.queryAllAdministrations(sortBy: "country", ascending: true)
     }
     
@@ -242,7 +248,7 @@ extension DownloadViewController: UISearchResultsUpdating {
 extension DownloadViewController: CloudKitDelegate {
     
     func modelUpdated() {
-        self.refreshControl.endRefreshing()
+        self.refreshController.endRefreshing()
         self.tableView.reloadData()
         for section in self.tableData {
             self.mapView.addAnnotations(section.rows.map({(value: CloudKitAdministrationRow) -> MKPointAnnotation in
@@ -253,7 +259,7 @@ extension DownloadViewController: CloudKitDelegate {
                 return annotation
             }))
         }
-        self.alert.dismiss(animated: true, completion: nil)
+//        self.alert.dismiss(animated: true, completion: nil)
     }
     
     func errorUpdating(_ error: NSError) {
@@ -273,6 +279,7 @@ extension DownloadViewController: CloudKitDelegate {
     }
     
     func updateTableData(with data: [CloudKitAdministrationSection]) {
+        self.tableData.removeAll()
         self.tableData = data
     }
     

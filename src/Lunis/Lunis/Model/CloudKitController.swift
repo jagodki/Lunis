@@ -77,6 +77,8 @@ class CloudKitController: NSObject {
     }
     
     @objc func fetchAdministrations() {
+        self.cloudKitAdministrations.removeAll()
+        
         self.publicDB.perform(self.query!, inZoneWith: nil) { results, error in
             
             if let error = error {
