@@ -16,6 +16,8 @@
 		5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */; };
 		5935DD932237DCE4004E2FB7 /* Grid+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
+		5985D5C3227C5C88002D9627 /* DecoderStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5985D5C2227C5C88002D9627 /* DecoderStructs.swift */; };
+		5985D5C5227C5DEC002D9627 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5985D5C4227C5DEC002D9627 /* Decoder.swift */; };
 		598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598EDE7B21F03B5A00C2634D /* DataController.swift */; };
 		59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59921C20219F487E00767876 /* FilterDataViewDelegate.swift */; };
 		5996962920CBD157000925BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5996962820CBD157000925BA /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 		5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Grid+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5985D5C2227C5C88002D9627 /* DecoderStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderStructs.swift; sourceTree = "<group>"; };
+		5985D5C4227C5DEC002D9627 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		598EDE7B21F03B5A00C2634D /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		59921C20219F487E00767876 /* FilterDataViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDataViewDelegate.swift; sourceTree = "<group>"; };
 		5996962820CBD157000925BA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -116,12 +120,22 @@
 		5982227F20BEA7E500E7FD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5985D5C1227C5C59002D9627 /* Decoder */,
 				59C674D521F18EE000353A53 /* LunisManagedObjects */,
 				590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */,
 				59233A86226F1EC3008F4EEE /* CloudKitController.swift */,
 				598EDE7B21F03B5A00C2634D /* DataController.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5985D5C1227C5C59002D9627 /* Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				5985D5C2227C5C88002D9627 /* DecoderStructs.swift */,
+				5985D5C4227C5DEC002D9627 /* Decoder.swift */,
+			);
+			path = Decoder;
 			sourceTree = "<group>";
 		};
 		59921C1F219F47FF00767876 /* Delegates */ = {
@@ -299,6 +313,7 @@
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59233A87226F1EC3008F4EEE /* CloudKitController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
+				5985D5C3227C5C88002D9627 /* DecoderStructs.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
 				59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */,
 				5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */,
@@ -308,6 +323,7 @@
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
+				5985D5C5227C5DEC002D9627 /* Decoder.swift in Sources */,
 				59E96332223648AB0057375A /* Boundary+CoreDataClass.swift in Sources */,
 				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,
 				59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */,

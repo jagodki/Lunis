@@ -112,9 +112,13 @@ class DownloadDetailController: UITableViewController {
     }
     
     @objc private func deleteData(sender: UIBarButtonItem) {
+        //get the administation from core data
+        let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
+        let coreDataAdministration = self.coreDataController.fetchAdministations(request: request)[0]
         
+        //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
+        self.coreDataController.delete(by: coreDataAdministration.objectID)
     }
-    
     
 
 }
