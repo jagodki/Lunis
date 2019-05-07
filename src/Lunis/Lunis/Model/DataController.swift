@@ -18,6 +18,8 @@ class DataController: NSObject {
     
     var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All", "School Profile":"All"]
     
+    let decoder: Decoder = Decoder()
+    
     override init() {
         super.init()
         let persistentContainer = NSPersistentContainer(name: "lunis")
@@ -577,6 +579,130 @@ class DataController: NSObject {
             result.append(entryDictionary.object(forKey: attribute) as! String)
         }
         return result
+    }
+    
+    func downloadData(administration: CloudKitAdministrationRow, schoolFileURL: URL, gridFileURL: URL) {
+        
+        //init the new administration object
+        let localAdministration: Administration = self.create(administration: administration)
+        
+        //init the schools
+        let schools: [School] = self.create(schools: schoolFileURL)
+        for school in schools {
+            localAdministration.addToSchools(school)
+            school.administration = localAdministration
+        }
+        
+        //init the grid
+        let grid: Grid = self.create(grid: gridFileURL)
+        localAdministration.grid = grid
+        grid.administration = localAdministration
+        
+        //store the administration in CoreData
+        self.saveData()
+        
+    }
+    
+    private func create(administration: CloudKitAdministrationRow) -> Administration {
+        //init the new administration object with information directly from CloudKit
+        let localAdministration = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! Administration
+        localAdministration.city = administration.city
+        localAdministration.region = administration.region
+        localAdministration.lastUpdate = administration.lastUpdate
+        localAdministration.x = administration.centroid.longitude
+        localAdministration.y = administration.centroid.latitude
+        
+        //add information about the country from the GeoJSON-file
+        let administrationFile: AdministrationFile = self.decoder.parseAdministrationFile(from: administration.geojson.fileURL)
+        localAdministration.country = administrationFile.features[0].properties.country
+        
+        //add the boundary to the administration
+        let administrationBoundary = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+        for coordinates in administrationFile.features[0].geometry.coordinates[0] {
+            let point = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+            point.x = coordinates[0]
+            point.y = coordinates[1]
+            administrationBoundary.addToPoints(point)
+            point.boundary = administrationBoundary
+        }
+        localAdministration.boundary = administrationBoundary
+        administrationBoundary.administration = localAdministration
+        
+        return localAdministration
+    }
+    
+    private func create(schools fileURL: URL) -> [School] {
+        //create the result variable
+        var schools: [School] = []
+        
+        //parse the GeoJSON file
+        let schoolFile: SchoolFile = self.decoder.parseSchoolFile(from: fileURL)
+        
+        //iterate over all features and create the school objects
+        for feature in schoolFile.features {
+            let school = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! School
+            
+            school.localID = feature.properties.id
+            school.schoolName = feature.properties.name
+            school.city = feature.properties.school_address.components(separatedBy: "/")[3]
+            school.mail = feature.properties.mail
+            school.favorite = false
+            school.street = feature.properties.school_address.components(separatedBy: "/")[0]
+            school.number = feature.properties.school_address.components(separatedBy: "/")[1]
+            school.phone = feature.properties.phone
+            school.postalCode = feature.properties.school_address.components(separatedBy: "/")[2]
+            school.schoolSpecialisation = feature.properties.school_specialisations
+            school.schoolType = feature.properties.school_type
+            school.website = feature.properties.website
+            school.wikipedia = feature.properties.wikipedia
+            school.x = feature.geometry.coordinates[0]
+            school.y = feature.geometry.coordinates[1]
+            
+            schools.append(school)
+        }
+        
+        return schools
+    }
+    
+    private func create(grid fileURL: URL) -> Grid {
+        //create a new Grid object
+        let localGrid: Grid = NSEntityDescription.insertNewObject(forEntityName: "Grid", into: managedObjectContext) as! Grid
+        
+        //parse the GeoJSON file
+        let gridFile: GridFile = self.decoder.parseGridFile(from: fileURL)
+        
+        //iterate over all features
+        for feature in gridFile.features {
+            //create a new cell for the grid
+            let cell = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
+            
+            //create the cell values for this cell
+            for (index, value) in feature.properties.cellValues.enumerated() {
+                let cellValue = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
+                cellValue.value = value as? NSDecimalNumber
+                cellValue.localSchoolID = Int(feature.properties.schoolIDs[index].components(separatedBy: "_")[2])
+                cellValue.cell = cell
+                cell.addToCellValues(cellValue)
+            }
+            
+            //create the boundary for this cell
+            let boundary = NSEntityDescription.insertNewObject(forEntityName: "Boundary", into: managedObjectContext) as! Boundary
+            for coordinates in feature.geometry.coordinates[0] {
+                let point = NSEntityDescription.insertNewObject(forEntityName: "Point", into: managedObjectContext) as! Point
+                point.x = coordinates[0]
+                point.y = coordinates[1]
+                boundary.addToPoints(point)
+                point.boundary = boundary
+            }
+            boundary.cell = cell
+            cell.boundary = boundary
+            
+            //add the cell to the grid
+            localGrid.addToCells(cell)
+            cell.grid = localGrid
+        }
+        
+        return localGrid
     }
     
 }

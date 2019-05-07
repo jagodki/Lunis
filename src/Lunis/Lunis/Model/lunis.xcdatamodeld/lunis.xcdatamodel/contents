@@ -22,7 +22,7 @@
         <relationship name="grid" maxCount="1" deletionRule="Nullify" destinationEntity="Grid" inverseName="cells" inverseEntity="Grid" syncable="YES"/>
     </entity>
     <entity name="CellValue" representedClassName="CellValue" syncable="YES" codeGenerationType="class">
-        <attribute name="schoolName" attributeType="String" syncable="YES"/>
+        <attribute name="localSchoolID" attributeType="String" syncable="YES"/>
         <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="cell" maxCount="1" deletionRule="Nullify" destinationEntity="Cell" inverseName="cellValues" inverseEntity="Cell" syncable="YES"/>
     </entity>
@@ -36,8 +36,10 @@
         <relationship name="boundary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Boundary" inverseName="points" inverseEntity="Boundary" syncable="YES"/>
     </entity>
     <entity name="School" representedClassName="School" syncable="YES" codeGenerationType="category">
+        <attribute name="agency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="favorite" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="localID" optional="YES" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mail" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="String" syncable="YES"/>
         <attribute name="phone" attributeType="String" syncable="YES"/>
@@ -59,6 +61,6 @@
         <element name="CellValue" positionX="462.58984375" positionY="-68.765625" width="128" height="90"/>
         <element name="Grid" positionX="283.50390625" positionY="87.1796875" width="128" height="75"/>
         <element name="Point" positionX="186.91015625" positionY="-132.890625" width="128" height="90"/>
-        <element name="School" positionX="-339.375" positionY="-370.57421875" width="128" height="270"/>
+        <element name="School" positionX="-339.375" positionY="-370.57421875" width="128" height="300"/>
     </elements>
 </model>

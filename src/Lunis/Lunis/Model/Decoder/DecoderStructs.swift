@@ -23,15 +23,16 @@ struct SchoolFeature: Codable {
 }
 
 struct SchoolProperties: Codable {
+    let id: Int
     let name: String
-    let address: String
+    let school_address: String
     let agency: String
     let school_type: String
     let school_specialisations: String
     let website: String
     let wikipedia: String
     let mail: String
-    let telefon: String
+    let phone: String
 }
 
 // MARK: - structs for the administration GeoJSON-files
@@ -56,6 +57,25 @@ struct AdministrationProperties: Codable {
     let last_update: Date
     let x: Double
     let y: Double
+}
+
+// MARK: - structs for the grid GeoJSON-file
+
+struct GridFile: Codable {
+    let type: String
+    let name: String
+    let features: [GridFeature]
+}
+
+struct GridFeature: Codable {
+    let type: String
+    let properties: GridProperties
+    let geometry: PolygonGeometry
+}
+
+struct GridProperties: Codable {
+    let schoolIDs: [String]
+    let cellValues: [Double]
 }
 
 // MARK: - geometries

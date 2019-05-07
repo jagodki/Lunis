@@ -61,7 +61,8 @@ class SchoolDetailView: UITableViewController {
         let groupContact = SchoolDetailGroup(title: "Contact", rows: [rowPhone, rowMail, rowHomepage])
         
         let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia!)
-        let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki])
+        let rowAgency = SchoolDetailRow(title: "Agency", value: self.school.agency!)
+        let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki, rowAgency])
         
         let rowReachability = SchoolDetailRow(title: "Reachability", value: "show reachability of this school")
         let groupReachability = SchoolDetailGroup(title: "Reachability", rows: [rowReachability])
