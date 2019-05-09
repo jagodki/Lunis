@@ -442,6 +442,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewController.cityData.insert("All", at: 0)
                 viewController.schoolTypeData = self.dataController.distinctValues(for: "schoolType", in: "School")
                 viewController.schoolTypeData.insert("All", at: 0)
+                viewController.agencyData = self.dataController.distinctValues(for: "agency", in: "School")
+                viewController.agencyData.insert("All", at: 0)
 //                viewController.schoolProfileData = self.dataController.distinctValues(for: "schoolSpecialisation", in: "School")
 //                viewController.schoolProfileData.insert("All", at: 0)
             
@@ -458,11 +460,12 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
 // MARK: - implementation of FilterDataViewDelegate
 extension DataViewController: FilterDataViewDelegate {
     
-    func sendFilterSettings(country: String, district: String, city: String, schoolType: String) {
+    func sendFilterSettings(country: String, district: String, city: String, schoolType: String, agency: String) {
         self.dataController.filter["Country"] = country
         self.dataController.filter["District"] = district
         self.dataController.filter["City"] = city
         self.dataController.filter["School Type"] = schoolType
+        self.dataController.filter["Agency"] = agency
         self.segmentedControl.selectedSegmentIndex = 2
         self.tableView.reloadData()
     }

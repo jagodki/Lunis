@@ -16,7 +16,12 @@ class DataController: NSObject {
         case school
     }
     
-    var filter: [String: String]! = ["Country":"All", "District":"All", "City":"All","School Type":"All", "School Profile":"All"]
+    var filter: [String: String]! = ["Country":"All",
+                                     "District":"All",
+                                     "City":"All",
+                                     "School Type":"All",
+                                     "School Profile":"All",
+                                     "Agency":"All"]
     
     let decoder: Decoder = Decoder()
     
@@ -451,6 +456,13 @@ class DataController: NSObject {
                 request.append("AND schoolType CONTAINS \"" + self.filter["School Type"]! + "\"")
             }
         }
+        if self.filter["Agency"] != "All" {
+            if request == "" {
+                request.append("agency CONTAINS \"" + self.filter["Agency"]! + "\"")
+            } else {
+                request.append("AND agency CONTAINS \"" + self.filter["Agency"]! + "\"")
+            }
+        }
         
         return request
     }
@@ -642,7 +654,7 @@ class DataController: NSObject {
         for feature in schoolFile.features {
             let school = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! School
             
-            school.localID = feature.properties.id
+            school.localID = Int64(feature.properties.id)
             school.schoolName = feature.properties.name
             school.city = feature.properties.school_address.components(separatedBy: "/")[3]
             school.mail = feature.properties.mail
