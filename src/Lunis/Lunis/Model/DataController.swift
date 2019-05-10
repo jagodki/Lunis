@@ -35,40 +35,7 @@ class DataController: NSObject {
         }
         
         //remove data
-        let schools = self.fetchSchools()
-        for school in schools {
-            self.delete(by: school.objectID)
-        }
-        
-        let admins = self.fetchAdministations()
-        for admin in admins {
-            self.delete(by: admin.objectID)
-        }
-        
-        let boundaries = (self.fetchData(from: "Boundary", orderedBy: ["administration"]) as! NSFetchedResultsController<Boundary>).fetchedObjects
-        for boundary in boundaries! {
-            self.delete(by: boundary.objectID)
-        }
-
-        let points = (self.fetchData(from: "Point", orderedBy: ["x"]) as! NSFetchedResultsController<Point>).fetchedObjects
-        for point in points! {
-            self.delete(by: point.objectID)
-        }
-
-        let cells = (self.fetchData(from: "Cell", orderedBy: ["boundary"]) as! NSFetchedResultsController<Cell>).fetchedObjects
-        for cell in cells! {
-            self.delete(by: cell.objectID)
-        }
-
-        let grids = (self.fetchData(from: "Grid", orderedBy: ["administration"]) as! NSFetchedResultsController<Grid>).fetchedObjects
-        for grid in grids! {
-            self.delete(by: grid.objectID)
-        }
-
-        let cellValues = (self.fetchData(from: "CellValue", orderedBy: ["schoolName"]) as! NSFetchedResultsController<CellValue>).fetchedObjects
-        for cellValue in cellValues! {
-            self.delete(by: cellValue.objectID)
-        }
+        self.removeAllData()
         
         //insert test data
         if self.fetchAdministations(request: "").count == 0 {
@@ -103,7 +70,44 @@ class DataController: NSObject {
         }
     }
     
-    func initData() {
+    private func removeAllData() {
+        let schools = self.fetchSchools()
+        for school in schools {
+            self.delete(by: school.objectID)
+        }
+        
+        let admins = self.fetchAdministations()
+        for admin in admins {
+            self.delete(by: admin.objectID)
+        }
+        
+        let boundaries = (self.fetchData(from: "Boundary", orderedBy: ["administration"]) as! NSFetchedResultsController<Boundary>).fetchedObjects
+        for boundary in boundaries! {
+            self.delete(by: boundary.objectID)
+        }
+        
+        let points = (self.fetchData(from: "Point", orderedBy: ["x"]) as! NSFetchedResultsController<Point>).fetchedObjects
+        for point in points! {
+            self.delete(by: point.objectID)
+        }
+        
+        let cells = (self.fetchData(from: "Cell", orderedBy: ["boundary"]) as! NSFetchedResultsController<Cell>).fetchedObjects
+        for cell in cells! {
+            self.delete(by: cell.objectID)
+        }
+        
+        let grids = (self.fetchData(from: "Grid", orderedBy: ["administration"]) as! NSFetchedResultsController<Grid>).fetchedObjects
+        for grid in grids! {
+            self.delete(by: grid.objectID)
+        }
+        
+        let cellValues = (self.fetchData(from: "CellValue", orderedBy: ["schoolName"]) as! NSFetchedResultsController<CellValue>).fetchedObjects
+        for cellValue in cellValues! {
+            self.delete(by: cellValue.objectID)
+        }
+    }
+    
+    private func initData() {
         let administration1 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! Administration
         let administration2 = NSEntityDescription.insertNewObject(forEntityName: "Administration", into: managedObjectContext) as! Administration
         let school1 = NSEntityDescription.insertNewObject(forEntityName: "School", into: managedObjectContext) as! School
@@ -246,35 +250,35 @@ class DataController: NSObject {
         cellBoundary4.addToPoints(pointGrid44)
         cellBoundary4.cell = cell4
         
-        cellValue11.schoolName = "Lößnitzgymnasium"
+        cellValue11.localSchoolID = Int64(1)
         cellValue11.value = 1
         cellValue11.cell = cell1
         
-        cellValue21.schoolName = "Lößnitzgymnasium"
+        cellValue21.localSchoolID = Int64(1)
         cellValue21.value = 5
         cellValue21.cell = cell2
         
-        cellValue31.schoolName = "Lößnitzgymnasium"
+        cellValue31.localSchoolID = Int64(1)
         cellValue31.value = 8
         cellValue31.cell = cell3
         
-        cellValue41.schoolName = "Lößnitzgymnasium"
+        cellValue41.localSchoolID = Int64(1)
         cellValue41.value = 9
         cellValue41.cell = cell4
         
-        cellValue12.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue12.localSchoolID = Int64(2)
         cellValue12.value = 2
         cellValue12.cell = cell1
         
-        cellValue22.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue22.localSchoolID = Int64(2)
         cellValue22.value = 3
         cellValue22.cell = cell2
         
-        cellValue32.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue32.localSchoolID = Int64(2)
         cellValue32.value = 5
         cellValue32.cell = cell3
         
-        cellValue42.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
+        cellValue42.localSchoolID = Int64(2)
         cellValue42.value = 10
         cellValue42.cell = cell4
         
@@ -329,6 +333,8 @@ class DataController: NSObject {
         
         school1.schoolName = "Lößnitzgymnasium"
         school1.city = "Radebeul"
+        school1.agency = "Stadt Radebeul"
+        school1.localID = 1
         school1.mail = "info@test.xyz"
         school1.favorite = true
         school1.street = "Steinbachstraße"
@@ -345,6 +351,8 @@ class DataController: NSObject {
         
         school2.schoolName = "Sächsisches Landesgymnasium Sankt Afra"
         school2.city = "Meißen"
+        school2.agency = "Freistaat Sachsen"
+        school2.localID = 2
         school2.mail = "info@test.xyz"
         school2.favorite = false
         school2.street = "Freiheit"
@@ -625,7 +633,7 @@ class DataController: NSObject {
         localAdministration.y = administration.centroid.latitude
         
         //add information about the country from the GeoJSON-file
-        let administrationFile: AdministrationFile = self.decoder.parseAdministrationFile(from: administration.geojson.fileURL)
+        let administrationFile: AdministrationFile = self.decoder.parseAdministrationFile(from: administration.geojson.fileURL)!
         localAdministration.country = administrationFile.features[0].properties.country
         
         //add the boundary to the administration
@@ -648,7 +656,7 @@ class DataController: NSObject {
         var schools: [School] = []
         
         //parse the GeoJSON file
-        let schoolFile: SchoolFile = self.decoder.parseSchoolFile(from: fileURL)
+        let schoolFile: SchoolFile = self.decoder.parseSchoolFile(from: fileURL)!
         
         //iterate over all features and create the school objects
         for feature in schoolFile.features {
@@ -681,7 +689,7 @@ class DataController: NSObject {
         let localGrid: Grid = NSEntityDescription.insertNewObject(forEntityName: "Grid", into: managedObjectContext) as! Grid
         
         //parse the GeoJSON file
-        let gridFile: GridFile = self.decoder.parseGridFile(from: fileURL)
+        let gridFile: GridFile = self.decoder.parseGridFile(from: fileURL)!
         
         //iterate over all features
         for feature in gridFile.features {
@@ -692,7 +700,7 @@ class DataController: NSObject {
             for (index, value) in feature.properties.cellValues.enumerated() {
                 let cellValue = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
                 cellValue.value = value as? NSDecimalNumber
-                cellValue.localSchoolID = Int(feature.properties.schoolIDs[index].components(separatedBy: "_")[2])
+                cellValue.localSchoolID = Int64(feature.properties.schoolIDs[index].components(separatedBy: "_")[2])!
                 cellValue.cell = cell
                 cell.addToCellValues(cellValue)
             }

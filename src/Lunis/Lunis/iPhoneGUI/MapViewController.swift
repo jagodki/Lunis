@@ -343,11 +343,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             }
             
             
-            //get all administrations plus the names and colours of the visible schools
+            //get all visible administrations plus the names and colours of the visible schools
             var administrations: [Administration] = []
-            var schoolNamesAndColours: [String: UIColor] = [:]
             for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
-                schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.schoolName!)
                 administrations.append(school.administration!)
             }
             administrations = Array(Set(administrations))
@@ -355,17 +353,28 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             //iterate over all the administrations
             for administration in administrations {
                 
+                //get all visible schools of the current administration
+                var schoolNamesAndColours: [Int64: UIColor] = [:]
+                for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
+                    if school.administration == administration {
+                        schoolNamesAndColours.updateValue(school.markerTintColor, forKey: school.localID)
+                    }
+                }
+                
                 //iterate over all cells
                 if administration.grid != nil && administration.grid!.cells != nil {
                     for cell in administration.grid!.cells!.array as! [Cell] {
                         
                         //compare the cellValues
                         for cellValue in cell.cellValues?.allObjects as! [CellValue] {
-                            if schoolNamesAndColours[cellValue.schoolName!] != nil {
-                                if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
-                                    self.minCellValue = (cellValue.value?.doubleValue)!
-                                    self.polygonColour = schoolNamesAndColours[cellValue.schoolName!]!.withAlphaComponent(0.3)
-                                }
+                            
+                            guard let schoolColour = schoolNamesAndColours[cellValue.localSchoolID] else {
+                                continue
+                            }
+                            
+                            if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
+                                self.minCellValue = (cellValue.value?.doubleValue)!
+                                self.polygonColour = schoolColour.withAlphaComponent(0.3)
                             }
                         }
                         

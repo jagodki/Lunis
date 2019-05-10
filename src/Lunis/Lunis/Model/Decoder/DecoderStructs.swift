@@ -13,6 +13,7 @@ import UIKit
 struct SchoolFile: Codable {
     let type: String
     let name: String
+    let crs: CrsStruct
     let features: [SchoolFeature]
 }
 
@@ -40,6 +41,7 @@ struct SchoolProperties: Codable {
 struct AdministrationFile: Codable {
     let type: String
     let name: String
+    let crs: CrsStruct
     let features: [AdministrationFeatures]
 }
 
@@ -64,6 +66,7 @@ struct AdministrationProperties: Codable {
 struct GridFile: Codable {
     let type: String
     let name: String
+    let crs: CrsStruct
     let features: [GridFeature]
 }
 
@@ -88,4 +91,14 @@ struct PolygonGeometry: Codable {
 struct PointGeometry: Codable {
     let type: String
     let coordinates: [Double]
+}
+
+// MARK: - additional structs
+struct CrsStruct: Codable {
+    let type: String
+    let properties: CrsProperties
+}
+
+struct CrsProperties: Codable {
+    let name: String
 }

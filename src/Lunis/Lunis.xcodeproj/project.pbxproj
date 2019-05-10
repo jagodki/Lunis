@@ -63,6 +63,7 @@
 		59A37EB220BD52250050E48D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "School+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Administration+CoreDataClass.swift"; sourceTree = "<group>"; };
+		59C97EC02285949300CC14B1 /* lunis 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "lunis 2.xcdatamodel"; sourceTree = "<group>"; };
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
 		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
@@ -527,11 +528,13 @@
 		590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				59C97EC02285949300CC14B1 /* lunis 2.xcdatamodel */,
 				590EE10621EEEE2B0049A95D /* lunis.xcdatamodel */,
 			);
 			currentVersion = 590EE10621EEEE2B0049A95D /* lunis.xcdatamodel */;
 			path = lunis.xcdatamodeld;
 			sourceTree = "<group>";
+			usesTabs = 0;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */

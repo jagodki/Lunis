@@ -52,7 +52,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         //self.mapView.addOverlays((self.school.administration?.grid!.cells!.array as! [Cell]).map({$0.polygon}))
         if self.school.administration?.grid!.cells != nil {
             for cell in self.school.administration?.grid!.cells!.array as! [Cell] {
-                self.cellValue = cell.cellValue(for: self.school.schoolName!)
+                self.cellValue = cell.cellValue(for: Int(self.school!.localID))
                 self.mapView.addOverlay(cell.polygon)
             }
         }
@@ -110,7 +110,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         annotation.coordinate = locationCoordinate
         
         //get the distance to the tapped position
-        let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: self.school.schoolName!)
+        let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: Int(self.school.localID))
         if distanceAtPosition == -99.9 {
             annotation.title = "Position is not within the raster"
         } else {
@@ -141,8 +141,8 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.lineWidth = 2
             case "Cell":
                 var ratio: Double = self.cellValue
-                if (self.school.administration?.grid!.maximumCellValue(for: self.school.schoolName!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))! != 0.0 {
-                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))!) / ((self.school.administration?.grid!.maximumCellValue(for: self.school.schoolName!))! - (self.school.administration?.grid!.minimumCellValue(for: self.school.schoolName!))!)
+                if (self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))! - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))! != 0.0 {
+                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!) / ((self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))! - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!)
                 }
                 let hue = (1 / 3) - (ratio * (1 / 3))
                 renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 0.25)

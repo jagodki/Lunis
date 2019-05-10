@@ -21,8 +21,8 @@ public class Cell: NSManagedObject {
         return polygon
     }
     
-    public func cellValue(for schoolName: String) -> Double {
-        let filteredCellValues = (self.cellValues?.allObjects as! [CellValue]).filter({$0.schoolName == schoolName})
+    public func cellValue(for localSchoolID: Int) -> Double {
+        let filteredCellValues = (self.cellValues?.allObjects as! [CellValue]).filter({$0.localSchoolID == localSchoolID})
         if filteredCellValues.count != 0 {
             return filteredCellValues[0].value as! Double
         } else {

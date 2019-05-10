@@ -14,40 +14,40 @@ class Decoder: NSObject {
         
     }
     
-    func parseSchoolFile(from fileURL: URL) -> SchoolFile {
-        let jsonData = String(contentsOf: fileURL, encoding: .utf8)
-        let decoder = JSONDecoder()
+    func parseSchoolFile(from fileURL: URL) -> SchoolFile? {
         do {
-            let schools = decoder.decode(SchoolFile.self, from: jsonData)
+            let jsonData = try String(contentsOf: fileURL, encoding: .utf8).data(using: .utf8)
+            let decoder = JSONDecoder()
+            let schools = try decoder.decode(SchoolFile.self, from: jsonData!)
             return schools
         } catch {
             print("Unexpected error during parsing a schools GeoJSON file: \(error)")
+            return nil
         }
-        return
     }
     
-    func parseAdministrationFile(from fileURL: URL) -> AdministrationFile {
-        let jsonData = String(contentsOf: fileURL, encoding: .utf8)
-        let decoder = JSONDecoder()
+    func parseAdministrationFile(from fileURL: URL) -> AdministrationFile? {
         do {
-            let administration = decoder.decode(AdministrationFile.self, from: jsonData)
+            let jsonData = try String(contentsOf: fileURL, encoding: .utf8).data(using: .utf8)
+            let decoder = JSONDecoder()
+            let administration = try decoder.decode(AdministrationFile.self, from: jsonData!)
             return administration
         } catch {
             print("Unexpected error during parsing an administration GeoJSON file: \(error)")
+            return nil
         }
-        return
     }
     
-    func parseGridFile(from fileURL: URL) -> GridFile {
-        let jsonData = String(contentsOf: fileURL, encoding: .utf8)
-        let decoder = JSONDecoder()
+    func parseGridFile(from fileURL: URL) -> GridFile? {
         do {
-            let grid = decoder.decode(GridFile.self, from: jsonData)
+            let jsonData = try String(contentsOf: fileURL, encoding: .utf8).data(using: .utf8)
+            let decoder = JSONDecoder()
+            let grid = try decoder.decode(GridFile.self, from: jsonData!)
             return grid
         } catch {
             print("Unexpected error during parsing a grid GeoJSON file: \(error)")
+            return nil
         }
-        return
     }
     
 }
