@@ -214,6 +214,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             let viewController = segue.destination as! DownloadDetailController
             viewController.administration = self.selectedAdministration
             viewController.coreDataController = self.coreDataController
+            viewController.cloudKitController = self.ckController
             viewController.country = self.selectedCountry
             
         default:

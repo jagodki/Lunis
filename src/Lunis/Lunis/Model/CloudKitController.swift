@@ -24,6 +24,8 @@ struct CloudKitAdministrationRow {
     var lastUpdate: Date
     var geojson: CKAsset
     var recordID: CKRecord.ID
+    var gridReference: CKRecord.Reference
+    var schoolReference: CKRecord.Reference
 }
 
 class CloudKitController: NSObject {
@@ -35,7 +37,8 @@ class CloudKitController: NSObject {
     //instance vars
     var delegate: CloudKitDelegate?
     var cloudKitAdministrations: [CloudKitAdministrationSection] = []
-    var query: CKQuery?
+    var schoolURL: URL!
+    var gridURL: URL!
     
     override init() {
         
@@ -57,10 +60,10 @@ class CloudKitController: NSObject {
         
         //create the query object
         let predicate = NSPredicate(format: filterArgument)
-        self.query = CKQuery(recordType: "administration", predicate: predicate)
-        self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
+        let query = CKQuery(recordType: "administration", predicate: predicate)
+        query.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
-        self.fetchAdministrations()
+        self.fetchAdministrations(with: query)
     }
     
     /// This function queries all administrations from CloudKit.
@@ -70,21 +73,24 @@ class CloudKitController: NSObject {
     ///   - ascending: true if records should be sortered ascending, otherwise desending
     func queryAllAdministrations(sortBy: String, ascending: Bool) {
         let predicate = NSPredicate(value: true)
-        self.query = CKQuery(recordType: "administration", predicate: predicate)
-        self.query!.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
+        let query = CKQuery(recordType: "administration", predicate: predicate)
+        query.sortDescriptors?.append(NSSortDescriptor(key: sortBy, ascending: ascending))
         
-        self.fetchAdministrations()
+        self.fetchAdministrations(with: query)
     }
     
-    @objc func fetchAdministrations() {
+    /// This function fetches all administrations for a given query from the public database.
+    ///
+    /// - Parameter query: the query for searching records in the database
+    @objc func fetchAdministrations(with query: CKQuery) {
         self.cloudKitAdministrations.removeAll()
         
-        self.publicDB.perform(self.query!, inZoneWith: nil) { results, error in
+        self.publicDB.perform(query, inZoneWith: nil) { results, error in
             
             if let error = error {
                 DispatchQueue.main.async {
                     self.delegate?.errorUpdating(error as NSError)
-                    print("Cloud Query Error - Fetch Establishments: \(error)")
+                    print("Cloud not query administrations \nError - Fetch Establishments: \(error)")
                 }
                 return
             }
@@ -97,7 +103,7 @@ class CloudKitController: NSObject {
                 }
                 
                 //add a new row
-                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID))
+                self.cloudKitAdministrations[self.cloudKitAdministrations.count - 1].rows.append(CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID, gridReference: record["grid"]! as! CKRecord.Reference, schoolReference: record["schools"]! as! CKRecord.Reference))
             }
             
             DispatchQueue.main.async {
@@ -108,6 +114,70 @@ class CloudKitController: NSObject {
                 self.delegate?.modelUpdated()
             }
             
+        }
+    }
+    
+    /// This function searches for the URL of a GeoJSON file of a grid refered by a CKRecord.Reference.
+    ///
+    /// - Parameter grid: the reference of the grid to search for
+    func fetchGridFileURL(for grid: CKRecord.Reference) {
+        //create the query object
+        let predicate = NSPredicate(format: "recordName==%@", grid.recordID)
+        let query = CKQuery(recordType: "grid", predicate: predicate)
+        
+        var fileURL = URL(fileURLWithPath: "")
+        
+        //fetch the data
+        self.publicDB.perform(query, inZoneWith: nil) { results, error in
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.delegate?.errorUpdating(error as NSError)
+                    print("Cloud not query grids \nError: \(error)")
+                }
+                return
+            }
+            
+            for record in results! {
+                fileURL = (record["geojson"]! as CKAsset).fileURL
+                break
+            }
+            
+            DispatchQueue.main.async {
+                self.gridURL = fileURL
+            }
+        }
+    }
+    
+    /// This function searches for the URL of a GeoJSON file of a school refered by a CKRecord.Reference.
+    ///
+    /// - Parameter school: the reference of the school to search for
+    func fetchSchoolFileURL(for school: CKRecord.Reference) {
+        //create the query object
+        let predicate = NSPredicate(format: "recordName==%@", school.recordID)
+        let query = CKQuery(recordType: "school", predicate: predicate)
+        
+        var fileURL = URL(fileURLWithPath: "")
+        
+        //fetch the data
+        self.publicDB.perform(query, inZoneWith: nil) { results, error in
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.delegate?.errorUpdating(error as NSError)
+                    print("Cloud not query schools \nError: \(error)")
+                }
+                return
+            }
+            
+            for record in results! {
+                fileURL = (record["geojson"]! as CKAsset).fileURL
+                break
+            }
+            
+            DispatchQueue.main.async {
+                self.schoolURL = fileURL
+            }
         }
     }
 }

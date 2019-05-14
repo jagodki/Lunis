@@ -21,12 +21,12 @@ struct DownloadDetailRow {
 class DownloadDetailController: UITableViewController {
     
     // MARK: - IBOutlets
-    @IBOutlet var buttonSaveDelete: UIBarButtonItem!
     
     // MARK: - instance variables
     var administration: CloudKitAdministrationRow!
     var country: String!
     var coreDataController: DataController!
+    var cloudKitController: CloudKitController!
     var tableData: [DownloadDetailRow] = []
     
     override func viewDidLoad() {
@@ -48,9 +48,11 @@ class DownloadDetailController: UITableViewController {
         
         //edit the right barbutton
         if self.datasetIsAlreadyOnDevice() {
-            self.buttonSaveDelete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteData(sender:)))
+            let buttonDelete = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteData(sender:)))
+            self.navigationItem.rightBarButtonItem = buttonDelete
         } else {
-            self.buttonSaveDelete = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.saveData(sender:)))
+            let buttonSave = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.saveData(sender:)))
+            self.navigationItem.rightBarButtonItem = buttonSave
         }
     }
     
@@ -93,6 +95,10 @@ class DownloadDetailController: UITableViewController {
     }
     
     // MARK: - additional functions
+    
+    /// This function checks, if the administration from CloudKit, which is a instance variable of this class, is already downloaded on the device.
+    ///
+    /// - Returns: true if the administration is already on the device in CoreData, otherwise false
     private func datasetIsAlreadyOnDevice() -> Bool {
         let admins = self.coreDataController.fetchAdministations()
         for admin in admins {
@@ -107,10 +113,19 @@ class DownloadDetailController: UITableViewController {
         return false
     }
     
+    /// This function saves a dataset (administration, schools, grid) on the device.
+    ///
+    /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func saveData(sender: UIBarButtonItem) {
-        
+        self.cloudKitController.fetchSchoolFileURL(for: self.administration.schoolReference)
+        self.cloudKitController.fetchGridFileURL(for: self.administration.gridReference)
+        self.coreDataController.downloadData(administration: self.administration, schoolFileURL: self.cloudKitController.schoolURL, gridFileURL: self.cloudKitController.gridURL)
+        self.dismiss(animated: true, completion: nil)
     }
     
+    /// This function removes a dataset from the device.
+    ///
+    /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func deleteData(sender: UIBarButtonItem) {
         //get the administation from core data
         let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
@@ -118,6 +133,7 @@ class DownloadDetailController: UITableViewController {
         
         //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
         self.coreDataController.delete(by: coreDataAdministration.objectID)
+        self.dismiss(animated: true, completion: nil)
     }
     
 

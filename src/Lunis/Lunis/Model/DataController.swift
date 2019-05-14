@@ -35,12 +35,12 @@ class DataController: NSObject {
         }
         
         //remove data
-        self.removeAllData()
+//        self.removeAllData()
         
         //insert test data
-        if self.fetchAdministations(request: "").count == 0 {
-            self.initData()
-        }
+//        if self.fetchAdministations(request: "").count == 0 {
+//            self.initData()
+//        }
     }
     
     

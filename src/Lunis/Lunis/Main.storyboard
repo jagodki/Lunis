@@ -264,12 +264,7 @@
                             <outlet property="delegate" destination="iDh-Sx-Gxv" id="qqt-Qn-DJL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="never" id="6B5-nD-NLK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="7SZ-Cy-s3h"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="buttonSaveDelete" destination="7SZ-Cy-s3h" id="p0L-c6-gEL"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="never" id="6B5-nD-NLK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1z-Fd-3NU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
