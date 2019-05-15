@@ -117,6 +117,41 @@ class CloudKitController: NSObject {
         }
     }
     
+    func fetchFileURLsFor(school: CKRecord.Reference, grid: CKRecord.Reference) {
+        //prepare grid query
+        let gridPredicate = NSPredicate(format: "recordName==%@", grid.recordID)
+        let gridQuery = CKQuery(recordType: "grid", predicate: gridPredicate)
+        
+        //prepare school query
+        let schoolPredicate = NSPredicate(format: "recordName==%@", school.recordID)
+        let schoolQuery = CKQuery(recordType: "school", predicate: schoolPredicate)
+        
+        //query the school URL
+        let schoolQueryOperation = CKQueryOperation(query: schoolQuery)
+        schoolQueryOperation.recordFetchedBlock = {(record: CKRecord) in
+            
+        }
+        schoolQueryOperation.queryCompletionBlock = {(cursor, err) in
+            if err != nil {
+                print("queryCompletionBlock error:", err ?? "")
+                return
+            }
+            
+            //query the grid URL
+            let gridQueryOperation = CKQueryOperation(query: gridQuery)
+            gridQueryOperation.recordFetchedBlock = {(record: CKRecord) in
+                
+            }
+            gridQueryOperation.queryCompletionBlock = {(cursor, err) in
+                if err != nil {
+                    print("queryCompletionBlock error:", err ?? "")
+                    return
+                }
+            }
+            
+        }
+    }
+    
     /// This function searches for the URL of a GeoJSON file of a grid refered by a CKRecord.Reference.
     ///
     /// - Parameter grid: the reference of the grid to search for
