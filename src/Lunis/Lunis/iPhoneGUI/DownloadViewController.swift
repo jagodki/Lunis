@@ -89,7 +89,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         
         //init the CloudKit controller
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
-        self.ckController.delegate = self
+        self.ckController.ckDelegate = self
         
         //get all administrations from CloudKit and show an activity indicator
         self.fetchData()

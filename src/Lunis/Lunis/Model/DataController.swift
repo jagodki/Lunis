@@ -76,7 +76,7 @@ class DataController: NSObject {
             self.delete(by: school.objectID)
         }
         
-        let admins = self.fetchAdministations()
+        let admins = self.fetchAdministrations()
         for admin in admins {
             self.delete(by: admin.objectID)
         }
@@ -378,7 +378,7 @@ class DataController: NSObject {
     ///
     /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
     /// - Returns: an array of Administration-objects as the result of the fetch
-    func fetchAdministations(request: String = "") -> [Administration] {
+    func fetchAdministrations(request: String = "") -> [Administration] {
         //create the fetch request
         let administrationFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Administration")
         var administrationData: [Administration] = [Administration]()

@@ -35,7 +35,8 @@ class CloudKitController: NSObject {
     var publicDB: CKDatabase
     
     //instance vars
-    var delegate: CloudKitDelegate?
+    var ckDelegate: CloudKitDelegate?
+    var downloadDelegate: DownloadDelegate?
     var cloudKitAdministrations: [CloudKitAdministrationSection] = []
     var schoolURL: URL!
     var gridURL: URL!
@@ -89,7 +90,7 @@ class CloudKitController: NSObject {
             
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.errorUpdating(error as NSError)
+                    self.ckDelegate?.errorUpdating(error as NSError)
                     print("Cloud not query administrations \nError - Fetch Establishments: \(error)")
                 }
                 return
@@ -110,8 +111,8 @@ class CloudKitController: NSObject {
                 for index in 0...(self.cloudKitAdministrations.count - 1) {
                     self.cloudKitAdministrations[index].rows = self.cloudKitAdministrations[index].rows.sorted {$0.city < $1.city}
                 }
-                self.delegate?.updateTableData(with: self.cloudKitAdministrations)
-                self.delegate?.modelUpdated()
+                self.ckDelegate?.updateTableData(with: self.cloudKitAdministrations)
+                self.ckDelegate?.modelUpdated()
             }
             
         }
@@ -119,37 +120,45 @@ class CloudKitController: NSObject {
     
     func fetchFileURLsFor(school: CKRecord.Reference, grid: CKRecord.Reference) {
         //prepare grid query
-        let gridPredicate = NSPredicate(format: "recordName==%@", grid.recordID)
+        let gridPredicate = NSPredicate(format: "recordID==%@", grid.recordID)
         let gridQuery = CKQuery(recordType: "grid", predicate: gridPredicate)
         
         //prepare school query
-        let schoolPredicate = NSPredicate(format: "recordName==%@", school.recordID)
+        let schoolPredicate = NSPredicate(format: "recordID==%@", school.recordID)
         let schoolQuery = CKQuery(recordType: "school", predicate: schoolPredicate)
         
         //query the school URL
         let schoolQueryOperation = CKQueryOperation(query: schoolQuery)
         schoolQueryOperation.recordFetchedBlock = {(record: CKRecord) in
-            
+            self.schoolURL = (record["geojson"]! as CKAsset).fileURL
         }
         schoolQueryOperation.queryCompletionBlock = {(cursor, err) in
             if err != nil {
-                print("queryCompletionBlock error:", err ?? "")
+                print("queryCompletionBlock for schools error:", err ?? "")
                 return
             }
             
             //query the grid URL
             let gridQueryOperation = CKQueryOperation(query: gridQuery)
             gridQueryOperation.recordFetchedBlock = {(record: CKRecord) in
-                
+                self.gridURL = (record["geojson"]! as CKAsset).fileURL
             }
             gridQueryOperation.queryCompletionBlock = {(cursor, err) in
-                if err != nil {
-                    print("queryCompletionBlock error:", err ?? "")
-                    return
+                DispatchQueue.main.async {
+                    if err != nil {
+                        print("queryCompletionBlock for the grid error:", err ?? "")
+                        return
+                    }
+                    
+                    self.downloadDelegate!.downloadData(schoolURL: self.schoolURL, gridURL: self.gridURL)
                 }
+                
             }
             
+            self.publicDB.add(gridQueryOperation)
         }
+        
+        self.publicDB.add(schoolQueryOperation)
     }
     
     /// This function searches for the URL of a GeoJSON file of a grid refered by a CKRecord.Reference.
@@ -167,7 +176,7 @@ class CloudKitController: NSObject {
             
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.errorUpdating(error as NSError)
+                    self.ckDelegate?.errorUpdating(error as NSError)
                     print("Cloud not query grids \nError: \(error)")
                 }
                 return
@@ -199,7 +208,7 @@ class CloudKitController: NSObject {
             
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.errorUpdating(error as NSError)
+                    self.ckDelegate?.errorUpdating(error as NSError)
                     print("Cloud not query schools \nError: \(error)")
                 }
                 return

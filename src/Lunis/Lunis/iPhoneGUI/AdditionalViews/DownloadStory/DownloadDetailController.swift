@@ -34,6 +34,8 @@ class DownloadDetailController: UITableViewController {
         
         self.navigationItem.title = self.administration.city
         
+        self.cloudKitController.downloadDelegate = self
+        
         //init the table data
         let rowCity = DownloadDetailRow(title: "City", value: self.administration.city)
         let rowRegion = DownloadDetailRow(title: "Region", value: self.administration.region)
@@ -100,7 +102,7 @@ class DownloadDetailController: UITableViewController {
     ///
     /// - Returns: true if the administration is already on the device in CoreData, otherwise false
     private func datasetIsAlreadyOnDevice() -> Bool {
-        let admins = self.coreDataController.fetchAdministations()
+        let admins = self.coreDataController.fetchAdministrations()
         for admin in admins {
             let compareCity = (admin.city == self.administration.city)
             let compareRegion = (admin.region == self.administration.region)
@@ -117,10 +119,8 @@ class DownloadDetailController: UITableViewController {
     ///
     /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func saveData(sender: UIBarButtonItem) {
-        self.cloudKitController.fetchSchoolFileURL(for: self.administration.schoolReference)
-        self.cloudKitController.fetchGridFileURL(for: self.administration.gridReference)
-        self.coreDataController.downloadData(administration: self.administration, schoolFileURL: self.cloudKitController.schoolURL, gridFileURL: self.cloudKitController.gridURL)
-        self.dismiss(animated: true, completion: nil)
+        self.tableView.addSubview(UIProgressView(progressViewStyle: .default))
+        self.cloudKitController.fetchFileURLsFor(school: self.administration.schoolReference, grid: self.administration.gridReference)
     }
     
     /// This function removes a dataset from the device.
@@ -129,7 +129,7 @@ class DownloadDetailController: UITableViewController {
     @objc private func deleteData(sender: UIBarButtonItem) {
         //get the administation from core data
         let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
-        let coreDataAdministration = self.coreDataController.fetchAdministations(request: request)[0]
+        let coreDataAdministration = self.coreDataController.fetchAdministrations(request: request)[0]
         
         //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
         self.coreDataController.delete(by: coreDataAdministration.objectID)
@@ -137,6 +137,15 @@ class DownloadDetailController: UITableViewController {
     }
     
 
+}
+
+extension DownloadDetailController: DownloadDelegate {
+    
+    func downloadData(schoolURL: URL, gridURL: URL) {
+        self.coreDataController.downloadData(administration: self.administration, schoolFileURL: schoolURL, gridFileURL: gridURL)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

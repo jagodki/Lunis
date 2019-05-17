@@ -36,6 +36,7 @@
 		59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E16B0A221491EE004A3A4D /* SchoolMarkerView.swift */; };
 		59E7CA0A226DD87D00A7B798 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E7CA09226DD87D00A7B798 /* CloudKit.framework */; };
 		59E96332223648AB0057375A /* Boundary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */; };
+		59FD1CA2228EC4E6004196A0 /* DownloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		59E7CA08226DD83B00A7B798 /* Lunis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lunis.entitlements; sourceTree = "<group>"; };
 		59E7CA09226DD87D00A7B798 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Boundary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			children = (
 				59921C20219F487E00767876 /* FilterDataViewDelegate.swift */,
 				591732A9227071A2007D4F61 /* CloudKitDelegate.swift */,
+				59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
+				59FD1CA2228EC4E6004196A0 /* DownloadDelegate.swift in Sources */,
 				5985D5C5227C5DEC002D9627 /* Decoder.swift in Sources */,
 				59E96332223648AB0057375A /* Boundary+CoreDataClass.swift in Sources */,
 				59E16B0B221491EE004A3A4D /* SchoolMarkerView.swift in Sources */,

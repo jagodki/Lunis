@@ -18,10 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        if let tabBarController = self.window!.rootViewController as? UITabBarController {
-//            let defaults = UserDefaults.standard
-//            tabBarController.selectedIndex = defaults.integer(forKey: "lastActiveTab")
-//        }
+        if let tabBarController = self.window!.rootViewController as? UITabBarController {
+            let localAdministrations = self.dataController.fetchAdministrations()
+            if localAdministrations.count == 0 {
+                tabBarController.selectedIndex = 2
+            } //else {
+                //self.cloudKitController.searchForUpdates(for: localAdministrations)
+            //}
+        }
         return true
     }
 
