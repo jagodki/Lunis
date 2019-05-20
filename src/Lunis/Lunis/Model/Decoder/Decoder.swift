@@ -30,6 +30,7 @@ class Decoder: NSObject {
         do {
             let jsonData = try String(contentsOf: fileURL, encoding: .utf8).data(using: .utf8)
             let decoder = JSONDecoder()
+            //decoder.dateDecodingStrategy = .iso8601
             let administration = try decoder.decode(AdministrationFile.self, from: jsonData!)
             return administration
         } catch {

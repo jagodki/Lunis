@@ -13,7 +13,7 @@ import UIKit
 struct SchoolFile: Codable {
     let type: String
     let name: String
-    let crs: CrsStruct
+    let crs: String
     let features: [SchoolFeature]
 }
 
@@ -33,7 +33,7 @@ struct SchoolProperties: Codable {
     let website: String
     let wikipedia: String
     let mail: String
-    let phone: String
+    let telefon: String
 }
 
 // MARK: - structs for the administration GeoJSON-files
@@ -41,22 +41,23 @@ struct SchoolProperties: Codable {
 struct AdministrationFile: Codable {
     let type: String
     let name: String
-    let crs: CrsStruct
-    let features: [AdministrationFeatures]
+    let crs: String
+    let features: [AdministrationFeature]
 }
 
-struct AdministrationFeatures: Codable {
+struct AdministrationFeature: Codable {
     let type: String
     let properties: AdministrationProperties
     let geometry: PolygonGeometry
 }
 
 struct AdministrationProperties: Codable {
+    let id: Int
     let city: String
     let country: String
     let region: String
     let source: String
-    let last_update: Date
+    let last_update: String
     let x: Double
     let y: Double
 }
@@ -66,7 +67,7 @@ struct AdministrationProperties: Codable {
 struct GridFile: Codable {
     let type: String
     let name: String
-    let crs: CrsStruct
+    let crs: String
     let features: [GridFeature]
 }
 
@@ -94,11 +95,11 @@ struct PointGeometry: Codable {
 }
 
 // MARK: - additional structs
-struct CrsStruct: Codable {
-    let type: String
-    let properties: CrsProperties
-}
-
-struct CrsProperties: Codable {
-    let name: String
-}
+//struct CrsStruct: Codable {
+//    let type: String
+//    let properties: CrsProperties
+//}
+//
+//struct CrsProperties: Codable {
+//    let name: String
+//}
