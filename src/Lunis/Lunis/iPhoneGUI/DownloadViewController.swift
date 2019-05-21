@@ -192,6 +192,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedAdministration = self.tableData[indexPath.section].rows[indexPath.row]
         self.selectedCountry = self.tableData[indexPath.section].country
         performSegue(withIdentifier: "showDownloadDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

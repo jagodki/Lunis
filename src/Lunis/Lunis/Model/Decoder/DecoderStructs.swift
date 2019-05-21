@@ -78,8 +78,8 @@ struct GridFeature: Codable {
 }
 
 struct GridProperties: Codable {
-    let schoolIDs: [String]
-    let cellValues: [Double]
+    let school_ids: [String]
+    let cell_values: [Double]
 }
 
 // MARK: - geometries

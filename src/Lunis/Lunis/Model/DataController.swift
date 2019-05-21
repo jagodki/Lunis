@@ -669,12 +669,13 @@ class DataController: NSObject {
             school.favorite = false
             school.street = feature.properties.school_address.components(separatedBy: "/")[0]
             school.number = feature.properties.school_address.components(separatedBy: "/")[1]
-            school.phone = feature.properties.phone
+            school.phone = feature.properties.telefon
             school.postalCode = feature.properties.school_address.components(separatedBy: "/")[2]
             school.schoolSpecialisation = feature.properties.school_specialisations
             school.schoolType = feature.properties.school_type
             school.website = feature.properties.website
             school.wikipedia = feature.properties.wikipedia
+            school.agency = feature.properties.agency
             school.x = feature.geometry.coordinates[0]
             school.y = feature.geometry.coordinates[1]
             
@@ -697,10 +698,10 @@ class DataController: NSObject {
             let cell = NSEntityDescription.insertNewObject(forEntityName: "Cell", into: managedObjectContext) as! Cell
             
             //create the cell values for this cell
-            for (index, value) in feature.properties.cellValues.enumerated() {
+            for (index, value) in feature.properties.cell_values.enumerated() {
                 let cellValue = NSEntityDescription.insertNewObject(forEntityName: "CellValue", into: managedObjectContext) as! CellValue
-                cellValue.value = value as? NSDecimalNumber
-                cellValue.localSchoolID = Int64(feature.properties.schoolIDs[index].components(separatedBy: "_")[2])!
+                cellValue.value = NSDecimalNumber(value: value)
+                cellValue.localSchoolID = Int64(feature.properties.school_ids[index].components(separatedBy: "_")[2])!
                 cellValue.cell = cell
                 cell.addToCellValues(cellValue)
             }
