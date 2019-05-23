@@ -51,7 +51,8 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         //add the geo-objects to the map
         //self.mapView.addOverlays((self.school.administration?.grid!.cells!.array as! [Cell]).map({$0.polygon}))
         if self.school.administration?.grid!.cells != nil {
-            for cell in self.school.administration?.grid!.cells!.array as! [Cell] {
+            let cells = self.school.administration?.grid!.cells!.array as! [Cell]
+            for cell in cells {
                 self.cellValue = cell.cellValue(for: Int(self.school!.localID))
                 self.mapView.addOverlay(cell.polygon)
             }
@@ -113,6 +114,8 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: Int(self.school.localID))
         if distanceAtPosition == -99.9 {
             annotation.title = "Position is not within the raster"
+        } else if distanceAtPosition == -99 {
+            annotation.title = "Value for this position is not calculated"
         } else {
             annotation.title = String(format: "%.0f m", distanceAtPosition!)
             annotation.subtitle = "Average distance to the school"
@@ -137,16 +140,20 @@ extension ReachabilityViewController: MKMapViewDelegate {
             switch overlay.title {
             case "Administration":
                 renderer.fillColor = UIColor.black.withAlphaComponent(0)
-                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.4971372003)
+                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
                 renderer.lineWidth = 2
             case "Cell":
-                var ratio: Double = self.cellValue
-                if (self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))! - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))! != 0.0 {
-                    ratio = (self.cellValue - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!) / ((self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))! - (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!)
+                var hue = 0.0
+                let maximumValue = (self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))!
+                let minimumValue = (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!
+                
+                if maximumValue - minimumValue != 0.0 && self.cellValue != -99 {
+                    let ratio = (self.cellValue - minimumValue) / (maximumValue - minimumValue)
+                    hue = (1 / 3) - (ratio * (1 / 3))
                 }
-                let hue = (1 / 3) - (ratio * (1 / 3))
-                renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 0.85, alpha: 0.25)
-                renderer.strokeColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 0.4952910959)
+                
+                renderer.fillColor = UIColor(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.35)
+                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
                 renderer.lineWidth = 1
             case .none:
                 renderer.fillColor = UIColor.black.withAlphaComponent(0)
@@ -167,6 +174,7 @@ extension ReachabilityViewController: MKMapViewDelegate {
             return nil
         } else if annotation is School {
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
+                annotationView.rightCalloutAccessoryView = nil
                 return annotationView
             } else {
                 return nil

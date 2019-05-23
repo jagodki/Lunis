@@ -350,6 +350,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             }
             administrations = Array(Set(administrations))
             
+            //zoom to the visible administrations
+//            self.mapView.setVisibleMapRect((self.school.administration?.polygon.boundingMapRect)!, animated: true)
+            
             //iterate over all the administrations
             for administration in administrations {
                 
@@ -363,10 +366,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 
                 //iterate over all cells
                 if administration.grid != nil && administration.grid!.cells != nil {
-                    for cell in administration.grid!.cells!.array as! [Cell] {
+                    let cells = administration.grid!.cells!.array as! [Cell]
+                    for cell in cells {
                         
                         //compare the cellValues
-                        for cellValue in cell.cellValues?.allObjects as! [CellValue] {
+                        let cellValues = cell.cellValues?.allObjects as! [CellValue]
+                        for cellValue in cellValues {
                             
                             guard let schoolColour = schoolNamesAndColours[cellValue.localSchoolID] else {
                                 continue
@@ -374,7 +379,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                             
                             if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
                                 self.minCellValue = (cellValue.value?.doubleValue)!
-                                self.polygonColour = schoolColour.withAlphaComponent(0.3)
+                                self.polygonColour = schoolColour.withAlphaComponent(0.35)
+                            } else if (cellValue.value?.doubleValue)! == (self.minCellValue)! {
+                                self.polygonColour = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
                             }
                         }
                         
@@ -453,7 +460,7 @@ extension MapViewController: MKMapViewDelegate {
             switch overlay.title {
             case "Cell":
                 renderer.fillColor = self.polygonColour
-                renderer.strokeColor = #colorLiteral(red: 0.5704585314, green: 0.5704723597, blue: 0.5704649091, alpha: 0.4952910959)
+                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7487960188)
                 renderer.lineWidth = 1
             case .none:
                 renderer.fillColor = UIColor.black.withAlphaComponent(0)
