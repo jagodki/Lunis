@@ -18,6 +18,8 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - instance vars
     var school: School!
+    var maximimumCellValue: Double!
+    var minimumCellValue: Double!
     var locationManager: CLLocationManager!
     var dataController: DataController!
     var cellValue: Double! = 0.0
@@ -50,8 +52,12 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         
         //add the geo-objects to the map
         //self.mapView.addOverlays((self.school.administration?.grid!.cells!.array as! [Cell]).map({$0.polygon}))
-        if self.school.administration?.grid!.cells != nil {
-            let cells = self.school.administration?.grid!.cells!.array as! [Cell]
+        if self.school.administration?.grid!.cells != nil && self.school.administration?.grid != nil {
+            
+            self.maximimumCellValue = (self.school.administration?.grid?.maximumCellValue(for: Int(self.school!.localID)))!
+            self.minimumCellValue = (self.school.administration?.grid?.minimumCellValue(for: Int(self.school!.localID)))!
+            
+            let cells = self.school.administration!.grid!.cells!.array as! [Cell]
             for cell in cells {
                 self.cellValue = cell.cellValue(for: Int(self.school!.localID))
                 self.mapView.addOverlay(cell.polygon)
@@ -103,8 +109,12 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         let touchLocation = (sender as AnyObject).location(in: self.mapView)
         let locationCoordinate = self.mapView.convert(touchLocation, toCoordinateFrom: self.mapView)
         
-        //remove all old annotations
-        self.mapView.removeAnnotations(self.mapView.annotations)
+        //remove the old pin
+        let oldPins = self.mapView.annotations.filter({$0.coordinate.latitude != self.school.coordinate.latitude && $0.coordinate.longitude != self.school.coordinate.longitude})
+        if oldPins.count != 0 {
+            self.mapView.removeAnnotations(oldPins)
+        }
+        
         
         //create a new annotation
         let annotation = MKPointAnnotation()
@@ -144,11 +154,9 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.lineWidth = 2
             case "Cell":
                 var hue = 0.0
-                let maximumValue = (self.school.administration?.grid!.maximumCellValue(for: Int(self.school!.localID)))!
-                let minimumValue = (self.school.administration?.grid!.minimumCellValue(for: Int(self.school!.localID)))!
                 
-                if maximumValue - minimumValue != 0.0 && self.cellValue != -99 {
-                    let ratio = (self.cellValue - minimumValue) / (maximumValue - minimumValue)
+                if self.maximimumCellValue - self.minimumCellValue != 0.0 && self.cellValue != -99 {
+                    let ratio = (self.cellValue - self.minimumCellValue) / (self.maximimumCellValue - self.minimumCellValue)
                     hue = (1 / 3) - (ratio * (1 / 3))
                 }
                 
@@ -174,7 +182,6 @@ extension ReachabilityViewController: MKMapViewDelegate {
             return nil
         } else if annotation is School {
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "schoolMarker", for: annotation) as? SchoolMarkerView {
-                annotationView.rightCalloutAccessoryView = nil
                 return annotationView
             } else {
                 return nil
@@ -195,6 +202,12 @@ extension ReachabilityViewController: MKMapViewDelegate {
         }
         
         return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if view is SchoolMarkerView {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
 }

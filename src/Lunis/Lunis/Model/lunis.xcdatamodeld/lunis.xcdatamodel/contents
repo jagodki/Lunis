@@ -26,6 +26,10 @@
         <attribute name="schoolName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="cell" maxCount="1" deletionRule="Nullify" destinationEntity="Cell" inverseName="cellValues" inverseEntity="Cell" syncable="YES"/>
+        <fetchIndex name="byLocalSchoolIdCellIndex">
+            <fetchIndexElement property="localSchoolID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="cell" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Grid" representedClassName="Grid" syncable="YES" codeGenerationType="category">
         <relationship name="administration" maxCount="1" deletionRule="Nullify" destinationEntity="Administration" inverseName="grid" inverseEntity="Administration" syncable="YES"/>

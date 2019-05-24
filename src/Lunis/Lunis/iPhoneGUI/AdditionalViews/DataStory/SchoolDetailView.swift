@@ -69,6 +69,7 @@ class SchoolDetailView: UITableViewController {
         
         self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther, groupReachability]
         self.tableView.sizeToFit()
+        self.tableView.rowHeight = UITableView.automaticDimension 
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,11 +112,16 @@ class SchoolDetailView: UITableViewController {
         cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].title
         cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
         
+        //change the height of the detail text
+        if indexPath.section == 1 && indexPath.row == 1 {
+            cell.detailTextLabel?.numberOfLines = 0
+        }
+        
         //change the colour of the text label
         //cell.textLabel?.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
         //change the colour of the strings for the contact section to indicate an action
-        if (self.tableData[indexPath.section].title == "Contact") || (self.tableData[indexPath.section].rows[indexPath.row].title == "Wikipedia") {
+        if indexPath.section == 2 || (indexPath.section == 3 && indexPath.row == 0) {
             cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
         
@@ -187,8 +193,7 @@ class SchoolDetailView: UITableViewController {
         switch segue.identifier {
         case "showReachability":
             let viewController = segue.destination as! ReachabilityViewController
-            viewController.school = self.school
-            
+            viewController.school = self.school            
         default:
             _ = true
         }

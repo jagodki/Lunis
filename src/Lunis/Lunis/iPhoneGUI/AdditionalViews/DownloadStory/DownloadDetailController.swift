@@ -133,7 +133,7 @@ class DownloadDetailController: UITableViewController {
         
         //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
         self.coreDataController.delete(by: coreDataAdministration.objectID)
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 
@@ -143,7 +143,7 @@ extension DownloadDetailController: DownloadDelegate {
     
     func downloadData(schoolURL: URL, gridURL: URL) {
         self.coreDataController.downloadData(administration: self.administration, schoolFileURL: schoolURL, gridFileURL: gridURL)
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

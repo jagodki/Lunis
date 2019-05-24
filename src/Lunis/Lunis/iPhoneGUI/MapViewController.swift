@@ -356,6 +356,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             //iterate over all the administrations
             for administration in administrations {
                 
+                //add the administration to the map
+                self.mapView.addOverlay(administration.polygon)
+                
                 //get all visible schools of the current administration
                 var schoolNamesAndColours: [Int64: UIColor] = [:]
                 for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
@@ -458,9 +461,13 @@ extension MapViewController: MKMapViewDelegate {
         if overlay is MKPolygon {
             let renderer = MKPolygonRenderer(overlay: overlay)
             switch overlay.title {
+            case "Administration":
+                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
+                renderer.lineWidth = 2
             case "Cell":
                 renderer.fillColor = self.polygonColour
-                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7487960188)
+                renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
                 renderer.lineWidth = 1
             case .none:
                 renderer.fillColor = UIColor.black.withAlphaComponent(0)
