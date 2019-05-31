@@ -30,6 +30,7 @@
 		59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */; };
 		59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */; };
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
+		59DA6F3F22A14A66005C1534 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA6F3E22A14A66005C1534 /* LoadingIndicator.swift */; };
 		59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */; };
 		59DD2C602194BADC0025DF9D /* FilterDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */; };
 		59DF4604224E520500E8B423 /* DownloadDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DF4603224E520500E8B423 /* DownloadDetailController.swift */; };
@@ -66,6 +67,7 @@
 		59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Administration+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59C97EC02285949300CC14B1 /* lunis 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "lunis 2.xcdatamodel"; sourceTree = "<group>"; };
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
+		59DA6F3E22A14A66005C1534 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
 		59DD2C5F2194BADC0025DF9D /* FilterDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDataViewController.swift; sourceTree = "<group>"; };
 		59DF4603224E520500E8B423 /* DownloadDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDetailController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				59921C1F219F47FF00767876 /* Delegates */,
 				5951C3E920CD1F3E009A1D3C /* iPhoneGUI */,
 				5982227F20BEA7E500E7FD58 /* Model */,
+				59DA6F3D22A14A23005C1534 /* Statics */,
 				59A37E9B20BD50AA0050E48D /* AppDelegate.swift */,
 				59A37EA420BD50AD0050E48D /* Assets.xcassets */,
 				59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */,
@@ -205,6 +208,14 @@
 				59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */,
 			);
 			path = LunisManagedObjects;
+			sourceTree = "<group>";
+		};
+		59DA6F3D22A14A23005C1534 /* Statics */ = {
+			isa = PBXGroup;
+			children = (
+				59DA6F3E22A14A66005C1534 /* LoadingIndicator.swift */,
+			);
+			path = Statics;
 			sourceTree = "<group>";
 		};
 		59DD2C612194BAE50025DF9D /* DataStory */ = {
@@ -321,6 +332,7 @@
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,
 				59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */,
 				5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */,
+				59DA6F3F22A14A66005C1534 /* LoadingIndicator.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
 				59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */,
 				590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */,
