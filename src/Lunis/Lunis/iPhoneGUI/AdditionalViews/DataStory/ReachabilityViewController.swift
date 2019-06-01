@@ -125,7 +125,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         if distanceAtPosition == -99.9 {
             annotation.title = "Position is not within the raster"
         } else if distanceAtPosition == -99 {
-            annotation.title = "Value for this position is not calculated"
+            annotation.title = "Value for this position cannot be calculated"
         } else {
             annotation.title = String(format: "%.0f m", distanceAtPosition!)
             annotation.subtitle = "Average distance to the school"
@@ -134,7 +134,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         //add the annonation to the map and select it, i.e. show the callout
         self.mapView.addAnnotation(annotation)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.mapView.selectedAnnotations = self.mapView.annotations
+            self.mapView.selectedAnnotations = [annotation]
         }
     }
     

@@ -120,7 +120,9 @@ class DownloadDetailController: UITableViewController {
     /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func saveData(sender: UIBarButtonItem) {
         LoadingIndicator.show(loadingText: "downloading data, please wait...", colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
-        self.cloudKitController.fetchFileURLsFor(school: self.administration.schoolReference, grid: self.administration.gridReference)
+        DispatchQueue.global(qos: .background).async {
+            self.cloudKitController.fetchFileURLsFor(school: self.administration.schoolReference, grid: self.administration.gridReference)
+        }
     }
     
     /// This function removes a dataset from the device.
@@ -130,13 +132,20 @@ class DownloadDetailController: UITableViewController {
         LoadingIndicator.show(loadingText: "deleting data, please wait...", colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
         
         //get the administation from core data
-        let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
-        let coreDataAdministration = self.coreDataController.fetchAdministrations(request: request)[0]
+        DispatchQueue.global(qos: .background).async {
+            let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
+            let coreDataAdministration = self.coreDataController.fetchAdministrations(request: request)[0]
+            
+            //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
+            self.coreDataController.delete(by: coreDataAdministration.objectID)
+            
+            DispatchQueue.main.async {
+                LoadingIndicator.hide()
+                self.navigationController?.popViewController(animated: true)
+
+            }
+        }
         
-        //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
-        self.coreDataController.delete(by: coreDataAdministration.objectID)
-        LoadingIndicator.hide()
-        self.navigationController?.popViewController(animated: true)
     }
     
 
