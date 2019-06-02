@@ -29,6 +29,7 @@
 		59A37EB320BD52250050E48D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37EB220BD52250050E48D /* MapKit.framework */; };
 		59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */; };
 		59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */; };
+		59CDFEAE22A3D82600B6EA5F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 59CDFEAD22A3D82600B6EA5F /* Settings.bundle */; };
 		59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D21E9521A27360009FAC63 /* SchoolDetailView.swift */; };
 		59DA6F3F22A14A66005C1534 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DA6F3E22A14A66005C1534 /* LoadingIndicator.swift */; };
 		59DB3AC32226790700F18AF1 /* ReachabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */; };
@@ -66,6 +67,7 @@
 		59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "School+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Administration+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59C97EC02285949300CC14B1 /* lunis 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "lunis 2.xcdatamodel"; sourceTree = "<group>"; };
+		59CDFEAD22A3D82600B6EA5F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		59D21E9521A27360009FAC63 /* SchoolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDetailView.swift; sourceTree = "<group>"; };
 		59DA6F3E22A14A66005C1534 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		59DB3AC22226790700F18AF1 /* ReachabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				59A37EA920BD50AD0050E48D /* Info.plist */,
 				5996962820CBD157000925BA /* Main.storyboard */,
 				59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */,
+				59CDFEAD22A3D82600B6EA5F /* Settings.bundle */,
 			);
 			path = Lunis;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			files = (
 				59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */,
 				59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */,
+				59CDFEAE22A3D82600B6EA5F /* Settings.bundle in Resources */,
 				59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */,
 				5996962920CBD157000925BA /* Main.storyboard in Resources */,
 			);

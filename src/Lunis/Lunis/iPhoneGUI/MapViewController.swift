@@ -48,6 +48,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
+            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), alpha: 1)
+        }
+        
         //init the searchresultcontroller
         self.searchResultsController = UITableViewController(style: .plain)
         self.searchResultsController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchedSchoolsCell")

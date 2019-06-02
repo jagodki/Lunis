@@ -18,13 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UserDefaults.standard.register(defaults: ["initialView":false])
+        
+        //show the first view
         if let tabBarController = self.window!.rootViewController as? UITabBarController {
             let localAdministrations = self.dataController.fetchAdministrations()
             if localAdministrations.count == 0 {
                 tabBarController.selectedIndex = 2
-            } //else {
-                //self.cloudKitController.searchForUpdates(for: localAdministrations)
-            //}
+            } else {
+                UserDefaults.standard.set(true, forKey: "initialView")
+            }
         }
         return true
     }
