@@ -134,7 +134,7 @@ class DownloadDetailController: UITableViewController {
         //get the administation from core data
         DispatchQueue.global(qos: .background).async {
             let request = "country=" + self.country + " AND region=" + self.administration.region + " AND city=" + self.administration.city + " AND x=" + String(self.administration.centroid.longitude) + " AND y=" + String(self.administration.centroid.latitude)
-            let coreDataAdministration = self.coreDataController.fetchAdministrations(request: request)[0]
+            let coreDataAdministration = self.coreDataController.fetchAdministrations(request: request, groupedBy: "", orderedBy: [], orderedAscending: false).object(at: IndexPath(row: 0, section: 0))
             
             //delete the administation from the device (all other objects, that are connected to this administration, will be deleted cascadetly)
             self.coreDataController.delete(by: coreDataAdministration.objectID)

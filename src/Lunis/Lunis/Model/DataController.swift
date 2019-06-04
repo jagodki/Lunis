@@ -378,7 +378,7 @@ class DataController: NSObject {
     ///
     /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
     /// - Returns: an array of Administration-objects as the result of the fetch
-    func fetchAdministrations(request: String = "") -> [Administration] {
+    func fetchAdministrations() -> [Administration] {
         //create the fetch request
         let administrationFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Administration")
         var administrationData: [Administration] = [Administration]()
@@ -396,7 +396,7 @@ class DataController: NSObject {
     ///
     /// - Parameter request: a String representing the request for filtering, sorting etc. the fetch
     /// - Returns: an array of School-objects as the result of the fetch
-    func fetchSchools(request: String = "") -> [School] {
+    func fetchSchools() -> [School] {
         //create the fetch request
         let schoolFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "School")
         var schoolData: [School] = [School]()
@@ -483,7 +483,7 @@ class DataController: NSObject {
     ///   - orderedBy: the names of the attributes, which should be used for order the results
     ///   - orderedAscending: a boolean value to indicate, whether the results should be ordered ascending or descening
     /// - Returns: a result controller with objects of type Administration into it
-    func fetchAdministations(request: String = "", groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<Administration> {
+    func fetchAdministrations(request: String = "", groupedBy: String = "", orderedBy: [String], orderedAscending: Bool = false) -> NSFetchedResultsController<Administration> {
         let resultsController: NSFetchedResultsController<Administration>
         
         if orderedBy.count == 0 {
