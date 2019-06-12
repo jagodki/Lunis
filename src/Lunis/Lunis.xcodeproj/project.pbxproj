@@ -11,6 +11,7 @@
 		591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591732A9227071A2007D4F61 /* CloudKitDelegate.swift */; };
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
+		5921962022B16BFB00BE04F6 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5921961F22B16BFB00BE04F6 /* MapDelegate.swift */; };
 		59233A87226F1EC3008F4EEE /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233A86226F1EC3008F4EEE /* CloudKitController.swift */; };
 		59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */; };
 		5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */; };
@@ -46,6 +47,7 @@
 		591732A9227071A2007D4F61 /* CloudKitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDelegate.swift; sourceTree = "<group>"; };
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		5921961F22B16BFB00BE04F6 /* MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDelegate.swift; sourceTree = "<group>"; };
 		59233A86226F1EC3008F4EEE /* CloudKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CloudKitController.swift; path = Lunis/Model/CloudKitController.swift; sourceTree = SOURCE_ROOT; };
 		59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDistancesController.swift; sourceTree = "<group>"; };
 		5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				59921C20219F487E00767876 /* FilterDataViewDelegate.swift */,
 				591732A9227071A2007D4F61 /* CloudKitDelegate.swift */,
 				59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */,
+				5921961F22B16BFB00BE04F6 /* MapDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
 				591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */,
+				5921962022B16BFB00BE04F6 /* MapDelegate.swift in Sources */,
 				59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */,
 				59FD1CA2228EC4E6004196A0 /* DownloadDelegate.swift in Sources */,
 				5985D5C5227C5DEC002D9627 /* Decoder.swift in Sources */,

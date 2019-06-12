@@ -38,8 +38,10 @@ class CloudKitController: NSObject {
     var ckDelegate: CloudKitDelegate?
     var downloadDelegate: DownloadDelegate?
     var cloudKitAdministrations: [CloudKitAdministrationSection] = []
+    var updateAdministration: CloudKitAdministrationRow?
     var schoolURL: URL!
     var gridURL: URL!
+    var mapDelegate: MapDelegate!
     
     override init() {
         
@@ -118,7 +120,7 @@ class CloudKitController: NSObject {
         }
     }
     
-    func fetchFileURLsFor(school: CKRecord.Reference, grid: CKRecord.Reference) {
+    func fetchFileURLsFor(school: CKRecord.Reference, grid: CKRecord.Reference, informViaDelegation: Bool = true, update: Bool = false, localAdministrations: [Administration] = [], atIndex index: Int = -99) {
         //prepare grid query
         let gridPredicate = NSPredicate(format: "recordID==%@", grid.recordID)
         let gridQuery = CKQuery(recordType: "grid", predicate: gridPredicate)
@@ -135,6 +137,15 @@ class CloudKitController: NSObject {
         schoolQueryOperation.queryCompletionBlock = {(cursor, err) in
             if err != nil {
                 print("queryCompletionBlock for schools error:", err ?? "")
+                
+                let ac = UIAlertController(title: "Fetch failed", message: "There was a problem fetching the schools; please try again: \(err!.localizedDescription)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                
+                guard let currentViewController = UIApplication.shared.keyWindow?.rootViewController else {
+                    print("No root controller")
+                    return
+                }
+                currentViewController.present(ac, animated: true)
                 return
             }
             
@@ -147,10 +158,37 @@ class CloudKitController: NSObject {
                 DispatchQueue.main.async {
                     if err != nil {
                         print("queryCompletionBlock for the grid error:", err ?? "")
+                        
+                        let ac = UIAlertController(title: "Fetch failed", message: "There was a problem fetching the grid; please try again: \(err!.localizedDescription)", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        
+                        guard let currentViewController = UIApplication.shared.keyWindow?.rootViewController else {
+                            print("No root controller")
+                            return
+                        }
+                        currentViewController.present(ac, animated: true)
                         return
                     }
                     
-                    self.downloadDelegate!.downloadData(schoolURL: self.schoolURL, gridURL: self.gridURL)
+                    //handling of the query result
+                    
+                    if informViaDelegation {
+                        //call the delegate to inform about the end of the fetch
+                        self.downloadDelegate!.downloadData(schoolURL: self.schoolURL, gridURL: self.gridURL)
+                    } else if update && index != -99 && localAdministrations.count != 0 {
+                        //update an exisitng dataset in CoreData
+                        (UIApplication.shared.delegate as! AppDelegate).dataController.delete(by: localAdministrations[index].objectID)
+                        (UIApplication.shared.delegate as! AppDelegate).dataController.downloadData(administration: self.updateAdministration!, schoolFileURL: self.schoolURL, gridFileURL: self.gridURL)
+                        self.updateAdministration = nil
+                        
+                        //check, whether more data sets should be checked for updates
+                        if index == (localAdministrations.count - 1) {
+                            self.mapDelegate.loadMapObjects()
+                        } else {
+                            self.update(localAdministrations: localAdministrations, at: (index + 1))
+                        }
+                    }
+                    
                 }
                 
             }
@@ -223,5 +261,31 @@ class CloudKitController: NSObject {
                 self.schoolURL = fileURL
             }
         }
+    }
+    
+    func update(localAdministrations: [Administration], at index: Int = 0) {
+        
+        //init the admin query
+        let adminPredicate = NSPredicate(format: "country==%@ AND region==%@ AND city==%@ AND x==%f AND y==%f AND modifiedAt>%@", [localAdministrations[index].country!, localAdministrations[index].region!, localAdministrations[index].city!, localAdministrations[index].x, localAdministrations[index].y, localAdministrations[index].lastUpdate!])
+        let adminQuery = CKQuery(recordType: "administration", predicate: adminPredicate)
+        let adminQueryOperation = CKQueryOperation(query: adminQuery)
+        
+        //query the administration
+        adminQueryOperation.recordFetchedBlock = {(record: CKRecord) in
+            self.updateAdministration = CloudKitAdministrationRow(city: record["city"]!, region: record["region"]!, centroid: (record["centroid"]! as! CLLocation).coordinate, countOfSchools: record["countOfSchools"]! as! Int, source: record["source"]!, lastUpdate: record.modificationDate!, geojson: record["geojson"]! as! CKAsset, recordID: record.recordID, gridReference: record["grid"]! as! CKRecord.Reference, schoolReference: record["schools"]! as! CKRecord.Reference)
+        }
+        adminQueryOperation.queryCompletionBlock = {(cursor, err) in
+            if err != nil {
+                print("queryCompletionBlock for administrations error:", err ?? "")
+                return
+            }
+            
+            //query the file URLs and update a data set
+            self.fetchFileURLsFor(school: self.updateAdministration!.schoolReference, grid: self.updateAdministration!.gridReference, informViaDelegation: false, update: true, localAdministrations: localAdministrations, atIndex: index)
+            
+        }
+        
+        self.publicDB.add(adminQueryOperation)
+        
     }
 }

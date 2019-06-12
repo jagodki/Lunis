@@ -28,6 +28,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     //the data controller for connecting to core data
     var dataController: DataController!
+    var ckController: CloudKitController!
     var fetchedResultsControllerSchools: NSFetchedResultsController<School>!
     var fetchedResultsControllerAdministrations: NSFetchedResultsController<Administration>!
     
@@ -93,6 +94,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         
         //init the data controller
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
+        self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
+        self.ckController.mapDelegate = self
         
         //fetch data from core data and add them to the map
         //self.reloadMapContent()
@@ -418,6 +421,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         }
     }
     
+    private func updateData() {
+        //get all local administrations
+        let localAdmins = self.dataController.fetchAdministrations()
+        
+        //update data
+        self.ckController.update(localAdministrations: localAdmins)
+    }
+    
     
     // MARK: - navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -434,6 +445,16 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             default:
                 _ = true
         }
+    }
+    
+}
+
+// MARK: - Delegation
+extension MapViewController: MapDelegate {
+    
+    func loadMapObjects() {
+        self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
+        LoadingIndicator.hide()
     }
     
 }
