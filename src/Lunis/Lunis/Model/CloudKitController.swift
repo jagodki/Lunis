@@ -266,7 +266,7 @@ class CloudKitController: NSObject {
     func update(localAdministrations: [Administration], at index: Int = 0) {
         
         //init the admin query
-        let adminPredicate = NSPredicate(format: "country==%@ AND region==%@ AND city==%@ AND x==%f AND y==%f AND modifiedAt>%@", [localAdministrations[index].country!, localAdministrations[index].region!, localAdministrations[index].city!, localAdministrations[index].x, localAdministrations[index].y, localAdministrations[index].lastUpdate!])
+        let adminPredicate = NSPredicate(format: "country==%@ AND region==%@ AND city==%@ AND centroid==%@ modifiedAt>%@", localAdministrations[index].country!, localAdministrations[index].region!, localAdministrations[index].city!, CLLocation(latitude: localAdministrations[index].y, longitude: localAdministrations[index].x), localAdministrations[index].lastUpdate! as CVarArg)
         let adminQuery = CKQuery(recordType: "administration", predicate: adminPredicate)
         let adminQueryOperation = CKQueryOperation(query: adminQuery)
         

@@ -25,6 +25,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     var zoomToPosition: Bool!
     var mapContent: Int!
     var searchController: UISearchController!
+    var didLoad: Bool! = false
     
     //the data controller for connecting to core data
     var dataController: DataController!
@@ -48,10 +49,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     /// Constructor of this class.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
-            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), alpha: 1)
-        }
         
         //init the searchresultcontroller
         self.searchResultsController = UITableViewController(style: .plain)
@@ -95,22 +92,32 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //init the data controller
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
-        self.ckController.mapDelegate = self
         
-        //fetch data from core data and add them to the map
-        //self.reloadMapContent()
-        self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
+        if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
+            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), alpha: 1)
+            UserDefaults.standard.set(false, forKey: "initialView")
+            self.updateData()
+        }
+        self.didLoad = true
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //fetch data from core data and add them to the map
-        self.reloadMapContent(removeOverlays: false, zoomToObjects: false)
-        //self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
-        
-        //add the hexagonal raster if necessary
-        if self.showHexagonalRaster {
-            self.showHideHexagons()
+        if self.didLoad {
+            self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: true)
+        } else {
+            self.reloadMapContent(removeOverlays: false, zoomToObjects: false)
+            //self.addCoreDataObjectsToTheMap(request: "", zoomToObjects: false)
+            
+            //add the hexagonal raster if necessary
+            if self.showHexagonalRaster {
+                self.showHideHexagons()
+            }
         }
+        
+        self.didLoad = false
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -355,13 +362,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
                 administrations.append(school.administration!)
             }
+            //remove duplicate administrations
             administrations = Array(Set(administrations))
             
-            //zoom to the visible administrations
-//            self.mapView.setVisibleMapRect((self.school.administration?.polygon.boundingMapRect)!, animated: true)
+            //prepare zooming to the visible administrations
+            var boundingBox = MKMapRect()
             
             //iterate over all the administrations
             for administration in administrations {
+                
+                //expand the bounding box
+                boundingBox = boundingBox.union(administration.polygon.boundingMapRect)
                 
                 //add the administration to the map
                 self.mapView.addOverlay(administration.polygon)
@@ -401,6 +412,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                     }
                 }
             }
+            
+            //zoom to the visible administrations
+            self.mapView.setVisibleMapRect(boundingBox, animated: true)
             
         } else {
             //adjust the button, the instance var and the map content
