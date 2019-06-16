@@ -173,7 +173,7 @@ class CloudKitController: NSObject {
                     //handling of the query result
                     
                     if informViaDelegation {
-                        //call the delegate to inform about the end of the fetch
+                        //call the delegate for downloading the data, e.g. from the DownloadDetailView
                         self.downloadDelegate!.downloadData(schoolURL: self.schoolURL, gridURL: self.gridURL)
                     } else if update && index != -99 && localAdministrations.count != 0 {
                         //update an exisitng dataset in CoreData
@@ -182,11 +182,7 @@ class CloudKitController: NSObject {
                         self.updateAdministration = nil
                         
                         //check, whether more data sets should be checked for updates
-                        if index == (localAdministrations.count - 1) {
-                            self.mapDelegate.loadMapObjects()
-                        } else {
-                            self.update(localAdministrations: localAdministrations, at: (index + 1))
-                        }
+                        self.updateMoreData(index: index, localAdministrations: localAdministrations)
                     }
                     
                 }
@@ -281,11 +277,23 @@ class CloudKitController: NSObject {
             }
             
             //query the file URLs and update a data set
-            self.fetchFileURLsFor(school: self.updateAdministration!.schoolReference, grid: self.updateAdministration!.gridReference, informViaDelegation: false, update: true, localAdministrations: localAdministrations, atIndex: index)
+            if self.updateAdministration != nil {
+                self.fetchFileURLsFor(school: self.updateAdministration!.schoolReference, grid: self.updateAdministration!.gridReference, informViaDelegation: false, update: true, localAdministrations: localAdministrations, atIndex: index)
+            } else {
+                self.updateMoreData(index: index, localAdministrations: localAdministrations)
+            }
             
         }
         
         self.publicDB.add(adminQueryOperation)
         
+    }
+    
+    private func updateMoreData(index: Int, localAdministrations: [Administration]) {
+        if index == (localAdministrations.count - 1) {
+            self.mapDelegate.loadMapObjects()
+        } else {
+            self.update(localAdministrations: localAdministrations, at: (index + 1))
+        }
     }
 }

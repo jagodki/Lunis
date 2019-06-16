@@ -92,6 +92,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         //init the data controller
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
+        self.ckController.mapDelegate = self
         
         if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
             LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), alpha: 1)
