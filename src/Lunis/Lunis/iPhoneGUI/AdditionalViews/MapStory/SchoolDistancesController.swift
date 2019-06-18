@@ -124,18 +124,38 @@ class SchoolDistancesController: UITableViewController {
                 } else {
                     //iterate over all schools in the tableview array
                     for (index, school) in self.tableDataSchools.enumerated() {
+                        
+                        //insert at specific index, if new distance is lower than the current entry
                         if self.tableDataHash[destination]! < self.tableDataHash[school]! {
                             //insert the school before the first school with a higher distance
                             self.tableDataSchools.insert(destination, at: index)
                         }
                         
+                        //insert the data set at the end of the structur
                         if index == (self.tableDataSchools.count - 1) {
                             //append the school, if the current distance is the highest
                             self.tableDataSchools.append(destination)
                         }
+                        
+                        
                     }
                     
                 }
+                //remove doubled entries
+                var indices: [Int] = []
+                //find doubled values
+                for (index, school) in self.tableDataSchools.enumerated() {
+                    if index != 0 {
+                        if school.schoolName == self.tableDataSchools[index - 1].schoolName {
+                            indices.append(index)
+                        }
+                    }
+                }
+                //remove them
+                for index in indices.reversed() {
+                    self.tableDataSchools.remove(at: index)
+                }
+                
                 self.tableView.reloadData()
                 
             }

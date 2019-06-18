@@ -86,7 +86,8 @@ class DownloadDetailController: UITableViewController {
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
         case "source":
-            UIApplication.shared.open(URL(string: self.tableData[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            let cleanedUpSource = self.tableData[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            UIApplication.shared.open(URL(string: cleanedUpSource!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
         default:
             _ = true

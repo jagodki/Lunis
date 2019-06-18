@@ -36,6 +36,9 @@ class SchoolDetailView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.estimatedRowHeight = 200
+        self.tableView.rowHeight = UITableView.automaticDimension
+        
         //init the data controller
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
@@ -72,6 +75,14 @@ class SchoolDetailView: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension 
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.navigationItem.title = self.school.schoolName
     }
@@ -84,10 +95,6 @@ class SchoolDetailView: UITableViewController {
     }
 
     // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -157,13 +164,16 @@ class SchoolDetailView: UITableViewController {
                 UIApplication.shared.open(URL(string: "telprompt://" + String(cleanedUpNumber))!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Mail":
-                UIApplication.shared.open(URL(string: "mailto://" + self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                let cleanedUpMail = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                UIApplication.shared.open(URL(string: "mailto://" + cleanedUpMail!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Homepage":
-                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                let cleanedUpHomepage = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                UIApplication.shared.open(URL(string: cleanedUpHomepage!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
             case "Wikipedia":
-                UIApplication.shared.open(URL(string: self.tableData[indexPath.section].rows[indexPath.row].value)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                let cleanedUpWikipedia = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                UIApplication.shared.open(URL(string: cleanedUpWikipedia!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
         //case "Reachability":
             //performSegue(withIdentifier: "", sender: self)

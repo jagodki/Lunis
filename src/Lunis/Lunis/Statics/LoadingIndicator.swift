@@ -89,10 +89,12 @@ class LoadingIndicator {
     
     static func hide() {
         if self.currentOverlay != nil {
-            self.currentOverlay?.removeFromSuperview()
-            self.currentOverlay =  nil
-            self.currentLoadingText = nil
-            self.currentOverlayTarget = nil
+            DispatchQueue.main.async {
+                self.currentOverlay?.removeFromSuperview()
+                self.currentOverlay =  nil
+                self.currentLoadingText = nil
+                self.currentOverlayTarget = nil
+            }
         }
     }
     

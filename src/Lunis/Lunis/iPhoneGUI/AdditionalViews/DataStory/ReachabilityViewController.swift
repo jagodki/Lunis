@@ -74,7 +74,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - additional methods
     
-    /// This function show an alert, whether location services are disabled for this app.
+    /// This function show an alert, if location services are disabled for this app.
     func showEnableLocationAlert() {
         let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertAction.Style.default, handler: {

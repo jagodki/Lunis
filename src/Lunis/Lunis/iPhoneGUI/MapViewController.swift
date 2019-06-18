@@ -357,7 +357,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 self.setHexagonalButton(to: true)
             }
             
-            
             //get all visible administrations plus the names and colours of the visible schools
             var administrations: [Administration] = []
             for school in self.fetchedResultsControllerSchools!.fetchedObjects! {
@@ -367,13 +366,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             administrations = Array(Set(administrations))
             
             //prepare zooming to the visible administrations
-            var boundingBox = MKMapRect()
+            var boundingBox: MKMapRect? = nil
             
             //iterate over all the administrations
             for administration in administrations {
                 
                 //expand the bounding box
-                boundingBox = boundingBox.union(administration.polygon.boundingMapRect)
+                if boundingBox == nil {
+                    boundingBox = administration.polygon.boundingMapRect
+                } else {
+                    boundingBox = boundingBox!.union(administration.polygon.boundingMapRect)
+                }
                 
                 //add the administration to the map
                 self.mapView.addOverlay(administration.polygon)
@@ -415,7 +418,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             }
             
             //zoom to the visible administrations
-            self.mapView.setVisibleMapRect(boundingBox, animated: true)
+            self.mapView.setVisibleMapRect(boundingBox!, animated: true)
             
         } else {
             //adjust the button, the instance var and the map content
