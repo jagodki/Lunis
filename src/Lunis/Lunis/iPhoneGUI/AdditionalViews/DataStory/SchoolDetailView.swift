@@ -36,9 +36,6 @@ class SchoolDetailView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.estimatedRowHeight = 200
-        self.tableView.rowHeight = UITableView.automaticDimension
-        
         //init the data controller
         self.dataController = (UIApplication.shared.delegate as! AppDelegate).dataController
         
@@ -130,6 +127,7 @@ class SchoolDetailView: UITableViewController {
         //change the colour of the strings for the contact section to indicate an action
         if indexPath.section == 2 || (indexPath.section == 3 && indexPath.row == 0) {
             cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+            cell.detailTextLabel?.lineBreakMode = .byTruncatingTail
         }
         
         return cell
