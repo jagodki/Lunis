@@ -95,7 +95,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.ckController.mapDelegate = self
         
         if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
-            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), alpha: 1)
+            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1), alpha: 1)
             UserDefaults.standard.set(false, forKey: "initialView")
             self.updateData()
         }
