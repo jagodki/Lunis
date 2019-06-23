@@ -190,9 +190,9 @@ class SchoolDetailView: UITableViewController {
     
     private func updateFavoriteButton() {
         if self.school.favorite {
-            self.buttonFavorite.title = "is Favorite"
+            self.buttonFavorite.image = #imageLiteral(resourceName: "star")
         } else {
-            self.buttonFavorite.title = "is not Favorite"
+            self.buttonFavorite.image = #imageLiteral(resourceName: "unstar")
         }
     }
     

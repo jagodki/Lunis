@@ -135,9 +135,9 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.textLabel?.text = textLabel
         if insertFavIcon && mainTable {
-            cell.imageView?.image = UIImage(named: "favorite")
+            cell.imageView?.image = #imageLiteral(resourceName: "favorite")
         } else if mainTable {
-            cell.imageView?.image = UIImage(named: "no_favorite")
+            cell.imageView?.image = #imageLiteral(resourceName: "unfavorite")
         }
         return cell
     }
@@ -194,13 +194,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.markFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
-        markAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        markAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         
         let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
             self.unmarkFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
-        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         
         let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
             //prepare the mapviewcontroller
@@ -219,7 +219,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             (self.parent?.parent as! UITabBarController).selectedIndex = 0
             completion(true)
         }
-        showOnMap.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        showOnMap.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
         
         //create an array of actions, depending on the favorite status of the current row
         var actions: [UIContextualAction]

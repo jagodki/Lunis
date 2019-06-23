@@ -1,8 +1,11 @@
 {
   "images" : [
     {
+      "idiom" : "universal"
+    },
+    {
       "idiom" : "universal",
-      "filename" : "icons8-star-filled-50 2.png",
+      "filename" : "icons8-layers-filled-50.png",
       "scale" : "1x"
     },
     {

@@ -90,7 +90,7 @@
                                     <action selector="showHideSearchBar:" destination="Iy2-ZW-J59" id="fBJ-yx-rXW"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="Oyu-mh-Ex7">
+                            <barButtonItem title="Item" image="positionArrow" id="Oyu-mh-Ex7">
                                 <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="showUserPosition:" destination="Iy2-ZW-J59" id="XvI-mL-Vr3"/>
@@ -98,19 +98,19 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" systemItem="play" id="nK6-Fv-8J3">
+                            <barButtonItem title="Item" image="waypoint" style="plain" id="nK6-Fv-8J3" propertyAccessControl="none">
                                 <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="X8H-XW-Cql" kind="show" identifier="showShortestDistances" id="o6O-VF-cZ2"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Hexa" id="eA3-R1-TQ0">
+                            <barButtonItem title="Hexa" image="hexagonal" id="eA3-R1-TQ0">
                                 <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="buttonHexagonsTapped:" destination="Iy2-ZW-J59" id="j9o-Au-OuJ"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="plain" systemItem="compose" id="TaJ-ou-tRr">
+                            <barButtonItem title="Item" image="layers" style="plain" id="TaJ-ou-tRr" propertyAccessControl="none">
                                 <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="selectMapContent:" destination="Iy2-ZW-J59" id="OWb-rS-Grs"/>
@@ -144,6 +144,11 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                            <color key="value" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="mXY-iZ-hde" kind="relationship" relationship="viewControllers" id="aCC-sF-wdw"/>
                         <segue destination="dBO-Uj-GVg" kind="relationship" relationship="viewControllers" id="9jD-I4-ka5"/>
@@ -440,7 +445,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="School" largeTitleDisplayMode="never" id="CvM-Vk-1Ib">
-                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="Cc6-Hb-o95">
+                        <barButtonItem key="rightBarButtonItem" title="Favorite" image="star" id="Cc6-Hb-o95">
                             <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="favoriteButtonPressed:" destination="Imn-Jn-LnJ" id="TOG-Op-u9h"/>
@@ -481,7 +486,7 @@
                         <viewLayoutGuide key="safeArea" id="tHO-g5-cqP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reachability" largeTitleDisplayMode="never" id="TBH-cI-cwt">
-                        <barButtonItem key="rightBarButtonItem" title="Position" id="6f5-8z-3D8">
+                        <barButtonItem key="rightBarButtonItem" title="Position" image="positionArrow" id="6f5-8z-3D8">
                             <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="positionButtonPressed:" destination="kWY-g2-A8y" id="bem-83-QMj"/>
@@ -639,10 +644,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="hexagonal" width="30" height="30"/>
+        <image name="layers" width="30" height="30"/>
         <image name="mapTab" width="200" height="200"/>
+        <image name="positionArrow" width="30" height="30"/>
         <image name="schoolTab" width="200" height="200"/>
+        <image name="star" width="30" height="30"/>
+        <image name="waypoint" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5qk-ax-fV5"/>
+        <segue reference="mbt-tH-MEa"/>
     </inferredMetricsTieBreakers>
 </document>
