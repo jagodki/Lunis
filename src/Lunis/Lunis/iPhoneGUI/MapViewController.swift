@@ -18,6 +18,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     // MARK: - IBOutlets
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var buttonHexagons: UIBarButtonItem!
+    @IBOutlet var buttonPosition: UIBarButtonItem!
     
     // MARK: - instance variables
     var locationManager: CLLocationManager!
@@ -206,6 +207,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.mapView.showsUserLocation = false
             self.postionIsShown = false
             self.zoomToPosition = true
+            self.buttonPosition.image = #imageLiteral(resourceName: "positionArrow")
+            
         } else {
             //sender.isSelected = true
             
@@ -213,6 +216,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 self.locationManager.startUpdatingLocation()
                 self.mapView.showsUserLocation = true
                 self.postionIsShown = true
+                self.buttonPosition.image = #imageLiteral(resourceName: "positionUnarrow")
             } else {
                 self.showEnableLocationAlert()
             }
@@ -419,10 +423,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             
             //zoom to the visible administrations
             self.mapView.setVisibleMapRect(boundingBox!, animated: true)
+            self.buttonHexagons.image = #imageLiteral(resourceName: "unhexagonal")
             
         } else {
             //adjust the button, the instance var and the map content
-            self.setHexagonalButton(to: false)
+            self.buttonHexagons.image = #imageLiteral(resourceName: "hexagonal")
             self.mapView.removeOverlays(self.mapView.overlays)
         }
     }

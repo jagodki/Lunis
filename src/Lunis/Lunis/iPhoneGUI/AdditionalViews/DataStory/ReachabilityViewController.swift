@@ -93,6 +93,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
                 self.locationManager.startUpdatingLocation()
                 self.mapView.showsUserLocation = true
                 self.buttonPosition.title = "hide Position"
+                self.buttonPosition.image = #imageLiteral(resourceName: "positionUnarrow")
             } else {
                 self.showEnableLocationAlert()
             }
@@ -100,6 +101,7 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
             self.locationManager.stopUpdatingLocation()
             self.mapView.showsUserLocation = false
             self.buttonPosition.title = "Position"
+            self.buttonPosition.image = #imageLiteral(resourceName: "positionArrow")
         }
     }
     

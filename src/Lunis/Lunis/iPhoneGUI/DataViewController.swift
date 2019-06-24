@@ -202,7 +202,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         unmarkAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         
-        let showOnMap = UIContextualAction(style: .normal, title: "\u{1F30D}") {(action, view, completion) in
+        let showOnMap = UIContextualAction(style: .normal, title: "\u{2316}") {(action, view, completion) in
             //prepare the mapviewcontroller
             //print((self.parent?.parent as! UITabBarController).viewControllers![0].childViewControllers[0])
             ((self.parent?.parent as! UITabBarController).viewControllers![0].children[0] as! MapViewController).mapContent = self.segmentedControl.selectedSegmentIndex
