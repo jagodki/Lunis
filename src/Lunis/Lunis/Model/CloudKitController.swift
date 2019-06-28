@@ -120,6 +120,17 @@ class CloudKitController: NSObject {
         }
     }
     
+    /// This function fetches the URLs for the given references.
+    /// The function can also start a download routing, if the correponding parameters are properly filled.
+    /// Never set informViaDelegation and update both on true (update will not be recognized in this case).
+    ///
+    /// - Parameters:
+    ///   - school: the reference of the school dataset
+    ///   - grid: the reference of the grid dataset
+    ///   - informViaDelegation: starts the download of the data of true
+    ///   - update: starts the update of the datasets if true
+    ///   - localAdministrations: an array of all administrations on the device
+    ///   - index: an index value for getting an object from the localAdministrations array
     func fetchFileURLsFor(school: CKRecord.Reference, grid: CKRecord.Reference, informViaDelegation: Bool = true, update: Bool = false, localAdministrations: [Administration] = [], atIndex index: Int = -99) {
         //prepare grid query
         let gridPredicate = NSPredicate(format: "recordID==%@", grid.recordID)
@@ -259,6 +270,11 @@ class CloudKitController: NSObject {
         }
     }
     
+    /// This function updates one administration and all related objects.
+    ///
+    /// - Parameters:
+    ///   - localAdministrations: an array of all administrations on the device
+    ///   - index: the index to get on administration from the array above
     func update(localAdministrations: [Administration], at index: Int = 0) {
         
         //init the admin query
@@ -289,6 +305,11 @@ class CloudKitController: NSObject {
         
     }
     
+    ///This function checks, whether more datasets could be updated or not. If not, all map objects will be reloaded.
+    ///
+    /// - Parameters:
+    ///   - index: the index to get on administration from the array (second parameter)
+    ///   - localAdministrations: an array of all administrations on the device
     private func updateMoreData(index: Int, localAdministrations: [Administration]) {
         if index == (localAdministrations.count - 1) {
             self.mapDelegate.loadMapObjects()

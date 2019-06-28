@@ -16,6 +16,7 @@
 		59280DD0221ED403004E31F3 /* SchoolDistancesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */; };
 		5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */; };
 		5935DD932237DCE4004E2FB7 /* Grid+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */; };
+		595A6AD122C69D4C00F8CB0F /* localisation.strings in Resources */ = {isa = PBXBuildFile; fileRef = 595A6AD322C69D4C00F8CB0F /* localisation.strings */; };
 		5982227E20BEA49D00E7FD58 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5982227D20BEA49D00E7FD58 /* CoreData.framework */; };
 		5985D5C3227C5C88002D9627 /* DecoderStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5985D5C2227C5C88002D9627 /* DecoderStructs.swift */; };
 		5985D5C5227C5DEC002D9627 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5985D5C4227C5DEC002D9627 /* Decoder.swift */; };
@@ -52,6 +53,15 @@
 		59280DCF221ED403004E31F3 /* SchoolDistancesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDistancesController.swift; sourceTree = "<group>"; };
 		5935DD8D2237DCE4004E2FB7 /* Cell+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5935DD8F2237DCE4004E2FB7 /* Grid+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Grid+CoreDataClass.swift"; sourceTree = "<group>"; };
+		595A6ACE22C6978700F8CB0F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		595A6AD222C69D4C00F8CB0F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/localisation.strings; sourceTree = "<group>"; };
+		595A6AD422C69D7B00F8CB0F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/localisation.strings; sourceTree = "<group>"; };
+		595A6AD522C69DC700F8CB0F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		595A6AD622C69DC800F8CB0F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/localisation.strings; sourceTree = "<group>"; };
+		595A6AD722C69DD100F8CB0F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		595A6AD822C69DD100F8CB0F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/localisation.strings; sourceTree = "<group>"; };
+		595A6AD922C69DDB00F8CB0F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		595A6ADA22C69DDB00F8CB0F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/localisation.strings; sourceTree = "<group>"; };
 		5982227D20BEA49D00E7FD58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5985D5C2227C5C88002D9627 /* DecoderStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderStructs.swift; sourceTree = "<group>"; };
 		5985D5C4227C5DEC002D9627 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
@@ -186,6 +196,7 @@
 				59A37E9B20BD50AA0050E48D /* AppDelegate.swift */,
 				59A37EA420BD50AD0050E48D /* Assets.xcassets */,
 				59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */,
+				595A6AD322C69D4C00F8CB0F /* localisation.strings */,
 				59A37EA920BD50AD0050E48D /* Info.plist */,
 				5996962820CBD157000925BA /* Main.storyboard */,
 				59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */,
@@ -296,6 +307,10 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				fr,
+				sv,
+				pl,
 			);
 			mainGroup = 59A37E8F20BD50AA0050E48D;
 			productRefGroup = 59A37E9920BD50AA0050E48D /* Products */;
@@ -312,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				595A6AD122C69D4C00F8CB0F /* localisation.strings in Resources */,
 				59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */,
 				59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */,
 				59CDFEAE22A3D82600B6EA5F /* Settings.bundle in Resources */,
@@ -358,10 +374,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		595A6AD322C69D4C00F8CB0F /* localisation.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				595A6AD222C69D4C00F8CB0F /* en */,
+				595A6AD422C69D7B00F8CB0F /* de */,
+				595A6AD622C69DC800F8CB0F /* fr */,
+				595A6AD822C69DD100F8CB0F /* sv */,
+				595A6ADA22C69DDB00F8CB0F /* pl */,
+			);
+			name = localisation.strings;
+			sourceTree = "<group>";
+		};
 		59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				59A37EA720BD50AD0050E48D /* Base */,
+				595A6ACE22C6978700F8CB0F /* de */,
+				595A6AD522C69DC700F8CB0F /* fr */,
+				595A6AD722C69DD100F8CB0F /* sv */,
+				595A6AD922C69DDB00F8CB0F /* pl */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -373,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -433,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -500,7 +534,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -521,7 +555,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

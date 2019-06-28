@@ -272,7 +272,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         let actionSheet = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
         
         //define the actions
-        let allAction = UIAlertAction(title: "All schools", style: .default, handler: {
+        let allAction = UIAlertAction(title: NSLocalizedString("ALL SCHOOLS", comment: "All schools"), style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 0
             self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
