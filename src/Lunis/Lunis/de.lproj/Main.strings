@@ -1,0 +1,114 @@
+
+/* Class = "UIBarButtonItem"; title = "Filter"; ObjectID = "4CS-Vg-KfL"; */
+"4CS-Vg-KfL.title" = "Filter";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "6B5-nD-NLK"; */
+"6B5-nD-NLK.title" = "Titel";
+
+/* Class = "UIBarButtonItem"; title = "Position"; ObjectID = "6f5-8z-3D8"; */
+"6f5-8z-3D8.title" = "Position";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "78Z-Lm-2L1"; */
+"78Z-Lm-2L1.text" = "Titel";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "7PV-uL-pI2"; */
+"7PV-uL-pI2.text" = "Titel";
+
+/* Class = "UINavigationItem"; title = "Map"; ObjectID = "AHo-GK-Zb1"; */
+"AHo-GK-Zb1.title" = "Karte";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "BLj-eM-hg8"; */
+"BLj-eM-hg8.text" = "Detail";
+
+/* Class = "UIBarButtonItem"; title = "Favorite"; ObjectID = "Cc6-Hb-o95"; */
+"Cc6-Hb-o95.title" = "Favorit";
+
+/* Class = "UINavigationItem"; title = "School"; ObjectID = "CvM-Vk-1Ib"; */
+"CvM-Vk-1Ib.title" = "Schule";
+
+/* Class = "UIBarButtonItem"; title = "Map"; ObjectID = "HAv-MQ-ohG"; */
+"HAv-MQ-ohG.title" = "Karte";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Hyc-5u-KKO"; */
+"Hyc-5u-KKO.text" = "Detail";
+
+/* Class = "UINavigationItem"; title = "Filter"; ObjectID = "Nj8-LN-uEp"; */
+"Nj8-LN-uEp.title" = "Filter";
+
+/* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[0] = "List"; ObjectID = "OT0-H3-uwP"; */
+"OT0-H3-uwP.segmentTitles[0]" = "Liste";
+
+/* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[1] = "Map"; ObjectID = "OT0-H3-uwP"; */
+"OT0-H3-uwP.segmentTitles[1]" = "Karte";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Oyu-mh-Ex7"; */
+"Oyu-mh-Ex7.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Schools"; ObjectID = "QqT-Rz-Qud"; */
+"QqT-Rz-Qud.title" = "Schule";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "RKO-LS-ClU"; */
+"RKO-LS-ClU.text" = "Detail";
+
+/* Class = "UINavigationItem"; title = "Schools"; ObjectID = "RXP-bK-5he"; */
+"RXP-bK-5he.title" = "Schulen";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "RiH-Sa-GqU"; */
+"RiH-Sa-GqU.text" = "Titel";
+
+/* Class = "UINavigationItem"; title = "Reachability"; ObjectID = "TBH-cI-cwt"; */
+"TBH-cI-cwt.title" = "Erreichbarkeit";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "TaJ-ou-tRr"; */
+"TaJ-ou-tRr.title" = "Item";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "WSB-ji-DjC"; */
+"WSB-ji-DjC.text" = "Titel";
+
+/* Class = "UITableViewController"; title = "Distances"; ObjectID = "X8H-XW-Cql"; */
+"X8H-XW-Cql.title" = "Distanzen";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "XJY-35-cBx"; */
+"XJY-35-cBx.text" = "Titel";
+
+/* Class = "UINavigationItem"; title = "Download"; ObjectID = "c1N-bU-kcp"; */
+"c1N-bU-kcp.title" = "Download";
+
+/* Class = "UIViewController"; title = "Filter"; ObjectID = "dnY-6G-GLr"; */
+"dnY-6G-GLr.title" = "Filter";
+
+/* Class = "UIBarButtonItem"; title = "Select"; ObjectID = "duF-LL-Xto"; */
+"duF-LL-Xto.title" = "Auswählen";
+
+/* Class = "UIBarButtonItem"; title = "Hexa"; ObjectID = "eA3-R1-TQ0"; */
+"eA3-R1-TQ0.title" = "Hexa";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "kDN-c9-Wh5"; */
+"kDN-c9-Wh5.title" = "Karte";
+
+/* Class = "UIViewController"; title = "Reachability"; ObjectID = "kWY-g2-A8y"; */
+"kWY-g2-A8y.title" = "Erreichbarkeit";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "mxb-S2-C6I"; */
+"mxb-S2-C6I.text" = "Titel";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "nK6-Fv-8J3"; */
+"nK6-Fv-8J3.title" = "Item";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "oZA-06-7ie"; */
+"oZA-06-7ie.text" = "Detail";
+
+/* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[0] = "All"; ObjectID = "yFQ-10-ZLe"; */
+"yFQ-10-ZLe.segmentTitles[0]" = "Alle";
+
+/* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[1] = "Favourites"; ObjectID = "yFQ-10-ZLe"; */
+"yFQ-10-ZLe.segmentTitles[1]" = "Favoriten";
+
+/* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[2] = "Filtered"; ObjectID = "yFQ-10-ZLe"; */
+"yFQ-10-ZLe.segmentTitles[2]" = "Gefiltert";
+
+/* Class = "UITabBarItem"; title = "Schools"; ObjectID = "zSD-Yk-Vg8"; */
+"zSD-Yk-Vg8.title" = "Schulen";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "zu7-dV-qPx"; */
+"zu7-dV-qPx.text" = "Subtitle";

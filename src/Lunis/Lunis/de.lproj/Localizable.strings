@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  Lunis
+
+  Created by Christoph on 28.06.19.
+  Copyright © 2019 jagodki. All rights reserved.
+*/
+"ALL SCHOOLS" = "alle Schulen";
+"FAVOURITE SCHOOLS" = "favorisierte Schulen";
+"FILTERED SCHOOLS" = "gefilterte Schulen";
+"BACK" = "Zurück";
+"DONE" = "Fertig";
+"CANCEL" = "Abbrechen";
+"MAP CONTENT" = "Karteninhalt";
+"CHOOSE MAP CONTENT" = "Karteninhalt wählen";
+"POSITION IS NOT WITHIN THE RASTER" = "Position ist nicht innerhalb des Rasters";
+"VALUE FOR THIS POSITION CANNOT BE CALCULATED" = "Es kann kein Wert für diese Position berechnet werden.";
+"AVERAGE DISTANCE TO THE SCHOOL" = "durchschnittliche Entfernung zur Schule";
+"INFO" = "Info";
+"LOCATION SERVICES ARE NOT ENABLED. YOUR LOCATION CANNOT BE SHOWN IN THE MAP." = "Positionsdienste sind nicht aktiviert. Deine Position kann nicht auf der Karte angezeigt werden.";
+"GO TO SETTINGS NOW" = "Einstellungen öffnen";
+"LOADING DATA" = "lade Daten";
+"LOG INTO ICLOUD ON YOUR DEVICE." = "Melde dich bei iCloud auf deinem Gerät an.";
+"DISMISS" = "Schließen";
+"FETCH FAILED" = "Datenabruf fehlgeschlagen";
+"THERE WAS A PROBLEM FETCHING THE SCHOOLS; PLEASE TRY AGAIN LATER:" = "Es gab ein Problem beim Abruf der Schuldaten; bitte später erneut probieren:";
+"THERE WAS A PROBLEM FETCHING THE GRID; PLEASE TRY AGAIN LATER:" = "Es gab ein Problem beim Abruf des Rasters; bitte später erneut probieren:";
+"SEARCH FOR SCHOOLS" = "Suche nach Schulen";
+"SEARCH FOR CITIES" = "Suche nach Städten";
+"SEARCHING FOR UPDATES" = "suche nach Updates";

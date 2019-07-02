@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  Lunis
+
+  Created by Christoph on 28.06.19.
+  Copyright © 2019 jagodki. All rights reserved.
+*/
+"ALL SCHOOLS" = "Toutes les écoles";
+"FAVOURITE SCHOOLS" = "Écoles favoritées";
+"FILTERED SCHOOLS" = "Écoles filtrées";
+"BACK" = "Retour";
+"DONE" = "Fait";
+"CANCEL" = "Annuler";
+"MAP CONTENT" = "Contenu de la Carte";
+"CHOOSE MAP CONTENT" = "Choisir le contenu de la carte";
+"POSITION IS NOT WITHIN THE RASTER" = "Position n'est pas dans la trame";
+"VALUE FOR THIS POSITION CANNOT BE CALCULATED" = "La valeur pour cette position ne peut être calculée";
+"AVERAGE DISTANCE TO THE SCHOOL" = "Distance moyenne de l'école";
+"INFO" = "Info";
+"LOCATION SERVICES ARE NOT ENABLED. YOUR LOCATION CANNOT BE SHOWN IN THE MAP." = "Les services de localisation ne sont pas activés. Votre position ne peut pas être affichée sur la carte.";
+"GO TO SETTINGS NOW" = "Aller aux menu des paramètres";
+"LOADING DATA" = "données de chargement";
+"LOG INTO ICLOUD ON YOUR DEVICE." = "Connectez-vous à iCloud sur votre appareil.";
+"DISMISS" = "Abandonner";
+"FETCH FAILED" = "téléchargement échoué";
+"THERE WAS A PROBLEM FETCHING THE SCHOOLS; PLEASE TRY AGAIN LATER:" = "Il y a eu un problème pour télécharger les écoles; veuillez réessayer plus tard:";
+"THERE WAS A PROBLEM FETCHING THE GRID; PLEASE TRY AGAIN LATER:" = "Il y a eu un problème pour télécharger la trame; veuillez réessayer plus tard:";
+"SEARCH FOR SCHOOLS" = "Recherche des écoles";
+"SEARCH FOR CITIES" = "Recherche des villes";
+"SEARCHING FOR UPDATES" = "searching for updates";

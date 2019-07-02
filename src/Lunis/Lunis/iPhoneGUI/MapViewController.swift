@@ -96,7 +96,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.ckController.mapDelegate = self
         
         if UserDefaults.standard.bool(forKey: "update") && UserDefaults.standard.bool(forKey: "initialView") {
-            LoadingIndicator.show(loadingText: "searching for updates", colour: #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1), alpha: 1)
+            LoadingIndicator.show(loadingText: NSLocalizedString("", comment: "SEARCHING FOR UPDATES"), colour: #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1), alpha: 1)
             UserDefaults.standard.set(false, forKey: "initialView")
             self.updateData()
         }
@@ -269,10 +269,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     ///
     /// - Parameter sender: any
     @IBAction func selectMapContent(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "Map Content", message: "Choose Map Content", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: NSLocalizedString("MAP CONTENT", comment: ""), message: NSLocalizedString("CHOOSE MAP CONTENT", comment: ""), preferredStyle: .actionSheet)
         
         //define the actions
-        let allAction = UIAlertAction(title: NSLocalizedString("ALL SCHOOLS", comment: "All schools"), style: .default, handler: {
+        let allAction = UIAlertAction(title: NSLocalizedString("ALL SCHOOLS", comment: ""), style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 0
             self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
