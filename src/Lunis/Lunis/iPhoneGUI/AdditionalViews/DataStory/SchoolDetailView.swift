@@ -46,26 +46,26 @@ class SchoolDetailView: UITableViewController {
         self.updateFavoriteButton()
         
         //init the table data array
-        let rowName = SchoolDetailRow(title: "Name", value: self.school.schoolName!)
-        let rowStreet = SchoolDetailRow(title: "Street", value: self.school.street! + " " + self.school.number!)
-        let rowCity = SchoolDetailRow(title: "City", value: self.school.postalCode! + " - " + self.school.city!)
-        let groupAdress = SchoolDetailGroup(title: "Adress", rows: [rowName, rowStreet, rowCity])
+        let rowName = SchoolDetailRow(title: NSLocalizedString("NAME", comment: ""), value: self.school.schoolName!)
+        let rowStreet = SchoolDetailRow(title: NSLocalizedString("STREET", comment: ""), value: self.school.street! + " " + self.school.number!)
+        let rowCity = SchoolDetailRow(title: NSLocalizedString("CITY", comment: ""), value: self.school.postalCode! + " - " + self.school.city!)
+        let groupAdress = SchoolDetailGroup(title: NSLocalizedString("ADRESS", comment: ""), rows: [rowName, rowStreet, rowCity])
         
-        let rowType = SchoolDetailRow(title: "Type", value: self.school.schoolType!)
-        let rowProfile = SchoolDetailRow(title: "Profile", value: self.school.schoolSpecialisation!)
-        let groupSchoolType = SchoolDetailGroup(title: "School Type", rows: [rowType, rowProfile])
+        let rowType = SchoolDetailRow(title: NSLocalizedString("TYPE", comment: ""), value: self.school.schoolType!)
+        let rowProfile = SchoolDetailRow(title: NSLocalizedString("PROFILE", comment: ""), value: self.school.schoolSpecialisation!)
+        let groupSchoolType = SchoolDetailGroup(title: NSLocalizedString("SCHOOL TYPE", comment: ""), rows: [rowType, rowProfile])
         
-        let rowPhone = SchoolDetailRow(title: "Phone", value: self.school.phone!)
-        let rowMail = SchoolDetailRow(title: "Mail", value: self.school.mail!)
-        let rowHomepage = SchoolDetailRow(title: "Homepage", value: self.school.website!)
-        let groupContact = SchoolDetailGroup(title: "Contact", rows: [rowPhone, rowMail, rowHomepage])
+        let rowPhone = SchoolDetailRow(title: NSLocalizedString("PHONE", comment: ""), value: self.school.phone!)
+        let rowMail = SchoolDetailRow(title: NSLocalizedString("MAIL", comment: ""), value: self.school.mail!)
+        let rowHomepage = SchoolDetailRow(title: NSLocalizedString("HOMEPAGE", comment: ""), value: self.school.website!)
+        let groupContact = SchoolDetailGroup(title: NSLocalizedString("CONTACT", comment: ""), rows: [rowPhone, rowMail, rowHomepage])
         
-        let rowWiki = SchoolDetailRow(title: "Wikipedia", value: self.school.wikipedia!)
-        let rowAgency = SchoolDetailRow(title: "Agency", value: self.school.agency!)
-        let groupOther = SchoolDetailGroup(title: "Other", rows: [rowWiki, rowAgency])
+        let rowWiki = SchoolDetailRow(title: NSLocalizedString("WIKIPEDIA", comment: ""), value: self.school.wikipedia!)
+        let rowAgency = SchoolDetailRow(title: NSLocalizedString("AGENCY", comment: ""), value: self.school.agency!)
+        let groupOther = SchoolDetailGroup(title: NSLocalizedString("OTHER", comment: ""), rows: [rowWiki, rowAgency])
         
-        let rowReachability = SchoolDetailRow(title: "Reachability", value: "show reachability of this school")
-        let groupReachability = SchoolDetailGroup(title: "Reachability", rows: [rowReachability])
+        let rowReachability = SchoolDetailRow(title: NSLocalizedString("REACHABILITY", comment: ""), value: NSLocalizedString("SHOW REACHABILITY OF THIS SCHOOL", comment: ""))
+        let groupReachability = SchoolDetailGroup(title: NSLocalizedString("REACHABILITY", comment: ""), rows: [rowReachability])
         
         self.tableData = [groupAdress, groupSchoolType, groupContact, groupOther, groupReachability]
         self.tableView.sizeToFit()
@@ -94,18 +94,16 @@ class SchoolDetailView: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return self.tableData.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.tableData[section].rows.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //check, which kind of cell prototype should be used
-        guard self.tableData[indexPath.section].title != "Reachability" else {
+        guard self.tableData[indexPath.section].title != NSLocalizedString("REACHABILITY", comment: "") else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "schoolReachabilityCell", for: indexPath)
             cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
             return cell
@@ -134,7 +132,7 @@ class SchoolDetailView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard self.tableData[section].title != "Reachability" else {
+        guard self.tableData[section].title != NSLocalizedString("REACHABILITY", comment: "") else {
             return ""
         }
         return self.tableData[section].title
@@ -157,19 +155,19 @@ class SchoolDetailView: UITableViewController {
         
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
-            case "Phone":
+            case NSLocalizedString("PHONE", comment: ""):
                 let cleanedUpNumber = self.tableData[indexPath.section].rows[indexPath.row].value.unicodeScalars.filter({CharacterSet.decimalDigits.contains($0)})
                 UIApplication.shared.open(URL(string: "telprompt://" + String(cleanedUpNumber))!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
-            case "Mail":
+            case NSLocalizedString("MAIL", comment: ""):
                 let cleanedUpMail = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                 UIApplication.shared.open(URL(string: "mailto://" + cleanedUpMail!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
-            case "Homepage":
+            case NSLocalizedString("HOMEPAGE", comment: ""):
                 let cleanedUpHomepage = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                 UIApplication.shared.open(URL(string: cleanedUpHomepage!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
-            case "Wikipedia":
+            case NSLocalizedString("WIKIPEDIA", comment: ""):
                 let cleanedUpWikipedia = self.tableData[indexPath.section].rows[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                 UIApplication.shared.open(URL(string: cleanedUpWikipedia!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             

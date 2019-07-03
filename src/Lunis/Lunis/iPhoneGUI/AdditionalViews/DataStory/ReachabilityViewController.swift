@@ -76,12 +76,12 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
     
     /// This function show an alert, if location services are disabled for this app.
     func showEnableLocationAlert() {
-        let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertAction.Style.default, handler: {
+        let alert = UIAlertController(title: NSLocalizedString("INFO", comment: ""), message: NSLocalizedString("LOCATION SERVICES ARE NOT ENABLED. YOUR LOCATION CANNOT BE SHOWN IN THE MAP.", comment: ""), preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("GO TO SETTINGS NOW", comment: ""), style: UIAlertAction.Style.default, handler: {
             (alert: UIAlertAction!) in
             UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -125,12 +125,12 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
         //get the distance to the tapped position
         let distanceAtPosition = self.school.administration?.grid?.cellValue(at: locationCoordinate, for: Int(self.school.localID))
         if distanceAtPosition == -99.9 {
-            annotation.title = "Position is not within the raster"
+            annotation.title = NSLocalizedString("POSITION IS NOT WITHIN THE RASTER", comment: "")
         } else if distanceAtPosition == -99 {
-            annotation.title = "Value for this position cannot be calculated"
+            annotation.title = NSLocalizedString("VALUE FOR THIS POSITION CANNOT BE CALCULATED", comment: "")
         } else {
             annotation.title = String(format: "%.0f m", distanceAtPosition!)
-            annotation.subtitle = "Average distance to the school"
+            annotation.subtitle = NSLocalizedString("AVERAGE DISTANCE TO THE SCHOOL", comment: "")
         }
         
         //add the annonation to the map and select it, i.e. show the callout
@@ -197,7 +197,7 @@ extension ReachabilityViewController: MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.animatesDrop = true
-            pinView!.pinTintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+            pinView!.pinTintColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
         else {
             pinView!.annotation = annotation

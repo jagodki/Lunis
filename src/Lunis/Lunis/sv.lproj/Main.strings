@@ -3,112 +3,112 @@
 "4CS-Vg-KfL.title" = "Filter";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "6B5-nD-NLK"; */
-"6B5-nD-NLK.title" = "Title";
+"6B5-nD-NLK.title" = "Titel";
 
 /* Class = "UIBarButtonItem"; title = "Position"; ObjectID = "6f5-8z-3D8"; */
 "6f5-8z-3D8.title" = "Position";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "78Z-Lm-2L1"; */
-"78Z-Lm-2L1.text" = "Title";
+"78Z-Lm-2L1.text" = "Titel";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "7PV-uL-pI2"; */
-"7PV-uL-pI2.text" = "Title";
+"7PV-uL-pI2.text" = "Titel";
 
 /* Class = "UINavigationItem"; title = "Map"; ObjectID = "AHo-GK-Zb1"; */
-"AHo-GK-Zb1.title" = "Map";
+"AHo-GK-Zb1.title" = "Karta";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "BLj-eM-hg8"; */
-"BLj-eM-hg8.text" = "Detail";
+"BLj-eM-hg8.text" = "Detalj";
 
 /* Class = "UIBarButtonItem"; title = "Favorite"; ObjectID = "Cc6-Hb-o95"; */
-"Cc6-Hb-o95.title" = "Favorite";
+"Cc6-Hb-o95.title" = "Favorit";
 
 /* Class = "UINavigationItem"; title = "School"; ObjectID = "CvM-Vk-1Ib"; */
-"CvM-Vk-1Ib.title" = "School";
+"CvM-Vk-1Ib.title" = "Skola";
 
 /* Class = "UIBarButtonItem"; title = "Map"; ObjectID = "HAv-MQ-ohG"; */
-"HAv-MQ-ohG.title" = "Map";
+"HAv-MQ-ohG.title" = "Karta";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Hyc-5u-KKO"; */
-"Hyc-5u-KKO.text" = "Detail";
+"Hyc-5u-KKO.text" = "Detalj";
 
 /* Class = "UINavigationItem"; title = "Filter"; ObjectID = "Nj8-LN-uEp"; */
 "Nj8-LN-uEp.title" = "Filter";
 
 /* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[0] = "List"; ObjectID = "OT0-H3-uwP"; */
-"OT0-H3-uwP.segmentTitles[0]" = "List";
+"OT0-H3-uwP.segmentTitles[0]" = "Lista";
 
 /* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[1] = "Map"; ObjectID = "OT0-H3-uwP"; */
-"OT0-H3-uwP.segmentTitles[1]" = "Map";
+"OT0-H3-uwP.segmentTitles[1]" = "Karta";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Oyu-mh-Ex7"; */
-"Oyu-mh-Ex7.title" = "Item";
+"Oyu-mh-Ex7.title" = "Objekt";
 
 /* Class = "UIBarButtonItem"; title = "Schools"; ObjectID = "QqT-Rz-Qud"; */
-"QqT-Rz-Qud.title" = "Schools";
+"QqT-Rz-Qud.title" = "Skolor";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "RKO-LS-ClU"; */
-"RKO-LS-ClU.text" = "Detail";
+"RKO-LS-ClU.text" = "Detalj";
 
 /* Class = "UINavigationItem"; title = "Schools"; ObjectID = "RXP-bK-5he"; */
-"RXP-bK-5he.title" = "Schools";
+"RXP-bK-5he.title" = "Skolor";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "RiH-Sa-GqU"; */
-"RiH-Sa-GqU.text" = "Title";
+"RiH-Sa-GqU.text" = "Titel";
 
 /* Class = "UINavigationItem"; title = "Reachability"; ObjectID = "TBH-cI-cwt"; */
-"TBH-cI-cwt.title" = "Reachability";
+"TBH-cI-cwt.title" = "Nåbarhet";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "TaJ-ou-tRr"; */
-"TaJ-ou-tRr.title" = "Item";
+"TaJ-ou-tRr.title" = "Objekt";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "WSB-ji-DjC"; */
-"WSB-ji-DjC.text" = "Title";
+"WSB-ji-DjC.text" = "Titel";
 
 /* Class = "UITableViewController"; title = "Distances"; ObjectID = "X8H-XW-Cql"; */
-"X8H-XW-Cql.title" = "Distances";
+"X8H-XW-Cql.title" = "Avstånd";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "XJY-35-cBx"; */
-"XJY-35-cBx.text" = "Title";
+"XJY-35-cBx.text" = "Titel";
 
 /* Class = "UINavigationItem"; title = "Download"; ObjectID = "c1N-bU-kcp"; */
-"c1N-bU-kcp.title" = "Download";
+"c1N-bU-kcp.title" = "Nedladdning";
 
 /* Class = "UIViewController"; title = "Filter"; ObjectID = "dnY-6G-GLr"; */
 "dnY-6G-GLr.title" = "Filter";
 
 /* Class = "UIBarButtonItem"; title = "Select"; ObjectID = "duF-LL-Xto"; */
-"duF-LL-Xto.title" = "Select";
+"duF-LL-Xto.title" = "Utvälja";
 
 /* Class = "UIBarButtonItem"; title = "Hexa"; ObjectID = "eA3-R1-TQ0"; */
 "eA3-R1-TQ0.title" = "Hexa";
 
 /* Class = "UITabBarItem"; title = "Map"; ObjectID = "kDN-c9-Wh5"; */
-"kDN-c9-Wh5.title" = "Map";
+"kDN-c9-Wh5.title" = "Karta";
 
 /* Class = "UIViewController"; title = "Reachability"; ObjectID = "kWY-g2-A8y"; */
-"kWY-g2-A8y.title" = "Reachability";
+"kWY-g2-A8y.title" = "Nåbarhet";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "mxb-S2-C6I"; */
-"mxb-S2-C6I.text" = "Title";
+"mxb-S2-C6I.text" = "Titel";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "nK6-Fv-8J3"; */
-"nK6-Fv-8J3.title" = "Item";
+"nK6-Fv-8J3.title" = "Objekt";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "oZA-06-7ie"; */
-"oZA-06-7ie.text" = "Detail";
+"oZA-06-7ie.text" = "Detalj";
 
 /* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[0] = "All"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[0]" = "All";
+"yFQ-10-ZLe.segmentTitles[0]" = "Alla";
 
 /* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[1] = "Favourites"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[1]" = "Favourites";
+"yFQ-10-ZLe.segmentTitles[1]" = "Favoriter";
 
 /* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[2] = "Filtered"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[2]" = "Filtered";
+"yFQ-10-ZLe.segmentTitles[2]" = "Filtrerad";
 
 /* Class = "UITabBarItem"; title = "Schools"; ObjectID = "zSD-Yk-Vg8"; */
-"zSD-Yk-Vg8.title" = "Schools";
+"zSD-Yk-Vg8.title" = "Skolor";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "zu7-dV-qPx"; */
-"zu7-dV-qPx.text" = "Subtitle";
+"zu7-dV-qPx.text" = "Subtitel";

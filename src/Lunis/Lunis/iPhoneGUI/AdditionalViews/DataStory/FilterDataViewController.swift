@@ -24,11 +24,11 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     //table data
     var tableData = [
         Section(title: " ", rows: [
-            Row(name: "Country", value: "All"),
-            Row(name: "District", value: "All"),
-            Row(name: "City", value: "All"),
-            Row(name: "School Type", value: "All"),
-            Row(name: "Agency", value: "All")
+            Row(name: "COUNTRY", value: "All"),
+            Row(name: "DISTRICT", value: "All"),
+            Row(name: "CITY", value: "All"),
+            Row(name: "SCHOOL TYPE", value: "All"),
+            Row(name: "AGENCY", value: "All")
 //            Row(name: "School Profile", value: "All")
         ])
     ]
@@ -36,11 +36,11 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - instance variables
     
     //array for storing picker data
-    var countryData: [String]! = ["All", "Deutschland", "Polska"]
-    var districtData: [String]! = ["All", "Sachsen", "Dolnoslaskie"]
-    var cityData: [String]! = ["All", "Dresden", "Radebeul", "Breslau"]
-    var schoolTypeData: [String]! = ["All", "Grundschule", "Gymnasium", "Hochschule"]
-    var agencyData: [String]! = ["All", "Stadt Radebeul", "Freistaat Sachsen"]
+    var countryData: [String]! = []
+    var districtData: [String]! = []
+    var cityData: [String]! = []
+    var schoolTypeData: [String]! = []
+    var agencyData: [String]! = []
 //    var schoolProfileData: [String]! = ["All", "künstlerisch", "naturwissenschaftlich"]
     var pickerData: [String]! = ["---"]
     
@@ -101,11 +101,11 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         return 1
     }
     
+    // MARK: - table view implementation
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableData.count
     }
-    
-    // MARK: - table view implementation
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableData[section].rows.count
@@ -115,7 +115,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "filterCell", for: indexPath)
         
         //set the text content
-        cell.textLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].name
+        cell.textLabel?.text = NSLocalizedString(self.tableData[indexPath.section].rows[indexPath.row].name, comment: "")
         cell.detailTextLabel?.text = self.tableData[indexPath.section].rows[indexPath.row].value
         
         //edit the text colours
@@ -126,7 +126,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.tableData[section].title
+        return NSLocalizedString(self.tableData[section].title, comment: "")
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -144,19 +144,19 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         
         //change the data for the picker
         switch cell?.textLabel?.text {
-            case "Country":
+            case NSLocalizedString("COUNTRY", comment: ""):
                 self.pickerData = self.countryData
                 self.pickerView.reloadAllComponents()
-            case "District":
+            case NSLocalizedString("DISTRICT", comment: ""):
                 self.pickerData = self.districtData
                 self.pickerView.reloadAllComponents()
-            case "City":
+            case NSLocalizedString("CITY", comment: ""):
                 self.pickerData = self.cityData
                 self.pickerView.reloadAllComponents()
-            case "School Type":
+            case NSLocalizedString("SCHOOL TYPE", comment: ""):
                 self.pickerData = self.schoolTypeData
                 self.pickerView.reloadAllComponents()
-            case "Agency":
+            case NSLocalizedString("AGENCY", comment: ""):
                 self.pickerData = self.agencyData
                 self.pickerView.reloadAllComponents()
 //            case "School Profile":

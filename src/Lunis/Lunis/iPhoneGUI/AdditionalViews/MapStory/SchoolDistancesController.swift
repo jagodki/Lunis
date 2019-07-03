@@ -64,7 +64,7 @@ class SchoolDistancesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "distances to the current position"
+        return NSLocalizedString("DISTANCES TO THE CURRENT POSITION", comment: "")
     }
 
     // MARK: - Navigation

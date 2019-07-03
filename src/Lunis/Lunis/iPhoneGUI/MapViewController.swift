@@ -61,7 +61,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         searchController = UISearchController(searchResultsController: self.searchResultsController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search for Schools"
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH FOR SCHOOLS", comment: "")
         searchController.searchBar.delegate = self
         //self.navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -243,12 +243,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     /// This function show an alert, whether location services are disabled for this app.
     func showEnableLocationAlert() {
-        let alert = UIAlertController(title: "Info", message: "Location Services are not enabled. Your location cannot be shown in the map.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Go to Settings now", style: UIAlertAction.Style.default, handler: {
+        let alert = UIAlertController(title: NSLocalizedString("INFO", comment: ""), message: NSLocalizedString("LOCATION SERVICES ARE NOT ENABLED. YOUR LOCATION CANNOT BE SHOWN IN THE MAP.", comment: ""), preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("GO TO SETTINGS NOW", comment: ""), style: UIAlertAction.Style.default, handler: {
             (alert: UIAlertAction!) in
             UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -278,24 +278,24 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
-        let favoritesAction = UIAlertAction(title: "Favourite schools", style: .default, handler: {
+        let favoritesAction = UIAlertAction(title: NSLocalizedString("FAVOURITE SCHOOLS", comment: ""), style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 1
             self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
-        let filteredAction = UIAlertAction(title: "Filtered schools", style: .default, handler: {
+        let filteredAction = UIAlertAction(title: NSLocalizedString("FILTERED SCHOOLS", comment: ""), style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.mapContent = 2
             self.reloadMapContent(removeOverlays: true, zoomToObjects: true)
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
         //add the checkmark to the current selection
-        let image = UIImage(named: "checkmark")
+        let image = #imageLiteral(resourceName: "checkmark")
         switch self.mapContent {
             case 0:
                 allAction.setValue(image, forKey: "image")

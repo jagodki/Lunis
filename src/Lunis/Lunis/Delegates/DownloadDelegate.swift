@@ -10,6 +10,11 @@ import UIKit
 
 protocol DownloadDelegate: AnyObject {
     
+    /// A function for downloading data.
+    ///
+    /// - Parameters:
+    ///   - schoolURL: the URL of a school file
+    ///   - gridURL: the URL of a grid file
     func downloadData(schoolURL: URL, gridURL: URL)
     
 }

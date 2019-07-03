@@ -149,7 +149,7 @@ class CloudKitController: NSObject {
             if err != nil {
                 print("queryCompletionBlock for schools error:", err ?? "")
                 
-                let ac = UIAlertController(title: "Fetch failed", message: "There was a problem fetching the schools; please try again: \(err!.localizedDescription)", preferredStyle: .alert)
+                let ac = UIAlertController(title: NSLocalizedString("FETCH FAILED", comment: ""), message: NSLocalizedString("THERE WAS A PROBLEM FETCHING THE SCHOOLS; PLEASE TRY AGAIN LATER:", comment: "") + " \(err!.localizedDescription)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
                 
                 guard let currentViewController = UIApplication.shared.keyWindow?.rootViewController else {
@@ -170,7 +170,7 @@ class CloudKitController: NSObject {
                     if err != nil {
                         print("queryCompletionBlock for the grid error:", err ?? "")
                         
-                        let ac = UIAlertController(title: "Fetch failed", message: "There was a problem fetching the grid; please try again: \(err!.localizedDescription)", preferredStyle: .alert)
+                        let ac = UIAlertController(title: NSLocalizedString("FETCH FAILED", comment: ""), message: NSLocalizedString("THERE WAS A PROBLEM FETCHING THE GRID; PLEASE TRY AGAIN LATER:", comment: "") + " \(err!.localizedDescription)", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default))
                         
                         guard let currentViewController = UIApplication.shared.keyWindow?.rootViewController else {

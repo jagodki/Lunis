@@ -1,114 +1,114 @@
 
-/* Class = "UIBarButtonItem"; title = "Filter"; ObjectID = "4CS-Vg-KfL"; */
-"4CS-Vg-KfL.title" = "Filter";
+/* Class = "UIBarButtonItem"; title = "Filtre"; ObjectID = "4CS-Vg-KfL"; */
+"4CS-Vg-KfL.title" = "Filtre";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "6B5-nD-NLK"; */
-"6B5-nD-NLK.title" = "Title";
+"6B5-nD-NLK.title" = "Titre";
 
 /* Class = "UIBarButtonItem"; title = "Position"; ObjectID = "6f5-8z-3D8"; */
 "6f5-8z-3D8.title" = "Position";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "78Z-Lm-2L1"; */
-"78Z-Lm-2L1.text" = "Title";
+"78Z-Lm-2L1.text" = "Titre";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "7PV-uL-pI2"; */
-"7PV-uL-pI2.text" = "Title";
+"7PV-uL-pI2.text" = "Titre";
 
 /* Class = "UINavigationItem"; title = "Map"; ObjectID = "AHo-GK-Zb1"; */
-"AHo-GK-Zb1.title" = "Map";
+"AHo-GK-Zb1.title" = "Carte";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "BLj-eM-hg8"; */
-"BLj-eM-hg8.text" = "Detail";
+"BLj-eM-hg8.text" = "Détail";
 
 /* Class = "UIBarButtonItem"; title = "Favorite"; ObjectID = "Cc6-Hb-o95"; */
-"Cc6-Hb-o95.title" = "Favorite";
+"Cc6-Hb-o95.title" = "Favori";
 
 /* Class = "UINavigationItem"; title = "School"; ObjectID = "CvM-Vk-1Ib"; */
-"CvM-Vk-1Ib.title" = "School";
+"CvM-Vk-1Ib.title" = "École";
 
 /* Class = "UIBarButtonItem"; title = "Map"; ObjectID = "HAv-MQ-ohG"; */
-"HAv-MQ-ohG.title" = "Map";
+"HAv-MQ-ohG.title" = "Carte";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Hyc-5u-KKO"; */
-"Hyc-5u-KKO.text" = "Detail";
+"Hyc-5u-KKO.text" = "Détail";
 
-/* Class = "UINavigationItem"; title = "Filter"; ObjectID = "Nj8-LN-uEp"; */
-"Nj8-LN-uEp.title" = "Filter";
+/* Class = "UINavigationItem"; title = "Filtre"; ObjectID = "Nj8-LN-uEp"; */
+"Nj8-LN-uEp.title" = "Filtre";
 
 /* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[0] = "List"; ObjectID = "OT0-H3-uwP"; */
-"OT0-H3-uwP.segmentTitles[0]" = "List";
+"OT0-H3-uwP.segmentTitles[0]" = "Liste";
 
 /* Class = "UISegmentedControl"; OT0-H3-uwP.segmentTitles[1] = "Map"; ObjectID = "OT0-H3-uwP"; */
-"OT0-H3-uwP.segmentTitles[1]" = "Map";
+"OT0-H3-uwP.segmentTitles[1]" = "Carte";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Oyu-mh-Ex7"; */
-"Oyu-mh-Ex7.title" = "Item";
+"Oyu-mh-Ex7.title" = "Élément";
 
 /* Class = "UIBarButtonItem"; title = "Schools"; ObjectID = "QqT-Rz-Qud"; */
-"QqT-Rz-Qud.title" = "Schools";
+"QqT-Rz-Qud.title" = "Écoles";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "RKO-LS-ClU"; */
-"RKO-LS-ClU.text" = "Detail";
+"RKO-LS-ClU.text" = "Détail";
 
 /* Class = "UINavigationItem"; title = "Schools"; ObjectID = "RXP-bK-5he"; */
-"RXP-bK-5he.title" = "Schools";
+"RXP-bK-5he.title" = "Écoles";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "RiH-Sa-GqU"; */
-"RiH-Sa-GqU.text" = "Title";
+"RiH-Sa-GqU.text" = "Titre";
 
 /* Class = "UINavigationItem"; title = "Reachability"; ObjectID = "TBH-cI-cwt"; */
-"TBH-cI-cwt.title" = "Reachability";
+"TBH-cI-cwt.title" = "Accessibilité";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "TaJ-ou-tRr"; */
-"TaJ-ou-tRr.title" = "Item";
+"TaJ-ou-tRr.title" = "Élément";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "WSB-ji-DjC"; */
-"WSB-ji-DjC.text" = "Title";
+"WSB-ji-DjC.text" = "Titre";
 
 /* Class = "UITableViewController"; title = "Distances"; ObjectID = "X8H-XW-Cql"; */
-"X8H-XW-Cql.title" = "Distances";
+"X8H-XW-Cql.title" = "Téléchargement";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "XJY-35-cBx"; */
-"XJY-35-cBx.text" = "Title";
+"XJY-35-cBx.text" = "Titre";
 
 /* Class = "UINavigationItem"; title = "Download"; ObjectID = "c1N-bU-kcp"; */
-"c1N-bU-kcp.title" = "Download";
+"c1N-bU-kcp.title" = "Téléchargement";
 
-/* Class = "UIViewController"; title = "Filter"; ObjectID = "dnY-6G-GLr"; */
-"dnY-6G-GLr.title" = "Filter";
+/* Class = "UIViewController"; title = "Filtre"; ObjectID = "dnY-6G-GLr"; */
+"dnY-6G-GLr.title" = "Filtre";
 
 /* Class = "UIBarButtonItem"; title = "Select"; ObjectID = "duF-LL-Xto"; */
-"duF-LL-Xto.title" = "Select";
+"duF-LL-Xto.title" = "Choisir";
 
 /* Class = "UIBarButtonItem"; title = "Hexa"; ObjectID = "eA3-R1-TQ0"; */
 "eA3-R1-TQ0.title" = "Hexa";
 
 /* Class = "UITabBarItem"; title = "Map"; ObjectID = "kDN-c9-Wh5"; */
-"kDN-c9-Wh5.title" = "Map";
+"kDN-c9-Wh5.title" = "Carte";
 
 /* Class = "UIViewController"; title = "Reachability"; ObjectID = "kWY-g2-A8y"; */
-"kWY-g2-A8y.title" = "Reachability";
+"kWY-g2-A8y.title" = "Accessibilité";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "mxb-S2-C6I"; */
-"mxb-S2-C6I.text" = "Title";
+"mxb-S2-C6I.text" = "Titre";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "nK6-Fv-8J3"; */
-"nK6-Fv-8J3.title" = "Item";
+"nK6-Fv-8J3.title" = "Élément";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "oZA-06-7ie"; */
-"oZA-06-7ie.text" = "Detail";
+"oZA-06-7ie.text" = "Détail";
 
 /* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[0] = "All"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[0]" = "All";
+"yFQ-10-ZLe.segmentTitles[0]" = "Tous";
 
 /* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[1] = "Favourites"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[1]" = "Favourites";
+"yFQ-10-ZLe.segmentTitles[1]" = "Favoris";
 
-/* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[2] = "Filtered"; ObjectID = "yFQ-10-ZLe"; */
-"yFQ-10-ZLe.segmentTitles[2]" = "Filtered";
+/* Class = "UISegmentedControl"; yFQ-10-ZLe.segmentTitles[2] = "Filtreed"; ObjectID = "yFQ-10-ZLe"; */
+"yFQ-10-ZLe.segmentTitles[2]" = "Filtré";
 
 /* Class = "UITabBarItem"; title = "Schools"; ObjectID = "zSD-Yk-Vg8"; */
-"zSD-Yk-Vg8.title" = "Schools";
+"zSD-Yk-Vg8.title" = "Écoles";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "zu7-dV-qPx"; */
-"zu7-dV-qPx.text" = "Subtitle";
+"zu7-dV-qPx.text" = "Subtitre";

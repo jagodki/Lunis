@@ -43,7 +43,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
     //the refresh controller for the table view
     lazy var refreshController: UIRefreshControl = {
         let refreshController = UIRefreshControl()
-        refreshController.attributedTitle = NSAttributedString(string: "loading data")
+        refreshController.attributedTitle = NSAttributedString(string: NSLocalizedString("LOADING DATA", comment: ""))
         refreshController.addTarget(self, action: #selector(DownloadViewController.fetchData), for: UIControl.Event.valueChanged)
         return refreshController
     }()
@@ -78,15 +78,6 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
         self.mapView.showsScale = true
         self.mapView.showsCompass = true
         
-        //init the alert controller to show an activity indicator while fetching data from CloudKit
-//        self.alert = UIAlertController(title: "Fetching data", message: "please wait...", preferredStyle: .alert)
-//        let indicator = UIActivityIndicatorView(frame: self.alert.view.bounds)
-//        indicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        indicator.isUserInteractionEnabled = false
-//        indicator.startAnimating()
-//        indicator.style = .gray
-//        self.alert.view.addSubview(indicator)
-        
         //init the CloudKit controller
         self.ckController = (UIApplication.shared.delegate as! AppDelegate).cloudKitController
         self.ckController.ckDelegate = self
@@ -117,7 +108,7 @@ class DownloadViewController: UIViewController, UITableViewDelegate, UITableView
             let searchController = UISearchController(searchResultsController: self.resultsController)
             searchController.searchResultsUpdater = self as UISearchResultsUpdating
             searchController.obscuresBackgroundDuringPresentation = true
-            searchController.searchBar.placeholder = "Search Cities"
+            searchController.searchBar.placeholder = NSLocalizedString("SEARCH FOR CITIES", comment: "")
             super.navigationItem.searchController = searchController
             super.navigationItem.hidesSearchBarWhenScrolling = true
             definesPresentationContext = true
@@ -267,7 +258,7 @@ extension DownloadViewController: CloudKitDelegate {
     func errorUpdating(_ error: NSError) {
         let message: String
         if error.code == 1 {
-            message = "Log into iCloud on your device."
+            message = NSLocalizedString("LOG INTO ICLOUD ON YOUR DEVICE.", comment: "")
         } else {
             message = error.localizedDescription
         }
@@ -275,7 +266,7 @@ extension DownloadViewController: CloudKitDelegate {
                                                 message: message,
                                                 preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .default, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }
@@ -299,7 +290,7 @@ extension DownloadViewController: MKMapViewDelegate {
             pinView!.canShowCallout = true
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             pinView!.animatesDrop = false
-            pinView!.pinTintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+            pinView!.pinTintColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
         else {
             pinView!.annotation = annotation

@@ -14,10 +14,10 @@ import CoreData
 class DataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //strings for titles of gui elements
-    let buttonFavoriteUnmarkTitle = "Unmark as Favorite(s)"
-    let buttonFavoriteMarkTitle = "Mark as Favorite(s)"
-    let buttonSelectAllTitle = "Select All"
-    let buttonDeselectAllTitle = "Deselect All"
+    let buttonFavoriteUnmarkTitle = NSLocalizedString("UNMARK AS FAVOURITE", comment: "")
+    let buttonFavoriteMarkTitle = NSLocalizedString("MARK AS FAVOURITE", comment: "")
+    let buttonSelectAllTitle = NSLocalizedString("SELECT ALL", comment: "")
+    let buttonDeselectAllTitle = NSLocalizedString("DESELECT ALL", comment: "")
     
     
     // MARK: - Outlets
@@ -55,8 +55,8 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         //init the toolbar
-        self.buttonSelectAll = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(DataViewController.selectAllButtonPressed))
-        self.buttonFavorite = UIBarButtonItem(title: "Mark as Favoutrites", style: .plain, target: self, action: #selector(DataViewController.favoriteButtonPressed))
+        self.buttonSelectAll = UIBarButtonItem(title: self.buttonSelectAllTitle, style: .plain, target: self, action: #selector(DataViewController.selectAllButtonPressed))
+        self.buttonFavorite = UIBarButtonItem(title: self.buttonFavoriteMarkTitle, style: .plain, target: self, action: #selector(DataViewController.favoriteButtonPressed))
         self.toolBarSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         self.setToolbarItems([self.buttonSelectAll, self.toolBarSpace, self.buttonFavorite], animated: true)
         self.navigationController?.setToolbarHidden(true, animated: false)
@@ -71,7 +71,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         let searchController: UISearchController = UISearchController(searchResultsController: self.searchResultsController)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search for Schools"
+        searchController.searchBar.placeholder = NSLocalizedString("SEARCH FOR SCHOOLS", comment: "")
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
@@ -281,10 +281,10 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //update the edit select button depending on the editing status
         if self.tableView.isEditing {
-            self.buttonSelect.title = "Done"
+            self.buttonSelect.title = NSLocalizedString("DONE", comment: "")
             self.buttonSelect.style = .done
         } else {
-            self.buttonSelect.title = "Select"
+            self.buttonSelect.title = NSLocalizedString("SELECT", comment: "")
             self.buttonSelect.style = .plain
         }
     }
@@ -354,7 +354,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///   - animation: the animation for reloading the table row
     private func markFavorite(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
-        cell?.imageView?.image = UIImage(named: "favorite")
+        cell?.imageView?.image = #imageLiteral(resourceName: "favorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = true
         self.dataController.saveData()
         self.tableView.reloadRows(at: [indexPath], with: animation)
@@ -367,7 +367,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///   - animation: the animation for reloading the table row
     private func unmarkFavorite(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
         let cell = self.tableView.cellForRow(at: indexPath)
-        cell?.imageView?.image = UIImage(named: "no_favorite")
+        cell?.imageView?.image = #imageLiteral(resourceName: "unfavorite")
         self.fetchedResultsController?.object(at: indexPath).favorite = false
         self.dataController.saveData()
         self.tableView.reloadRows(at: [indexPath], with: animation)

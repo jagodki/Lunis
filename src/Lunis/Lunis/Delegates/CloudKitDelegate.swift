@@ -12,8 +12,12 @@ protocol CloudKitDelegate: AnyObject {
     
     func errorUpdating(_ error: NSError)
     
+    /// A function for updating a table model.
     func modelUpdated()
     
+    /// A function for updating a table
+    ///
+    /// - Parameter data: the data, that should be displazed in the table
     func updateTableData(with data: [CloudKitAdministrationSection])
     
 }

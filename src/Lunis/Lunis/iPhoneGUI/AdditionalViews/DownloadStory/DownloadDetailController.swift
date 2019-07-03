@@ -37,15 +37,15 @@ class DownloadDetailController: UITableViewController {
         self.cloudKitController.downloadDelegate = self
         
         //init the table data
-        let rowCity = DownloadDetailRow(title: "City", value: self.administration.city)
-        let rowRegion = DownloadDetailRow(title: "Region", value: self.administration.region)
-        let rowCountry = DownloadDetailRow(title: "Country", value: self.country)
-        let rowCount = DownloadDetailRow(title: "Schools", value: String(self.administration.countOfSchools))
-        let rowSource = DownloadDetailRow(title: "Source", value: self.administration.source)
+        let rowCity = DownloadDetailRow(title: NSLocalizedString("CITY", comment: ""), value: self.administration.city)
+        let rowRegion = DownloadDetailRow(title: NSLocalizedString("REGION", comment: ""), value: self.administration.region)
+        let rowCountry = DownloadDetailRow(title: NSLocalizedString("COUNTRY", comment: ""), value: self.country)
+        let rowCount = DownloadDetailRow(title: NSLocalizedString("SCHOOLS", comment: ""), value: String(self.administration.countOfSchools))
+        let rowSource = DownloadDetailRow(title: NSLocalizedString("SOURCE", comment: ""), value: self.administration.source)
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
         dateFormatter.timeStyle = DateFormatter.Style.short
-        let rowLastUpdate = DownloadDetailRow(title: "Last Update", value: dateFormatter.string(from: self.administration.lastUpdate))
+        let rowLastUpdate = DownloadDetailRow(title: NSLocalizedString("LAST UPDATE", comment: ""), value: dateFormatter.string(from: self.administration.lastUpdate))
         self.tableData = [rowCity, rowRegion, rowCountry, rowSource, rowCount, rowLastUpdate]
         
         //edit the right barbutton
@@ -73,7 +73,7 @@ class DownloadDetailController: UITableViewController {
         cell.textLabel?.text = self.tableData[indexPath.row].title
         cell.detailTextLabel?.text = self.tableData[indexPath.row].value
         
-        if self.tableData[indexPath.row].title.lowercased() == "source" {
+        if self.tableData[indexPath.row].title.lowercased() == NSLocalizedString("SOURCE", comment: "").lowercased() {
             cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
 
@@ -85,7 +85,7 @@ class DownloadDetailController: UITableViewController {
         
         //show a message dialog to ask the user, whether the phone number should be called or not
         switch cellType {
-        case "source":
+        case NSLocalizedString("SOURCE", comment: "").lowercased():
             let cleanedUpSource = self.tableData[indexPath.row].value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             UIApplication.shared.open(URL(string: cleanedUpSource!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             
@@ -120,7 +120,7 @@ class DownloadDetailController: UITableViewController {
     ///
     /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func saveData(sender: UIBarButtonItem) {
-        LoadingIndicator.show(loadingText: "downloading data, please wait...", colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
+        LoadingIndicator.show(loadingText: NSLocalizedString("DOWNLOADING DATA, PLEASE WAIT...", comment: ""), colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
         DispatchQueue.global(qos: .background).async {
             self.cloudKitController.fetchFileURLsFor(school: self.administration.schoolReference, grid: self.administration.gridReference)
         }
@@ -130,7 +130,7 @@ class DownloadDetailController: UITableViewController {
     ///
     /// - Parameter sender: a UIBarButtonItem, from which the function will be called
     @objc private func deleteData(sender: UIBarButtonItem) {
-        LoadingIndicator.show(loadingText: "deleting data, please wait...", colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
+        LoadingIndicator.show(loadingText: NSLocalizedString("DELETING DATA, PLEASE WAIT...", comment: ""), colour: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), alpha: 0.4)
         
         //get the administation from core data
         DispatchQueue.global(qos: .background).async {

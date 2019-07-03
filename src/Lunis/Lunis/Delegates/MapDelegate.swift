@@ -10,6 +10,7 @@ import UIKit
 
 protocol MapDelegate: AnyObject {
     
+    /// A function for loading new objects into a map.
     func loadMapObjects()
     
 }
