@@ -5,12 +5,13 @@
   Created by Christoph on 28.06.19.
   Copyright © 2019 jagodki. All rights reserved.
 */
-"ALL SCHOOLS" = "wszystkie szkoły";
-"FAVOURITE SCHOOLS" = "ulubione szkoły";
-"FILTERED SCHOOLS" = "szkoły filtrowane";
+"ALL SCHOOLS" = "Wszystkie Szkoły";
+"FAVOURITE SCHOOLS" = "Ulubione Szkoły";
+"FILTERED SCHOOLS" = "Szkoły Filtrowane";
 "BACK" = "Powrót";
 "DONE" = "Gotowe";
 "CANCEL" = "Anuluj";
+"SELECT" = "Wybierać";
 "MAP CONTENT" = "zawartość mapy";
 "CHOOSE MAP CONTENT" = "wybierz zawartość mapy";
 "POSITION IS NOT WITHIN THE RASTER" = "pozycja nie jest wewnątrz siatce";
@@ -27,4 +28,33 @@
 "THERE WAS A PROBLEM FETCHING THE GRID; PLEASE TRY AGAIN LATER:" = "Był problem z ściąganiem szkoły siatkę; proszę spróbuj ponownie później:";
 "SEARCH FOR SCHOOLS" = "Szukaj Szkół";
 "SEARCH FOR CITIES" = "Szukaj Miast";
-"SEARCHING FOR UPDATES" = "searching for updates";
+"SEARCHING FOR UPDATES" = "szukanie aktualizacji";
+"CITY" = "Miasto";
+"REGION" = "Rejon";
+"COUNTRY" = "Kraj";
+"SCHOOLS" = "Szkoły";
+"SOURCE" = "Źródło";
+"LAST UPDATE" = "Ostatnia Aktualizacja";
+"DOWNLOADING DATA, PLEASE WAIT..." = "pobieranie danych. proszę czekać...";
+"DELETING DATA, PLEASE WAIT..." = "usuwanie danych, proszę czekać...";
+"DISTRICT" = "Powiat";
+"SCHOOL TYPE" = "Rodzaj Szkoły";
+"AGENCY" = "Urząd";
+"NAME" = "Nazwa";
+"STREET" = "Ulica";
+"ADRESS" = "Adres";
+"TYPE" = "Rodzaj";
+"PROFILE" = "Profil";
+"PHONE" = "Telefon";
+"MAIL" = "Mail";
+"HOMEPAGE" = "Strona Internetowa";
+"CONTACT" = "Kontakt";
+"WIKIPEDIA" = "Wikipedia";
+"OTHER" = "Inne";
+"REACHABILITY" = "Osiągalność";
+"SHOW REACHABILITY OF THIS SCHOOL" = "pokaż osiągalność tej szkoły";
+"DISTANCES TO THE CURRENT POSITION" = "odległości do aktualnej pozycji";
+"UNMARK AS FAVOURITE" = "Nieoznaczenie jako Ulubione";
+"MARK AS FAVOURITE" = "Oznaczenie jako Ulubione";
+"SELECT ALL" = "Wybierać Wszystko";
+"DESELECT ALL" = "Odzyskać Wszystko";

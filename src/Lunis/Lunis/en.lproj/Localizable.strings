@@ -6,8 +6,9 @@
   Copyright © 2019 jagodki. All rights reserved.
 */
 "ALL SCHOOLS" = "All Schools";
-"FAVOURITE SCHOOLS" = "Favourite schools";
-"FILTERED SCHOOLS" = "Filtered schools";
+"FAVOURITE SCHOOLS" = "Favourite Schools";
+"FILTERED SCHOOLS" = "Filtered Schools";
+"SELECT" = "Select";
 "BACK" = "Back";
 "DONE" = "Done";
 "CANCEL" = "Cancel";
