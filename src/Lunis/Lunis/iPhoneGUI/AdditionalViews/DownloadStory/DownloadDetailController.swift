@@ -74,7 +74,7 @@ class DownloadDetailController: UITableViewController {
         cell.detailTextLabel?.text = self.tableData[indexPath.row].value
         
         if self.tableData[indexPath.row].title.lowercased() == NSLocalizedString("SOURCE", comment: "").lowercased() {
-            cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+            cell.detailTextLabel?.textColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         }
 
         return cell

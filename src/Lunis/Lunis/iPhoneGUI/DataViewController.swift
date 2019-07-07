@@ -194,13 +194,13 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.markFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
-        markAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        markAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         
         let unmarkAsFavorite = UIContextualAction(style: .normal, title: "\u{2606}") {(action, view, completion) in
             self.unmarkFavorite(at: indexPath, with: UITableView.RowAnimation.right)
             completion(true)
         }
-        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        unmarkAsFavorite.backgroundColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         
         let showOnMap = UIContextualAction(style: .normal, title: "\u{2316}") {(action, view, completion) in
             //prepare the mapviewcontroller
@@ -219,7 +219,7 @@ class DataViewController: UIViewController, UITableViewDelegate, UITableViewData
             (self.parent?.parent as! UITabBarController).selectedIndex = 0
             completion(true)
         }
-        showOnMap.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+        showOnMap.backgroundColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         
         //create an array of actions, depending on the favorite status of the current row
         var actions: [UIContextualAction]

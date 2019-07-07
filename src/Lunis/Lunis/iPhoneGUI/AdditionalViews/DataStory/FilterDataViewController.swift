@@ -140,7 +140,7 @@ class FilterDataViewController: UIViewController, UITableViewDelegate, UITableVi
         self.currentCell = cell
         
         //adjust the colour of the detail text
-        cell?.detailTextLabel?.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        cell?.detailTextLabel?.textColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         
         //change the data for the picker
         switch cell?.textLabel?.text {

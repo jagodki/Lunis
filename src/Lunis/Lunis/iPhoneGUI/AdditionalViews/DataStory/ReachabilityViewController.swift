@@ -197,7 +197,7 @@ extension ReachabilityViewController: MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.animatesDrop = true
-            pinView!.pinTintColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+            pinView!.pinTintColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
         }
         else {
             pinView!.annotation = annotation

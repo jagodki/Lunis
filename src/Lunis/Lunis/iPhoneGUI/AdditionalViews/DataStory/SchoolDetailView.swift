@@ -124,7 +124,7 @@ class SchoolDetailView: UITableViewController {
         
         //change the colour of the strings for the contact section to indicate an action
         if indexPath.section == 2 || (indexPath.section == 3 && indexPath.row == 0) {
-            cell.detailTextLabel?.textColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+            cell.detailTextLabel?.textColor = #colorLiteral(red: 1, green: 0.3647058824, blue: 0, alpha: 1)
             cell.detailTextLabel?.lineBreakMode = .byTruncatingTail
         }
         

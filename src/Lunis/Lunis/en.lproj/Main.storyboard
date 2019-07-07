@@ -651,5 +651,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="mbt-tH-MEa"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="1" green="0.36470588235294116" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
