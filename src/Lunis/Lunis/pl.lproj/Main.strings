@@ -72,7 +72,7 @@
 "XJY-35-cBx.text" = "Tytuł";
 
 /* Class = "UINavigationItem"; title = "Download"; ObjectID = "c1N-bU-kcp"; */
-"c1N-bU-kcp.title" = "Ściąganie";
+"c1N-bU-kcp.title" = "Pobrane rzeczy";
 
 /* Class = "UIViewController"; title = "Filter"; ObjectID = "dnY-6G-GLr"; */
 "dnY-6G-GLr.title" = "Filtr";

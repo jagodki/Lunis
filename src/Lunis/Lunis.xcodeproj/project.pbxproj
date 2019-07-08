@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */; };
+		590FAFDE22D3BAEE002C3F3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 590FAFE022D3BAEE002C3F3C /* InfoPlist.strings */; };
 		591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591732A9227071A2007D4F61 /* CloudKitDelegate.swift */; };
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
@@ -45,6 +46,11 @@
 
 /* Begin PBXFileReference section */
 		590EE10621EEEE2B0049A95D /* lunis.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lunis.xcdatamodel; sourceTree = "<group>"; };
+		590FAFDF22D3BAEE002C3F3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		590FAFE122D3BAF8002C3F3C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		590FAFE222D3BAF9002C3F3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		590FAFE322D3BAFB002C3F3C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		590FAFE422D3BAFC002C3F3C /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		591732A9227071A2007D4F61 /* CloudKitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDelegate.swift; sourceTree = "<group>"; };
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +207,7 @@
 				59A37E9B20BD50AA0050E48D /* AppDelegate.swift */,
 				59A37EA420BD50AD0050E48D /* Assets.xcassets */,
 				59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */,
+				590FAFE022D3BAEE002C3F3C /* InfoPlist.strings */,
 				595A6AD322C69D4C00F8CB0F /* Localizable.strings */,
 				59A37EA920BD50AD0050E48D /* Info.plist */,
 				59EB36E122CBCF7C00F6F412 /* Main.storyboard */,
@@ -333,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				595A6AD122C69D4C00F8CB0F /* Localizable.strings in Resources */,
+				590FAFDE22D3BAEE002C3F3C /* InfoPlist.strings in Resources */,
 				59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */,
 				59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */,
 				59CDFEAE22A3D82600B6EA5F /* Settings.bundle in Resources */,
@@ -379,6 +387,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		590FAFE022D3BAEE002C3F3C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				590FAFDF22D3BAEE002C3F3C /* en */,
+				590FAFE122D3BAF8002C3F3C /* de */,
+				590FAFE222D3BAF9002C3F3C /* fr */,
+				590FAFE322D3BAFB002C3F3C /* sv */,
+				590FAFE422D3BAFC002C3F3C /* pl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		595A6AD322C69D4C00F8CB0F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

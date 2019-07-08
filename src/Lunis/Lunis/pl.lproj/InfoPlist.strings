@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  Lunis
+
+  Created by Christoph on 08.07.19.
+  Copyright © 2019 jagodki. All rights reserved.
+*/
+NSLocationWhenInUseUsageDescription = "Włącz usługi pozycyjne, aby pokazać swoją pozycję na mapie.";

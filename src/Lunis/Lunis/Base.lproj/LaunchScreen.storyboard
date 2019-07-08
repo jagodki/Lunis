@@ -17,26 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconPlain" translatesAutoresizingMaskIntoConstraints="NO" id="hsI-iA-BaE">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iconPlain" translatesAutoresizingMaskIntoConstraints="NO" id="hsI-iA-BaE">
                                 <rect key="frame" x="35" y="160" width="250" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsK-02-X2Z">
-                                <rect key="frame" x="125" y="418" width="70" height="36"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.36470588240000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.93725490570000003" green="0.34901961679999999" blue="0.1921568662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="hsI-iA-BaE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="Dlr-UW-6M5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hsI-iA-BaE" secondAttribute="bottom" constant="158" id="Dqe-QP-kT0"/>
-                            <constraint firstItem="VsK-02-X2Z" firstAttribute="centerX" secondItem="hsI-iA-BaE" secondAttribute="centerX" id="Zg5-Rg-mle"/>
-                            <constraint firstItem="hsI-iA-BaE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="dLx-h1-0MM"/>
-                            <constraint firstItem="hsI-iA-BaE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="daD-f3-RhR"/>
-                            <constraint firstItem="VsK-02-X2Z" firstAttribute="top" secondItem="hsI-iA-BaE" secondAttribute="bottom" constant="8" symbolic="YES" id="h5J-sa-hk9"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
