@@ -27,7 +27,6 @@
 		59A37E9E20BD50AA0050E48D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A37E9D20BD50AA0050E48D /* MapViewController.swift */; };
 		59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA420BD50AD0050E48D /* Assets.xcassets */; };
 		59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EA620BD50AD0050E48D /* LaunchScreen.storyboard */; };
-		59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */; };
 		59A37EB320BD52250050E48D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37EB220BD52250050E48D /* MapKit.framework */; };
 		59C674D121F18EC100353A53 /* School+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */; };
 		59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */; };
@@ -79,7 +78,6 @@
 		59A37EA420BD50AD0050E48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59A37EA720BD50AD0050E48D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59A37EA920BD50AD0050E48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		59A37EB220BD52250050E48D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		59C674CD21F18EC100353A53 /* School+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "School+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59C674CF21F18EC100353A53 /* Administration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Administration+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 				595A6AD322C69D4C00F8CB0F /* Localizable.strings */,
 				59A37EA920BD50AD0050E48D /* Info.plist */,
 				59EB36E122CBCF7C00F6F412 /* Main.storyboard */,
-				59A37EAF20BD51610050E48D /* Storyboard_iPad.storyboard */,
 				59CDFEAD22A3D82600B6EA5F /* Settings.bundle */,
 			);
 			path = Lunis;
@@ -344,7 +341,6 @@
 				59A37EA820BD50AD0050E48D /* LaunchScreen.storyboard in Resources */,
 				59A37EA520BD50AD0050E48D /* Assets.xcassets in Resources */,
 				59CDFEAE22A3D82600B6EA5F /* Settings.bundle in Resources */,
-				59A37EB020BD51610050E48D /* Storyboard_iPad.storyboard in Resources */,
 				59EB36DF22CBCF7C00F6F412 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
