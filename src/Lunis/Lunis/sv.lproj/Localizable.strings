@@ -34,8 +34,8 @@
 "SCHOOLS" = "Skolor";
 "SOURCE" = "Källa";
 "LAST UPDATE" = "Senaste Uppdateringen";
-"DOWNLOADING DATA, PLEASE WAIT..." = "ladda ner data, var god vänta...";
-"DELETING DATA, PLEASE WAIT..." = "radera data, please wait...";
+"DOWNLOADING DATA, PLEASE WAIT..." = "var god vänta...";
+"DELETING DATA, PLEASE WAIT..." = "var god vänta...";
 "DISTRICT" = "Distrikt";
 "SCHOOL TYPE" = "Skolslag";
 "AGENCY" = "Myndighet";

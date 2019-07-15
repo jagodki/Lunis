@@ -35,8 +35,8 @@
 "SCHOOLS" = "Szkoły";
 "SOURCE" = "Źródło";
 "LAST UPDATE" = "Ostatnia Aktualizacja";
-"DOWNLOADING DATA, PLEASE WAIT..." = "pobieranie danych. proszę czekać...";
-"DELETING DATA, PLEASE WAIT..." = "usuwanie danych, proszę czekać...";
+"DOWNLOADING DATA, PLEASE WAIT..." = "proszę czekać...";
+"DELETING DATA, PLEASE WAIT..." = "proszę czekać...";
 "DISTRICT" = "Powiat";
 "SCHOOL TYPE" = "Rodzaj Szkoły";
 "AGENCY" = "Urząd";

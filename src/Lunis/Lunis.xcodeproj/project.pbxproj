@@ -40,6 +40,7 @@
 		59E7CA0A226DD87D00A7B798 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E7CA09226DD87D00A7B798 /* CloudKit.framework */; };
 		59E96332223648AB0057375A /* Boundary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */; };
 		59EB36DF22CBCF7C00F6F412 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59EB36E122CBCF7C00F6F412 /* Main.storyboard */; };
+		59EBEA0F22DCF1AB00A7231B /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EBEA0E22DCF1AB00A7231B /* MoreViewController.swift */; };
 		59FD1CA2228EC4E6004196A0 /* DownloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,7 @@
 		59EB36E622CBCFCF00F6F412 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		59EB36E822CBCFE300F6F412 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
 		59EB36EA22CBCFFF00F6F412 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		59EBEA0E22DCF1AB00A7231B /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		59FD1CA1228EC4E6004196A0 /* DownloadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +143,7 @@
 				59A37E9D20BD50AA0050E48D /* MapViewController.swift */,
 				591D320020C2D5460045205D /* DownloadViewController.swift */,
 				591D0F482176EB8800E8EE73 /* DataViewController.swift */,
+				59EBEA0E22DCF1AB00A7231B /* MoreViewController.swift */,
 			);
 			path = iPhoneGUI;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				598EDE7C21F03B5A00C2634D /* DataController.swift in Sources */,
 				591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */,
 				59233A87226F1EC3008F4EEE /* CloudKitController.swift in Sources */,
+				59EBEA0F22DCF1AB00A7231B /* MoreViewController.swift in Sources */,
 				59A37E9C20BD50AA0050E48D /* AppDelegate.swift in Sources */,
 				5985D5C3227C5C88002D9627 /* DecoderStructs.swift in Sources */,
 				59921C21219F487E00767876 /* FilterDataViewDelegate.swift in Sources */,

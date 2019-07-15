@@ -357,9 +357,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             //adjust the button and the instance var
             if self.fetchedResultsControllerSchools!.fetchedObjects!.count == 0 {
                 self.setHexagonalButton(to: false)
-            } else {
-                self.setHexagonalButton(to: true)
-            }
+                return
+            } //else {
+//                self.setHexagonalButton(to: true)
+//            }
             
             //get all visible administrations plus the names and colours of the visible schools
             var administrations: [Administration] = []
@@ -371,16 +372,20 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             
             //prepare zooming to the visible administrations
             var boundingBox: MKMapRect? = nil
-            
-            //iterate over all the administrations
             for administration in administrations {
-                
                 //expand the bounding box
                 if boundingBox == nil {
                     boundingBox = administration.polygon.boundingMapRect
                 } else {
                     boundingBox = boundingBox!.union(administration.polygon.boundingMapRect)
                 }
+            }
+            
+            //zoom to the visible administrations
+            self.mapView.setVisibleMapRect(boundingBox!, animated: true)
+            
+            //iterate over all the administrations
+            for administration in administrations {
                 
                 //add the administration to the map
                 self.mapView.addOverlay(administration.polygon)
@@ -421,8 +426,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                 }
             }
             
-            //zoom to the visible administrations
-            self.mapView.setVisibleMapRect(boundingBox!, animated: true)
             self.buttonHexagons.image = #imageLiteral(resourceName: "unhexagonal")
             
         } else {
