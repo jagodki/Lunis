@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 590EE10521EEEE2B0049A95D /* lunis.xcdatamodeld */; };
 		590FAFDE22D3BAEE002C3F3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 590FAFE022D3BAEE002C3F3C /* InfoPlist.strings */; };
+		59155B8C22DF9BE2001B34F8 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59155B8B22DF9BE2001B34F8 /* PrivacyPolicyViewController.swift */; };
 		591732AA227071A2007D4F61 /* CloudKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591732A9227071A2007D4F61 /* CloudKitDelegate.swift */; };
 		591D0F492176EB8800E8EE73 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D0F482176EB8800E8EE73 /* DataViewController.swift */; };
 		591D320120C2D5460045205D /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591D320020C2D5460045205D /* DownloadViewController.swift */; };
@@ -51,6 +52,8 @@
 		590FAFE222D3BAF9002C3F3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		590FAFE322D3BAFB002C3F3C /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		590FAFE422D3BAFC002C3F3C /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		59155B8922DF96B5001B34F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		59155B8B22DF9BE2001B34F8 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		591732A9227071A2007D4F61 /* CloudKitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitDelegate.swift; sourceTree = "<group>"; };
 		591D0F482176EB8800E8EE73 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		591D320020C2D5460045205D /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +96,6 @@
 		59E7CA08226DD83B00A7B798 /* Lunis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lunis.entitlements; sourceTree = "<group>"; };
 		59E7CA09226DD87D00A7B798 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		59E96330223648AB0057375A /* Boundary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Boundary+CoreDataClass.swift"; sourceTree = "<group>"; };
-		59EB36E022CBCF7C00F6F412 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		59EB36E222CBCF8E00F6F412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		59EB36E422CBCFB400F6F412 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		59EB36E622CBCFCF00F6F412 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -117,12 +119,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59155B8A22DF9B6F001B34F8 /* MoreStory */ = {
+			isa = PBXGroup;
+			children = (
+				59155B8B22DF9BE2001B34F8 /* PrivacyPolicyViewController.swift */,
+			);
+			path = MoreStory;
+			sourceTree = "<group>";
+		};
 		591D320220C2D6D40045205D /* AdditionalViews */ = {
 			isa = PBXGroup;
 			children = (
 				59DF4602224E51E100E8B423 /* DownloadStory */,
 				59DD2C612194BAE50025DF9D /* DataStory */,
 				591D320320C2D6E10045205D /* MapStory */,
+				59155B8A22DF9B6F001B34F8 /* MoreStory */,
 			);
 			path = AdditionalViews;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 				5935DD912237DCE4004E2FB7 /* Cell+CoreDataClass.swift in Sources */,
 				59DA6F3F22A14A66005C1534 /* LoadingIndicator.swift in Sources */,
 				59D21E9621A27360009FAC63 /* SchoolDetailView.swift in Sources */,
+				59155B8C22DF9BE2001B34F8 /* PrivacyPolicyViewController.swift in Sources */,
 				59C674D321F18EC100353A53 /* Administration+CoreDataClass.swift in Sources */,
 				590EE10721EEEE2B0049A95D /* lunis.xcdatamodeld in Sources */,
 				591D320120C2D5460045205D /* DownloadViewController.swift in Sources */,
@@ -426,12 +438,12 @@
 		59EB36E122CBCF7C00F6F412 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				59EB36E022CBCF7C00F6F412 /* en */,
 				59EB36E222CBCF8E00F6F412 /* Base */,
 				59EB36E422CBCFB400F6F412 /* de */,
 				59EB36E622CBCFCF00F6F412 /* fr */,
 				59EB36E822CBCFE300F6F412 /* sv */,
 				59EB36EA22CBCFFF00F6F412 /* pl */,
+				59155B8922DF96B5001B34F8 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

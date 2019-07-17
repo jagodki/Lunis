@@ -19,6 +19,22 @@ class MoreViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        switch cell?.reuseIdentifier {
+        case "sourceCode":
+            let urlString = "https://github.com/jagodki/Lunis"
+            let cleanedUpUrl = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            UIApplication.shared.open(URL(string: cleanedUpUrl!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+        case "icons":
+            let urlString = "https://icons8.com/"
+            let cleanedUpUrl = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            UIApplication.shared.open(URL(string: cleanedUpUrl!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+        default:
+            return
+        }
+    }
 
     // MARK: - Table view data source
 
