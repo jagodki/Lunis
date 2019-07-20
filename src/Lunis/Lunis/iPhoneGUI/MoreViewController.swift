@@ -26,11 +26,11 @@ class MoreViewController: UITableViewController {
         case "sourceCode":
             let urlString = "https://github.com/jagodki/Lunis"
             let cleanedUpUrl = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            UIApplication.shared.open(URL(string: cleanedUpUrl!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            UIApplication.shared.open(URL(string: cleanedUpUrl!)!)
         case "icons":
             let urlString = "https://icons8.com/"
             let cleanedUpUrl = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            UIApplication.shared.open(URL(string: cleanedUpUrl!)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            UIApplication.shared.open(URL(string: cleanedUpUrl!)!)
         default:
             return
         }
