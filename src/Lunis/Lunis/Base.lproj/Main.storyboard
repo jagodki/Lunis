@@ -716,9 +716,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wd-7m-tgm">
-                                <rect key="frame" x="16" y="64" width="288" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wd-7m-tgm">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Lorem">
@@ -738,6 +737,12 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9Wd-7m-tgm" firstAttribute="leading" secondItem="lIj-ud-7iO" secondAttribute="leading" id="9Xx-QK-mRq"/>
+                            <constraint firstItem="9Wd-7m-tgm" firstAttribute="top" secondItem="gpx-JP-dNk" secondAttribute="top" id="NGk-y8-zQm"/>
+                            <constraint firstItem="9Wd-7m-tgm" firstAttribute="bottom" secondItem="gpx-JP-dNk" secondAttribute="bottom" id="b9r-Ha-B9t"/>
+                            <constraint firstAttribute="trailing" secondItem="9Wd-7m-tgm" secondAttribute="trailing" id="njO-Gl-Fq5"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gpx-JP-dNk"/>
                     </view>
                     <connections>

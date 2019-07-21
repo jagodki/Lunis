@@ -12,8 +12,8 @@ class PrivacyPolicyViewController: UIViewController {
 
     @IBOutlet var textView: UITextView!
     
-    let attributesForHeader = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]
-    let attributesForText = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 15)]
+    let attributesForHeader = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 16)]
+    let attributesForText = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +62,7 @@ class PrivacyPolicyViewController: UIViewController {
         ppText.append(NSAttributedString(string: NSLocalizedString("CONTACT TEXT", comment: ""), attributes: attributesForText))
         
         self.textView.attributedText = ppText
+        self.textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
     }
 
 }
