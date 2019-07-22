@@ -1,6 +1,6 @@
 # Sekretesspolicy
-## Allgemeines
-Christoph Jung byggde Lunis-appen som en Open Source-app. Denna SERVICE tillhandahålls gratis av Christoph Jung utan kostnad och är ämnad för användas som det är. 
+## Allmän
+Christoph Jung byggde Lunis-appen som en Open Source-app. Denna SERVICE tillhandahålls gratis av Christoph Jung utan kostnad och är ämnad för användas som det är.
 <br><br>Den här sidan används för att informera besökare om mina policyer med insamling, användning och avslöjande av personlig information om någon bestämde sig för att använda min tjänst.
 <br><br>Om du väljer att använda min tjänst, godkänner du samlingen och användningen av information i samband med denna policy. Den personliga information som jag samlar används för att tillhandahålla och förbättra tjänsten. Jag kommer inte använda eller dela din information med någon annan än vad som beskrivs i denna sekretesspolicy.
 
@@ -9,7 +9,11 @@ För en bättre upplevelse kan jag kräva att du tillhandahåller viss personlig
 <br><br>Appen använder inte tredjepartstjänster som kan samla in information som används för att identifiera dig.
 
 ## Tjänsteleverantörer
-Jag använder ingen teknik etc. från tredje part för följande uppgifter: - För att underlätta min service - Att tillhandahålla Tjänsten på mina vägnar - Att utföra servicerelaterade tjänster eller - Att hjälpa oss att analysera hur vår Service används.
+Jag använder ingen teknik etc. från tredje part för följande uppgifter:
+- För att underlätta min service
+- Att tillhandahålla Tjänsten på mina vägnar
+- Att utföra servicerelaterade tjänster eller
+- Att hjälpa oss att analysera hur vår Service används.
 
 ## Säkerhet
 Jag uppskattar ditt förtroende för att ge oss din personliga information, så vi strävar efter att använda kommersiellt godtagbara sätt att skydda den. Men kom ihåg att ingen överföringsmetod över internet, eller elektronisk lagringsmetod är 100% säker och pålitlig, och jag kan inte garantera den absoluta säkerheten.
