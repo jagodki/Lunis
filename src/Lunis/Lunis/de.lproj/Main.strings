@@ -114,10 +114,13 @@
 "zu7-dV-qPx.text" = "Subtitel";
 
 /* Class = "UILabel"; text = "Icons from icons8.com"; ObjectID = "j6S-cI-4Ue"; */
-"j6S-cI-4Ue.text" = "Icons from icons8.com";
+"j6S-cI-4Ue.text" = "Icons von icons8.com";
 
 /* Class = "UILabel"; text = "Source Code available on GitHub"; ObjectID = "az3-0B-3PO"; */
-"az3-0B-3PO.text" = "Source Code available on GitHub";
+"az3-0B-3PO.text" = "Quellcode auf GitHub verfügbar";
 
 /* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "bBQ-pE-GYu"; */
-"bBQ-pE-GYu.text" = "Privacy Policy";
+"bBQ-pE-GYu.text" = "Datenschutzerklärung";
+
+/* Class = "UINavigationItem"; title = "More"; ObjectID = "P3z-lh-cJn"; */
+"P3z-lh-cJn.title" = "Mehr";
