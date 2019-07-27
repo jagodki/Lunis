@@ -433,6 +433,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
             self.buttonHexagons.image = #imageLiteral(resourceName: "hexagonal")
             self.mapView.removeOverlays(self.mapView.overlays)
         }
+        
+        self.minCellValue = 99999999999999999999.9
     }
     
     /// This function adjusts the appearence of the hexagonal button and the corresponding instance variable.
@@ -442,8 +444,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
         self.showHexagonalRaster = value
         if value {
             self.buttonHexagons.title = "noHex"
+            self.buttonHexagons.image = #imageLiteral(resourceName: "unhexagonal")
         } else {
             self.buttonHexagons.title = "Hexa"
+            self.buttonHexagons.image = #imageLiteral(resourceName: "hexagonal")
         }
     }
     
@@ -521,9 +525,10 @@ extension MapViewController: MKMapViewDelegate {
                 renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
                 renderer.lineWidth = 1
             case .none:
-                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+                //renderer.fillColor = UIColor.black.withAlphaComponent(0)
+                renderer.fillColor = self.polygonColour
             case .some(_):
-                renderer.fillColor = UIColor.black.withAlphaComponent(0)
+                renderer.fillColor = self.polygonColour
             }
             
             return renderer
