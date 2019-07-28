@@ -22,7 +22,6 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
     var minimumCellValue: Double!
     var locationManager: CLLocationManager!
     var dataController: DataController!
-    var cellValue: Double! = 0.0
     
     
     //MARK: - standard methods
@@ -59,8 +58,9 @@ class ReachabilityViewController: UIViewController, CLLocationManagerDelegate {
             
             let cells = self.school.administration!.grid!.cells!.array as! [Cell]
             for cell in cells {
-                self.cellValue = cell.cellValue(for: Int(self.school!.localID))
-                self.mapView.addOverlay(cell.polygon)
+                let polygon = cell.polygon
+                polygon.subtitle = String(format: "%.2f", cell.cellValue(for: Int(self.school!.localID)))
+                self.mapView.addOverlay(polygon)
             }
         }
         self.mapView.addOverlay((self.school.administration?.polygon)!)
@@ -156,9 +156,10 @@ extension ReachabilityViewController: MKMapViewDelegate {
                 renderer.lineWidth = 2
             case "Cell":
                 var hue = 0.0
+                let cellValue = Double(overlay.subtitle!!)
                 
-                if self.maximimumCellValue - self.minimumCellValue != 0.0 && self.cellValue != -99 {
-                    let ratio = (self.cellValue - self.minimumCellValue) / (self.maximimumCellValue - self.minimumCellValue)
+                if self.maximimumCellValue - self.minimumCellValue != 0.0 && cellValue != -99 {
+                    let ratio = (cellValue! - self.minimumCellValue) / (self.maximimumCellValue - self.minimumCellValue)
                     hue = (1 / 3) - (ratio * (1 / 3))
                 }
                 

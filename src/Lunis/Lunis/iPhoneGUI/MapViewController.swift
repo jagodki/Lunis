@@ -42,7 +42,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
     
     //store information about the hexagonal raster
     var minCellValue: Double! = 99999999999999999999.9
-    var polygonColour: UIColor!
     var showHexagonalRaster: Bool! = false
     
     // MARK: - methods
@@ -403,6 +402,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                     let cells = administration.grid!.cells!.array as! [Cell]
                     for cell in cells {
                         
+                        //prepare the polygon for adding to the map and init vars for clouring it
+                        let polygon = cell.polygon
+                        var red = "0"
+                        var green = "0"
+                        var blue = "0"
+                        var alpha = "0.5"
+                        polygon.subtitle = red + ";" + green + ";" + blue + ";" + alpha
+
+                        
                         //compare the cellValues
                         let cellValues = cell.cellValues?.allObjects as! [CellValue]
                         for cellValue in cellValues {
@@ -413,14 +421,22 @@ class MapViewController: UIViewController, UISearchBarDelegate, CLLocationManage
                             
                             if (cellValue.value?.doubleValue)! < (self.minCellValue)! {
                                 self.minCellValue = (cellValue.value?.doubleValue)!
-                                self.polygonColour = schoolColour.withAlphaComponent(0.35)
+                                red = String(format: "%.2f", schoolColour.cgColor.components![0])
+                                green = String(format: "%.2f", schoolColour.cgColor.components![1])
+                                blue = String(format: "%.2f", schoolColour.cgColor.components![2])
+                                alpha = String(format: "%.2f", 0.35)
+                                polygon.subtitle = red + ";" + green + ";" + blue + ";" + alpha
                             } else if (cellValue.value?.doubleValue)! == (self.minCellValue)! {
-                                self.polygonColour = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+                                let red = "0"
+                                let green = "0"
+                                let blue = "0"
+                                let alpha = "0.5"
+                                polygon.subtitle = red + ";" + green + ";" + blue + ";" + alpha
                             }
                         }
                         
                         //add the polygon of the cell to the map
-                        self.mapView.addOverlay(cell.polygon)
+                        self.mapView.addOverlay(polygon)
                         self.minCellValue = 99999999999999999999.9
                     }
                 }
@@ -521,14 +537,18 @@ extension MapViewController: MKMapViewDelegate {
                 renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
                 renderer.lineWidth = 2
             case "Cell":
-                renderer.fillColor = self.polygonColour
+                let colourStrings = overlay.subtitle!!.components(separatedBy: ";")
+                let red = colourStrings.count > 0 ? CGFloat(Double(colourStrings[0])!) : CGFloat(0.0)
+                let green = colourStrings.count > 1 ? CGFloat(Double(colourStrings[1])!) : CGFloat(0.0)
+                let blue = colourStrings.count > 2 ? CGFloat(Double(colourStrings[2])!) : CGFloat(0.0)
+                let alpha = colourStrings.count > 3 ? CGFloat(Double(colourStrings[3])!) : CGFloat(0.35)
+                renderer.fillColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
                 renderer.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
                 renderer.lineWidth = 1
             case .none:
-                //renderer.fillColor = UIColor.black.withAlphaComponent(0)
-                renderer.fillColor = self.polygonColour
+                renderer.fillColor = UIColor.black.withAlphaComponent(0.35)
             case .some(_):
-                renderer.fillColor = self.polygonColour
+                renderer.fillColor = UIColor.black.withAlphaComponent(0.35)
             }
             
             return renderer
