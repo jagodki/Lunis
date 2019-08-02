@@ -21,7 +21,7 @@ schools can be found in the app.
 
 ### Available localisations for this app
 - <img src=""/>Deutsch
-- <img src=""/>Englisch
+- <img src=""/>English
 - <img src=""/>Français
 - <img src=""/>Polski
 - <img src=""/>Svenska
