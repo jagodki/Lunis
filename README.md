@@ -20,11 +20,11 @@ schools can be found in the app.
 - Radebeul (Sachsen)
 
 ### Available localisations for this app
-<img src=""/>Deutsch
-<img src=""/>Englisch
-<img src=""/>Français
-<img src=""/>Polski
-<img src=""/>Svenska
+- <img src=""/>Deutsch
+- <img src=""/>Englisch
+- <img src=""/>Français
+- <img src=""/>Polski
+- <img src=""/>Svenska
 
 ### Legal
 The source code of the app is published under the terms of the Apache 2.0 license and can be used by everyone without any charge.
@@ -35,11 +35,11 @@ The information about the schools, that are used, are free available, the specif
 Data from OpenStreetMap is used to calculate the reachabilities of the schools.
 <br>
 #### Privacy Policy
-<a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_de.md">Deutsch</a>
-<a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_en.md">English</a>
-<a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_fr.md">Français</a>
-<a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_pl.md">Polski</a>
-<a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_se.md">Svenska</a>
+- <a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_de.md">Deutsch</a>
+- <a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_en.md">English</a>
+- <a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_fr.md">Français</a>
+- <a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_pl.md">Polski</a>
+- <a href="https://github.com/jagodki/Lunis/blob/master/Privacy%20Policies/pp_se.md">Svenska</a>
 
 ## Contact
 If you have questions about the app, the preparation of the data or you want data of your city/schools in the app,
@@ -96,5 +96,5 @@ without the usage of OGC services. Because of the internal storage of the spatia
 Just the background map and the download needs an access to the internet. The cartographic work is done by the MapKit framework.
 
 ### Data preparation
-A detailed description and all scripts for processing data for this project can be found in the <a href="">lunis_data_preparation<\a> project.
+A detailed description and all scripts for processing data for this project can be found in the <a href="">lunis_data_preparation</a> project.
 If you want to contribute datasets, please upload (via push request) them to this project.
