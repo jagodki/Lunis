@@ -23,7 +23,7 @@ schools can be found in the app.
 - :de: Deutsch
 - :gb: English
 - :fr: Français
-- U+1F1F5 U+1F1F1 Polski
+- U+1F1F5U+1F1F1 Polski
 - :se: Svenska
 
 ### Legal
