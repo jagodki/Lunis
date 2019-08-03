@@ -20,11 +20,11 @@ schools can be found in the app.
 - Radebeul (Sachsen)
 
 ### Available localisations for this app
-- <img src=""/>Deutsch
-- <img src=""/>English
-- <img src=""/>Français :fr:
-- <img src=""/>Polski
-- <img src=""/>Svenska
+- :de: Deutsch
+- :gb: English
+- :fr: Français
+- :pl: Polski
+- :se: Svenska
 
 ### Legal
 The source code of the app is published under the terms of the Apache 2.0 license and can be used by everyone without any charge.
