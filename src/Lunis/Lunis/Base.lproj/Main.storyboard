@@ -711,13 +711,13 @@
         <!--Privacy Policy-->
         <scene sceneID="nmr-9y-J29">
             <objects>
-                <viewController title="Privacy Policy" id="M4Y-ef-8TP" customClass="PrivacyPolicyViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Privacy Policy" hidesBottomBarWhenPushed="YES" id="M4Y-ef-8TP" customClass="PrivacyPolicyViewController" customModule="Lunis" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lIj-ud-7iO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wd-7m-tgm">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Lorem">

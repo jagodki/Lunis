@@ -1,4 +1,5 @@
-# Lunis <img src="Icons/appIcon.png"/>
+# Lunis
+<img src="Icons/appIcon.png"/><br>
 A native application for iPhones to show the reachabilities and locations of schools in an interactive map.
 
 ## Goal of the project

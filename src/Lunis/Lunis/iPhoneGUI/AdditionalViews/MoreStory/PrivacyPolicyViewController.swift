@@ -57,7 +57,7 @@ class PrivacyPolicyViewController: UIViewController {
         ppText.append(NSAttributedString(string: NSLocalizedString("CHANGES TEXT", comment: ""), attributes: attributesForText))
         
         ppText.append(NSAttributedString(string: "\n\n"))
-        ppText.append(NSAttributedString(string: NSLocalizedString("CONTACT", comment: ""), attributes: attributesForHeader))
+        ppText.append(NSAttributedString(string: NSLocalizedString("CONTACTME", comment: ""), attributes: attributesForHeader))
         ppText.append(NSAttributedString(string: "\n"))
         ppText.append(NSAttributedString(string: NSLocalizedString("CONTACT TEXT", comment: ""), attributes: attributesForText))
         
