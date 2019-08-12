@@ -74,7 +74,7 @@ The swish gesture shows an additional button for changing to the maps tab and zo
 <img src=""/>
 The segmented control on top of the view gives you the possiblity to scroll only through the filtered or favourite schools.
 
-###Reachability of a school
+### Reachability of a school
 The detail view of a school contains a button at the end of the view:
 <img src=""/>
 A new view with a map into it will be opend after tapping this button. On the map you can see a hexagonal raster
