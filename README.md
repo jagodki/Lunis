@@ -57,7 +57,7 @@ delete the datasets.
 
 ### Map
 All downloaded schools have coordinates and will be displayed on the map. The map tab provides several buttons:<br>
-<img src="Icons/map_buttons.png" height=75/>
+<img src="Icons/map_buttons.png" height=75/><br>
 - 1 - you can search the visible schools by their name
 - 2 - you can show your current position for comparing it to the location of the schools
 - 3 - you can choose the schools, that will be presented on the map (all schools, just the filtered schools, just the favourite schools)
@@ -67,22 +67,22 @@ All downloaded schools have coordinates and will be displayed on the map. The ma
 ### List of all schools
 The schools on your device will also be provided in list form. You can filter the list e.g. to show only a special school type.
 There is also the possibility to (un-)mark a school as favourite using a swish gesture like in the mail app:<br>
-<img src="Icons/swish.png"/ height=100>
+<img src="Icons/swish.png"/ height=100><br>
 And you can also (un-)mark several schools at once as favourites:<br>
-<img src="Icons/select_all.png" height=300/>
+<img src="Icons/select_all.png" height=300/><br>
 The swish gesture shows an additional button for changing to the maps tab and zooming to the school:<br>
-<img src="Icons/zoom_to.png" height=100/>
+<img src="Icons/zoom_to.png" height=100/><br>
 The segmented control on top of the view gives you the possiblity to scroll only through the filtered or favourite schools.
 
 ### Reachability of a school
 The detail view of a school contains a button at the end of the view:<br>
-<img src="Icons/button_table_view.png" height=100/>
+<img src="Icons/button_table_view.png" height=100/><br>
 A new view with a map into it will be opend after tapping this button. On the map you can see a hexagonal raster
 with a colour ramp to indicate the average distance in the raster cells to the selected school (green = low distance,
 red = high distance, grey = distance cannot be calculated). You can show your current position by tapping this button:<br>
-<img src="Icons/position.png" height=100/>
+<img src="Icons/position.png" height=100/><br>
 If you long press into the map, a pin will drop down and the average distance at this position will be presented:<br>
-<img src="Icons/long_tap.png" heigth=150/>
+<img src="Icons/long_tap.png" height=300/><br>
 
 
 ### More
