@@ -20,6 +20,7 @@ class SchoolMarkerView: MKMarkerAnnotationView {
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             markerTintColor = annotation.markerTintColor
             glyphText = String(annotation.schoolName!.first!)
+            clusteringIdentifier = "school"
         }
     }
     
