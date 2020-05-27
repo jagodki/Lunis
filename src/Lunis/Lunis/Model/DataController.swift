@@ -633,7 +633,7 @@ class DataController: NSObject {
         localAdministration.y = administration.centroid.latitude
         
         //add information about the country from the GeoJSON-file
-        let administrationFile: AdministrationFile = self.decoder.parseAdministrationFile(from: administration.geojson.fileURL)!
+        let administrationFile: AdministrationFile = self.decoder.parseAdministrationFile(from: administration.geojson.fileURL!)!
         localAdministration.country = administrationFile.features[0].properties.country
         
         //add the boundary to the administration

@@ -143,7 +143,7 @@ class CloudKitController: NSObject {
         //query the school URL
         let schoolQueryOperation = CKQueryOperation(query: schoolQuery)
         schoolQueryOperation.recordFetchedBlock = {(record: CKRecord) in
-            self.schoolURL = (record["geojson"]! as CKAsset).fileURL
+            self.schoolURL = (record["geojson"]! as CKAsset).fileURL!
         }
         schoolQueryOperation.queryCompletionBlock = {(cursor, err) in
             if err != nil {
@@ -163,7 +163,7 @@ class CloudKitController: NSObject {
             //query the grid URL
             let gridQueryOperation = CKQueryOperation(query: gridQuery)
             gridQueryOperation.recordFetchedBlock = {(record: CKRecord) in
-                self.gridURL = (record["geojson"]! as CKAsset).fileURL
+                self.gridURL = (record["geojson"]! as CKAsset).fileURL!
             }
             gridQueryOperation.queryCompletionBlock = {(cursor, err) in
                 DispatchQueue.main.async {
@@ -228,7 +228,7 @@ class CloudKitController: NSObject {
             }
             
             for record in results! {
-                fileURL = (record["geojson"]! as CKAsset).fileURL
+                fileURL = (record["geojson"]! as CKAsset).fileURL!
                 break
             }
             
@@ -260,7 +260,7 @@ class CloudKitController: NSObject {
             }
             
             for record in results! {
-                fileURL = (record["geojson"]! as CKAsset).fileURL
+                fileURL = (record["geojson"]! as CKAsset).fileURL!
                 break
             }
             
